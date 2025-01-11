@@ -1,7 +1,10 @@
 use serde::{Serialize, Deserialize};
-use super::{PersonalFinanceCategory, TransactionStreamAmount};
+use super::{
+    PersonalFinanceCategory, RecurringTransactionFrequency, TransactionStreamAmount,
+    TransactionStreamStatus,
+};
 ///A grouping of related transactions
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransactionStream {
     ///The ID of the account to which the stream belongs
     pub account_id: String,
@@ -33,7 +36,7 @@ All implementations are encouraged to use the new `personal_finance_category` in
 `ANNUALLY`: Assigned to a transaction stream that occurs approximately every year.
 
 `UNKNOWN`: Assigned to a transaction stream that does not fit any of the pre-defined frequencies.*/
-    pub frequency: String,
+    pub frequency: RecurringTransactionFrequency,
     ///Indicates whether the transaction stream is still live.
     pub is_active: bool,
     ///This will be set to `true` if the stream has been modified by request to a `/transactions/recurring/streams` endpoint. It will be `false` for all other streams.
@@ -53,6 +56,9 @@ All implementations are encouraged to use the new `personal_finance_category` in
 See the [`taxonomy CSV file`](https://plaid.com/documents/transactions-personal-finance-category-taxonomy.csv) for a full list of personal finance categories. If you are migrating to personal finance categories from the legacy categories, also refer to the [`migration guide`](https://plaid.com/docs/transactions/pfc-migration/).*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub personal_finance_category: Option<PersonalFinanceCategory>,
+    ///The predicted date of the next payment. This will only be set if the next payment date can be predicted.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub predicted_next_date: Option<chrono::NaiveDate>,
     /**The current status of the transaction stream.
 
 `MATURE`: A `MATURE` recurring stream should have at least 3 transactions and happen on a regular cadence (For Annual recurring stream, we will mark it `MATURE` after 2 instances).
@@ -62,7 +68,7 @@ See the [`taxonomy CSV file`](https://plaid.com/documents/transactions-personal-
 `TOMBSTONED`: A stream that was previously in the `EARLY_DETECTION` status will move to the `TOMBSTONED` status when no further transactions were found at the next expected date.
 
 `UNKNOWN`: A stream is assigned an `UNKNOWN` status when none of the other statuses are applicable.*/
-    pub status: String,
+    pub status: TransactionStreamStatus,
     ///A unique id for the stream
     pub stream_id: String,
     ///An array of Plaid transaction IDs belonging to the stream, sorted by posted date.

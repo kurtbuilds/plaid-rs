@@ -4,7 +4,7 @@ use super::{
     PaymentConsentValidDateTime,
 };
 ///Limitations that will be applied to payments initiated using the payment consent.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationConsentConstraints {
     ///Maximum amount of a single payment initiated using the payment consent.
     pub max_payment_amount: PaymentConsentMaxPaymentAmount,

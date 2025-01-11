@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{
     SandboxPublicTokenCreateRequestOptionsIncomeVerification,
+    SandboxPublicTokenCreateRequestOptionsStatements,
     SandboxPublicTokenCreateRequestOptionsTransactions,
 };
 ///An optional set of options to be used when configuring the Item. If specified, must not be `null`.
@@ -17,6 +18,9 @@ pub struct SandboxPublicTokenCreateRequestOptions {
     ///Test username to use for the creation of the Sandbox Item. Default value is `user_good`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub override_username: Option<String>,
+    ///An optional set of parameters corresponding to statements options.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub statements: Option<SandboxPublicTokenCreateRequestOptionsStatements>,
     ///An optional set of parameters corresponding to transactions options.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub transactions: Option<SandboxPublicTokenCreateRequestOptionsTransactions>,

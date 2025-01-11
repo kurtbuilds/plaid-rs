@@ -1,5 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::{AccountFiltersResponse, LinkTokenCreateInstitutionData};
+use super::{
+    AccountFiltersResponse, CountryCode, LinkTokenCreateInstitutionData, Products,
+};
 ///An object specifying the arguments originally provided to the `/link/token/create` call.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkTokenGetMetadataResponse {
@@ -11,10 +13,10 @@ pub struct LinkTokenGetMetadataResponse {
     pub client_name: Option<String>,
     ///The `country_codes` specified in the `/link/token/create` call.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub country_codes: Vec<String>,
+    pub country_codes: Vec<CountryCode>,
     ///The `products` specified in the `/link/token/create` call.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub initial_products: Vec<String>,
+    pub initial_products: Vec<Products>,
     ///A map containing data used to highlight institutions in Link.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub institution_data: Option<LinkTokenCreateInstitutionData>,
@@ -24,6 +26,9 @@ pub struct LinkTokenGetMetadataResponse {
     ///The `redirect_uri` specified in the `/link/token/create` call.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub redirect_uri: Option<String>,
+    ///The user token associated with the User data is being requested for.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub user_token: Option<String>,
     ///The `webhook` specified in the `/link/token/create` call.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub webhook: Option<String>,

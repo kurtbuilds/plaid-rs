@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
+use super::PaymentAmountCurrency;
 ///The amount and currency of a payment
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentAmount {
     ///The ISO-4217 currency code of the payment. For standing orders and payment consents, `"GBP"` must be used. For Poland, Denmark, Sweden and Norway, only the local currency is currently supported.
-    pub currency: String,
+    pub currency: PaymentAmountCurrency,
     ///The amount of the payment. Must contain at most two digits of precision e.g. `1.23`. Minimum accepted value is `1`.
     pub value: f64,
 }

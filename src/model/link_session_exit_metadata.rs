@@ -3,7 +3,7 @@ use super::LinkSessionExitMetadataInstitution;
 ///Displayed if a user exits Link without successfully linking an Item.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkSessionExitMetadata {
-    ///An institution object. If the Item was created via Same-Day micro-deposit verification, will be `null`.
+    ///An institution object. If the Item was created via Same-Day or Instant micro-deposit verification, will be `null`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub institution: Option<LinkSessionExitMetadataInstitution>,
     ///A unique identifier associated with a user's actions and events through the Link flow. Include this identifier when opening a support ticket for faster turnaround.

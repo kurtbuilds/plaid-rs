@@ -1,0 +1,14 @@
+use serde::{Serialize, Deserialize};
+///Defines the response schema for `/transfer/platform/person/create`
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct TransferPlatformPersonCreateResponse {
+    ///An ID that should be used when submitting additional requirements that are associated with this person.
+    pub person_id: String,
+    ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
+    pub request_id: String,
+}
+impl std::fmt::Display for TransferPlatformPersonCreateResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
+    }
+}

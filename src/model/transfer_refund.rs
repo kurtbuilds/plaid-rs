@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::TransferRefundFailure;
+use super::{TransferRefundFailure, TransferRefundStatus};
 ///Represents a refund within the Transfers API.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferRefund {
     ///The amount of the refund (decimal string with two digits of precision e.g. "10.00").
     pub amount: String,
@@ -12,9 +12,14 @@ pub struct TransferRefund {
     pub failure_reason: Option<TransferRefundFailure>,
     ///Plaid’s unique identifier for a refund.
     pub id: String,
+    ///Plaid’s unique identifier for a Plaid Ledger Balance.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ledger_id: Option<String>,
     /**The trace identifier for the transfer based on its network. This will only be set after the transfer has posted.
 
-For `ach` or `same-day-ach` transfers, this is the ACH trace number. Currently, the field will remain null for transfers on other rails.*/
+For `ach` or `same-day-ach` transfers, this is the ACH trace number.
+For `rtp` transfers, this is the Transaction Identification number.
+For `wire` transfers, this is the IMAD (Input Message Accountability Data) number.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub network_trace_id: Option<String>,
     /**The status of the refund.
@@ -25,7 +30,7 @@ For `ach` or `same-day-ach` transfers, this is the ACH trace number. Currently, 
 `cancelled`: The refund was cancelled by the client.
 `failed`: The refund has failed.
 `returned`: The refund was returned.*/
-    pub status: String,
+    pub status: TransferRefundStatus,
     ///The ID of the transfer to refund.
     pub transfer_id: String,
 }

@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::BeaconMatchSummaryCode;
 ///Analysis of which fields matched between one Beacon User and another.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BeaconMatchSummaryAnalysis {
     /**An enum indicating the match type between two Beacon Users.
 
@@ -12,7 +13,7 @@ pub struct BeaconMatchSummaryAnalysis {
 `no_match` indicates that Plaid was able to compare this field against the other Beacon User and it did not match the provided input data.
 
 `no_data` indicates that Plaid was unable to compare this field against the original Beacon User because the field was not present in one of the Beacon Users.*/
-    pub address: String,
+    pub address: BeaconMatchSummaryCode,
     /**An enum indicating the match type between two Beacon Users.
 
 
@@ -23,7 +24,7 @@ pub struct BeaconMatchSummaryAnalysis {
 `no_match` indicates that Plaid was able to compare this field against the other Beacon User and it did not match the provided input data.
 
 `no_data` indicates that Plaid was unable to compare this field against the original Beacon User because the field was not present in one of the Beacon Users.*/
-    pub date_of_birth: String,
+    pub date_of_birth: BeaconMatchSummaryCode,
     /**An enum indicating the match type between two Beacon Users.
 
 
@@ -34,7 +35,7 @@ pub struct BeaconMatchSummaryAnalysis {
 `no_match` indicates that Plaid was able to compare this field against the other Beacon User and it did not match the provided input data.
 
 `no_data` indicates that Plaid was unable to compare this field against the original Beacon User because the field was not present in one of the Beacon Users.*/
-    pub email_address: String,
+    pub email_address: BeaconMatchSummaryCode,
     /**An enum indicating the match type between two Beacon Users.
 
 
@@ -45,7 +46,7 @@ pub struct BeaconMatchSummaryAnalysis {
 `no_match` indicates that Plaid was able to compare this field against the other Beacon User and it did not match the provided input data.
 
 `no_data` indicates that Plaid was unable to compare this field against the original Beacon User because the field was not present in one of the Beacon Users.*/
-    pub id_number: String,
+    pub id_number: BeaconMatchSummaryCode,
     /**An enum indicating the match type between two Beacon Users.
 
 
@@ -56,7 +57,7 @@ pub struct BeaconMatchSummaryAnalysis {
 `no_match` indicates that Plaid was able to compare this field against the other Beacon User and it did not match the provided input data.
 
 `no_data` indicates that Plaid was unable to compare this field against the original Beacon User because the field was not present in one of the Beacon Users.*/
-    pub ip_address: String,
+    pub ip_address: BeaconMatchSummaryCode,
     /**An enum indicating the match type between two Beacon Users.
 
 
@@ -67,7 +68,7 @@ pub struct BeaconMatchSummaryAnalysis {
 `no_match` indicates that Plaid was able to compare this field against the other Beacon User and it did not match the provided input data.
 
 `no_data` indicates that Plaid was unable to compare this field against the original Beacon User because the field was not present in one of the Beacon Users.*/
-    pub name: String,
+    pub name: BeaconMatchSummaryCode,
     /**An enum indicating the match type between two Beacon Users.
 
 
@@ -78,7 +79,7 @@ pub struct BeaconMatchSummaryAnalysis {
 `no_match` indicates that Plaid was able to compare this field against the other Beacon User and it did not match the provided input data.
 
 `no_data` indicates that Plaid was unable to compare this field against the original Beacon User because the field was not present in one of the Beacon Users.*/
-    pub phone_number: String,
+    pub phone_number: BeaconMatchSummaryCode,
 }
 impl std::fmt::Display for BeaconMatchSummaryAnalysis {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

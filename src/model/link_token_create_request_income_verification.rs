@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
 use super::{
-    LinkTokenCreateRequestIncomeVerificationBankIncome,
+    IncomeVerificationSourceType, LinkTokenCreateRequestIncomeVerificationBankIncome,
     LinkTokenCreateRequestIncomeVerificationPayrollIncome,
     LinkTokenCreateRequestUserStatedIncomeSource,
 };
@@ -20,8 +20,8 @@ This field should only be used with the `payroll` income source type.*/
     pub bank_income: Option<LinkTokenCreateRequestIncomeVerificationBankIncome>,
     ///The types of source income data that users will be permitted to share. Options include `bank` and `payroll`. Currently you can only specify one of these options.
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub income_source_types: Option<Vec<String>>,
-    ///The `income_verification_id` of the verification instance, as provided by `/income/verification/create`.
+    pub income_source_types: Option<Vec<IncomeVerificationSourceType>>,
+    ///The `income_verification_id` of the verification instance, as provided by `/income/verification/create`. Replaced by the user token.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub income_verification_id: Option<String>,
     ///Specifies options for initializing Link for use with Payroll Income (including Document Income). Further customization options for Document Income, such as customizing which document types may be uploaded, are also available via the [Link Customization pane](https://dashboard.plaid.com/link) in the Dashboard. (Requires Production enablement.)

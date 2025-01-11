@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -16,6 +16,7 @@ async fn main() {
             user_agent: Some("your user agent".to_owned()),
         })
         .is_recurring(true)
+        .ruleset_key("your ruleset key")
         .user(SignalUser {
             address: Some(SignalAddressData {
                 city: Some("your city".to_owned()),

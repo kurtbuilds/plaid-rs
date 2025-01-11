@@ -1,7 +1,10 @@
 use serde::{Serialize, Deserialize};
-use super::{WalletPaymentScheme, WalletTransactionAmount, WalletTransactionCounterparty};
+use super::{
+    WalletPaymentScheme, WalletTransactionAmount, WalletTransactionCounterparty,
+    WalletTransactionFailureReason, WalletTransactionRelation, WalletTransactionStatus,
+};
 ///The transaction details
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WalletTransaction {
     ///The amount and currency of a transaction
     pub amount: WalletTransactionAmount,
@@ -16,7 +19,7 @@ pub struct WalletTransaction {
 `INVALID`: The transaction did not meet certain criteria, such as an inactive account or no valid counterparty, etc.
 `UNKNOWN`: The transaction was unsuccessful, but the exact cause is unknown.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub failure_reason: Option<String>,
+    pub failure_reason: Option<WalletTransactionFailureReason>,
     ///The date and time of the last time the `status` was updated, in IS0 8601 format
     pub last_status_update: chrono::DateTime<chrono::Utc>,
     ///The payment id that this transaction is associated with, if any. This is present only for transaction types `PIS_PAY_IN` and `REFUND`.
@@ -24,6 +27,9 @@ pub struct WalletTransaction {
     pub payment_id: Option<String>,
     ///A reference for the transaction
     pub reference: String,
+    ///A list of wallet transactions that this transaction is associated with, if any.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub related_transactions: Option<Vec<WalletTransactionRelation>>,
     /**The payment scheme used to execute this transaction. This is present only for transaction types `PAYOUT` and `REFUND`.
 
 `FASTER_PAYMENTS`: The standard payment scheme within the UK.
@@ -46,7 +52,7 @@ pub struct WalletTransaction {
 `FAILED`: The transaction failed to process successfully. This is a terminal status.
 
 `BLOCKED`: The transaction has been blocked for violating compliance rules. This is a terminal status.*/
-    pub status: String,
+    pub status: WalletTransactionStatus,
     ///A unique ID identifying the transaction
     pub transaction_id: String,
     /**The type of the transaction. The supported transaction types that are returned are:
@@ -60,7 +66,9 @@ pub struct WalletTransaction {
 
 `FUNDS_SWEEP`: an automated transaction which debits funds from an e-wallet to a designated client-owned account.
 
-`RETURN`: an automated transaction where a debit transaction was reversed and money moved back to originating account.*/
+`RETURN`: an automated transaction where a debit transaction was reversed and money moved back to originating account.
+
+`RECALL`: a transaction where the sending bank has requested the return of funds due to a fraud claim, technical error, or other issue associated with the payment.*/
     #[serde(rename = "type")]
     pub type_: String,
     ///The EMI (E-Money Institution) wallet that this payment is associated with, if any. This wallet is used as an intermediary account to enable Plaid to reconcile the settlement of funds for Payment Initiation requests.

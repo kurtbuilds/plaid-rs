@@ -1,9 +1,9 @@
 use serde::{Serialize, Deserialize};
 use super::DepositSwitchAddressData;
-///The deposit switch target user
+///(Deprecated) The deposit switch target user
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DepositSwitchTargetUser {
-    ///The user's address.
+    ///(Deprecated) The user's address.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub address: Option<DepositSwitchAddressData>,
     ///The email address of the user.

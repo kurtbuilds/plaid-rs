@@ -1,10 +1,10 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let country_codes = &["your country codes"];
+    let country_codes = vec![CountryCode::Us];
     let institution_id = "your institution id";
     let response = client
         .institutions_get_by_id(country_codes, institution_id)

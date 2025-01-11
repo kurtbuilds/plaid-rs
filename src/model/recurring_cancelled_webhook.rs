@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
+use super::WebhookEnvironmentValues;
 ///Fired when a recurring transfer is cancelled by Plaid.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecurringCancelledWebhook {
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///Plaid’s unique identifier for a recurring transfer.
     pub recurring_transfer_id: String,
     ///`RECURRING_CANCELLED`

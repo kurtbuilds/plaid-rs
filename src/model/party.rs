@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{PartyIndividual, Roles, TaxpayerIdentifiers};
 ///A collection of information about a single party to a transaction. Included direct participants like the borrower and seller as well as indirect participants such as the flood certificate provider.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Party {
     ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "INDIVIDUAL")]

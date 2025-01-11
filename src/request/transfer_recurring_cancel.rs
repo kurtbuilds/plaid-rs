@@ -1,9 +1,6 @@
-use serde_json::json;
-use crate::model::*;
 use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
-use crate::PlaidClient;
 /**You should use this struct via [`PlaidClient::transfer_recurring_cancel`].
 
 On request success, this will return a [`TransferRecurringCancelResponse`].*/
@@ -11,11 +8,12 @@ On request success, this will return a [`TransferRecurringCancelResponse`].*/
 pub struct TransferRecurringCancelRequest {
     pub recurring_transfer_id: String,
 }
-impl TransferRecurringCancelRequest {}
 impl FluentRequest<'_, TransferRecurringCancelRequest> {}
 impl<'a> ::std::future::IntoFuture
 for FluentRequest<'a, TransferRecurringCancelRequest> {
-    type Output = httpclient::InMemoryResult<TransferRecurringCancelResponse>;
+    type Output = httpclient::InMemoryResult<
+        crate::model::TransferRecurringCancelResponse,
+    >;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(async move {
@@ -23,7 +21,7 @@ for FluentRequest<'a, TransferRecurringCancelRequest> {
             let mut r = self.client.client.post(url);
             r = r
                 .json(
-                    json!(
+                    serde_json::json!(
                         { "recurring_transfer_id" : self.params.recurring_transfer_id }
                     ),
                 );
@@ -31,5 +29,23 @@ for FluentRequest<'a, TransferRecurringCancelRequest> {
             let res = r.await?;
             res.json().map_err(Into::into)
         })
+    }
+}
+impl crate::PlaidClient {
+    /**Cancel a recurring transfer.
+
+Use the `/transfer/recurring/cancel` endpoint to cancel a recurring transfer.  Scheduled transfer that hasn't been submitted to bank will be cancelled.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/recurring-transfers/#transferrecurringcancel>.*/
+    pub fn transfer_recurring_cancel(
+        &self,
+        recurring_transfer_id: &str,
+    ) -> FluentRequest<'_, TransferRecurringCancelRequest> {
+        FluentRequest {
+            client: self,
+            params: TransferRecurringCancelRequest {
+                recurring_transfer_id: recurring_transfer_id.to_owned(),
+            },
+        }
     }
 }

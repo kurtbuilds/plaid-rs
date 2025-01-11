@@ -1,15 +1,24 @@
 use serde::{Serialize, Deserialize};
 use super::{CraBankIncomeHistoricalSummary, CreditAmountWithCurrency};
-///Summary for bank income across all income sources and items (max history of 730 days).
+///Summary for income across all income sources and items (max history of 730 days).
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CraBankIncomeSummary {
     /**The latest date in which all income sources identified by Plaid appear in the user's account.
 The date will be returned in an ISO 8601 format (YYYY-MM-DD).*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub end_date: Option<chrono::NaiveDate>,
+    ///The predicted average annual income amount for the income source(s).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub forecasted_annual_income: Option<Vec<CreditAmountWithCurrency>>,
     ///The predicted average monthly income amount for the income source(s).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub forecasted_average_monthly_income: Option<Vec<CreditAmountWithCurrency>>,
+    ///An estimate of the annual gross income based on the historical net amount and income category for the income source(s).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub historical_annual_gross_income: Option<Vec<CreditAmountWithCurrency>>,
+    ///The annual income amount estimated based on the historical data for the income source(s).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub historical_annual_income: Option<Vec<CreditAmountWithCurrency>>,
     ///An estimate of the average gross monthly income based on the historical net amount and income category for the income source(s).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub historical_average_monthly_gross_income: Option<Vec<CreditAmountWithCurrency>>,

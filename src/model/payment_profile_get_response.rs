@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::PaymentProfileStatus;
 ///PaymentProfileGetResponse defines the response schema for `/payment_profile/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentProfileGetResponse {
     ///Timestamp in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (`YYYY-MM-DDTHH:mm:ssZ`) indicating the time the given Payment Profile was created at
     pub created_at: chrono::DateTime<chrono::Utc>,
@@ -16,7 +17,7 @@ pub struct PaymentProfileGetResponse {
 `PENDING`: This Payment Profile is not ready to be used. You’ll need to call `/link/token/create` and provide the `payment_profile_token` in the `transfer.payment_profile_token` field to initiate the account linking experience.
 
 `REMOVED`: This Payment Profile has been removed.*/
-    pub status: String,
+    pub status: PaymentProfileStatus,
     ///Timestamp in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (`YYYY-MM-DDTHH:mm:ssZ`) indicating the last time the given Payment Profile was updated at
     pub updated_at: chrono::DateTime<chrono::Utc>,
 }

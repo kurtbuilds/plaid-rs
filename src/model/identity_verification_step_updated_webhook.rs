@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
+use super::WebhookEnvironmentValues;
 ///Fired when an end user has completed a step of the Identity Verification process.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationStepUpdatedWebhook {
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///The ID of the associated Identity Verification attempt.
     pub identity_verification_id: String,
     ///`STEP_UPDATED`

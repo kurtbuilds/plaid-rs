@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::TransferRefund;
 ///Defines the response schema for `/transfer/refund/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferRefundGetResponse {
     ///Represents a refund within the Transfers API.
     pub refund: TransferRefund,

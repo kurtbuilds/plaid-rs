@@ -14,6 +14,8 @@ Example: `{"GBP": "10000"}`*/
     pub standing_order_metadata: Option<PaymentInitiationStandingOrderMetadata>,
     ///Indicates whether the institution supports payments from a different country.
     pub supports_international_payments: bool,
+    ///Indicates whether the institution supports payment consents.
+    pub supports_payment_consents: bool,
     ///Indicates whether the institution supports returning refund details when initiating a payment.
     pub supports_refund_details: bool,
     ///Indicates whether the institution supports SEPA Instant payments.

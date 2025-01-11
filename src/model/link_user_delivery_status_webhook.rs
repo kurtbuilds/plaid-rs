@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::LinkDeliveryMetadata;
 ///Webhook indicating that the status of the delivery of the Hosted Link session to a user
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkUserDeliveryStatusWebhook {
     ///Information related to the related to the delivery of the link session to users
     pub link_delivery_metadata: LinkDeliveryMetadata,

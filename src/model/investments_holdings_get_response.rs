@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountBase, Holding, Item, Security};
 ///InvestmentsHoldingsGetResponse defines the response schema for `/investments/holdings/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InvestmentsHoldingsGetResponse {
     ///The accounts associated with the Item
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

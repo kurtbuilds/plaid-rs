@@ -1,5 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::{AuthMetadata, InstitutionStatus, PaymentInitiationMetadata};
+use super::{
+    AuthMetadata, CountryCode, InstitutionStatus, PaymentInitiationMetadata, Products,
+};
 ///Details relating to a specific financial institution
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Institution {
@@ -8,7 +10,7 @@ pub struct Institution {
     pub auth_metadata: Option<AuthMetadata>,
     ///A list of the country codes supported by the institution.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub country_codes: Vec<String>,
+    pub country_codes: Vec<CountryCode>,
     ///A partial list of DTC numbers associated with the institution.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub dtc_numbers: Option<Vec<String>>,
@@ -27,10 +29,10 @@ pub struct Institution {
     ///Hexadecimal representation of the primary color used by the institution
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub primary_color: Option<String>,
-    ///A list of the Plaid products supported by the institution. Note that only institutions that support Instant Auth will return `auth` in the product array; institutions that do not list `auth` may still support other Auth methods such as Instant Match or Automated Micro-deposit Verification. To identify institutions that support those methods, use the `auth_metadata` object. For more details, see [Full Auth coverage](https://plaid.com/docs/auth/coverage/).
+    ///A list of the Plaid products supported by the institution. Note that only institutions that support Instant Auth will return `auth` in the product array; institutions that do not list `auth` may still support other Auth methods such as Instant Match or Automated Micro-deposit Verification. To identify institutions that support those methods, use the `auth_metadata` object. For more details, see [Full Auth coverage](https://plaid.com/docs/auth/coverage/). The `income_verification` product here indicates support for Bank Income.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub products: Vec<String>,
-    ///A partial list of routing numbers associated with the institution. This list is provided for the purpose of looking up institutions by routing number. It is not comprehensive and should never be used as a complete list of routing numbers for an institution.
+    pub products: Vec<Products>,
+    ///A list of routing numbers known to be associated with the institution. This list is provided for the purpose of looking up institutions by routing number. It is generally comprehensive but is not guaranteed to be a complete list of routing numbers for an institution.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub routing_numbers: Vec<String>,
     /**The status of an institution is determined by the health of its Item logins, Transactions updates, Investments updates, Liabilities updates, Auth requests, Balance requests, Identity requests, Investments requests, and Liabilities requests. A login attempt is conducted during the initial Item add in Link. If there is not enough traffic to accurately calculate an institution's status, Plaid will return null rather than potentially inaccurate data.

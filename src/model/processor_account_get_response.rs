@@ -1,10 +1,12 @@
 use serde::{Serialize, Deserialize};
 use super::AccountBase;
 ///ProcessorAccountGetResponse defines the response schema for `/processor/account/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorAccountGetResponse {
     ///A single account at a financial institution.
     pub account: AccountBase,
+    ///The Plaid Institution ID associated with the Account.
+    pub institution_id: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
 }

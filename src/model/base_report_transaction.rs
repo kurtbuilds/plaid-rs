@@ -1,13 +1,21 @@
 use serde::{Serialize, Deserialize};
-use super::{CreditCategory, Location};
+use super::{BaseReportTransactionType, CreditCategory, Location};
 ///A transaction on the Base Report
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BaseReportTransaction {
+    ///The ID of the account in which this transaction occurred.
+    pub account_id: String,
     ///The name of the account owner. This field is not typically populated and only relevant when dealing with sub-accounts.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account_owner: Option<String>,
     ///The settled value of the transaction, denominated in the transaction's currency, as stated in `iso_currency_code` or `unofficial_currency_code`. Positive values when money moves out of the account; negative values when money moves in. For example, debit card purchases are positive; credit card payments, direct deposits, and refunds are negative.
     pub amount: f64,
+    ///A hierarchical array of the categories to which this transaction belongs. For a full list of categories, see [`/categories/get`](https://plaid.com/docs/api/products/transactions/#categoriesget).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub category: Option<Vec<String>>,
+    ///The ID of the category to which this transaction belongs. For a full list of categories, see [`/categories/get`](https://plaid.com/docs/api/products/transactions/#categoriesget).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub category_id: Option<String>,
     ///The check number of the transaction. This field is only populated for check transactions.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub check_number: Option<String>,
@@ -35,6 +43,17 @@ See the [`taxonomy csv file`](https://plaid.com/documents/credit-category-taxono
     pub original_description: Option<String>,
     ///When `true`, identifies the transaction as pending or unsettled. Pending transaction details (name, type, amount, category ID) may change before they are settled.
     pub pending: bool,
+    ///The unique ID of the transaction. Like all Plaid identifiers, the `transaction_id` is case sensitive.
+    pub transaction_id: String,
+    /**`digital:` transactions that took place online.
+
+`place:` transactions that were made at a physical location.
+
+`special:` transactions that relate to banks, e.g. fees or deposits.
+
+`unresolved:` transactions that do not fit into the other types.*/
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub transaction_type: Option<BaseReportTransactionType>,
     /**The unofficial currency code associated with the transaction. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `unofficial_currency_code`s.*/

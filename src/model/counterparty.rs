@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::CounterpartyType;
 ///The counterparty, such as the merchant or financial institution, is extracted by Plaid from the raw description.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Counterparty {
     /**A description of how confident we are that the provided counterparty is involved in the transaction.
 
@@ -19,7 +20,7 @@ pub struct Counterparty {
     pub logo_url: Option<String>,
     ///The name of the counterparty, such as the merchant or the financial institution, as extracted by Plaid from the raw description.
     pub name: String,
-    ///The phone number associated with the primary_counterparty in E. 164 format. If there is a location match (i.e. a street address is returned in the location object), the phone number will be location specific.
+    ///The phone number associated with the counterparty in E. 164 format. If there is a location match (i.e. a street address is returned in the location object), the phone number will be location specific.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
     /**The counterparty type.
@@ -31,7 +32,7 @@ pub struct Counterparty {
 `payment_terminal`: a point-of-sale payment terminal (e.g Square, Toast)
 `income_source`: the payer in an income transaction (e.g., an employer, client, or government agency)*/
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: CounterpartyType,
     ///The website associated with the counterparty.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub website: Option<String>,

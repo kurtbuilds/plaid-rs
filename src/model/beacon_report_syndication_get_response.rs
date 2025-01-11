@@ -5,7 +5,7 @@ use super::{BeaconReportSyndicationAnalysis, BeaconReportSyndicationOriginalRepo
 The `analysis` field in the response indicates which fields matched between the originally reported Beacon User and the Beacon User that the report was syndicated to.
 
 The `report` field in the response contains a subset of information from the original report.*/
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BeaconReportSyndicationGetResponse {
     ///Analysis of which fields matched between the originally reported Beacon User and the Beacon User that the report was syndicated to.
     pub analysis: BeaconReportSyndicationAnalysis,

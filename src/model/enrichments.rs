@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::{Counterparty, Location, PersonalFinanceCategory, Recurrence};
+use super::{Counterparty, Location, PaymentChannel, PersonalFinanceCategory, Recurrence};
 ///A grouping of the Plaid produced transaction enrichment fields.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Enrichments {
     ///The check number of the transaction. This field is only populated for check transactions.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -36,7 +36,7 @@ We recommend using the `personal_finance_category` for transaction categorizatio
 `in store:` transactions that were made at a physical location.
 
 `other:` transactions that relate to banks, e.g. fees or deposits.*/
-    pub payment_channel: String,
+    pub payment_channel: PaymentChannel,
     /**Information describing the intent of the transaction. Most relevant for personal finance use cases, but not limited to such use cases.
 
 See the [`taxonomy CSV file`](https://plaid.com/documents/transactions-personal-finance-category-taxonomy.csv) for a full list of personal finance categories. If you are migrating to personal finance categories from the legacy categories, also refer to the [`migration guide`](https://plaid.com/docs/transactions/pfc-migration/).*/
@@ -44,7 +44,7 @@ See the [`taxonomy CSV file`](https://plaid.com/documents/transactions-personal-
     pub personal_finance_category: Option<PersonalFinanceCategory>,
     ///The URL of an icon associated with the primary personal finance category. The icon will always be 100×100 pixel PNG file.
     pub personal_finance_category_icon_url: String,
-    ///The phone number associated with the primary_counterparty in E. 164 format. If there is a location match (i.e. a street address is returned in the location object), the phone number will be location specific.
+    ///The phone number associated with the counterparty in E. 164 format. If there is a location match (i.e. a street address is returned in the location object), the phone number will be location specific.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
     /**Insights relating to expenses and deposits that are predicted to occur on a scheduled basis, such as biweekly, monthly, or annually.

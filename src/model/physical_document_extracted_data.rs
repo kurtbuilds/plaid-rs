@@ -1,7 +1,10 @@
 use serde::{Serialize, Deserialize};
-use super::IdentityVerificationDocumentAddressResponse;
+use super::{
+    IdentityVerificationDocumentAddressResponse,
+    IdentityVerificationDocumentNameResponse, PhysicalDocumentCategory,
+};
 ///Data extracted from a user-submitted document.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PhysicalDocumentExtractedData {
     /**The address extracted from the document. The address must at least contain the following fields to be a valid address: `street`, `city`, `country`. If any are missing or unable to be extracted, the address will be null.
 
@@ -29,7 +32,7 @@ Note: Optical Character Recognition (OCR) technology may sometimes extract incor
   `visa` - An identity document issued by the associated country permitting a foreign citizen entry for a short duration and for a specific purpose, typically no longer than 6 months
 
 Note: This value may be different from the ID type that the user selects within Link. For example, if they select "Driver's License" but then submit a picture of a passport, this field will say `passport`*/
-    pub category: String,
+    pub category: PhysicalDocumentCategory,
     ///A date extracted from the document in the format YYYY-MM-DD (RFC 3339 Section 5.6).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub date_of_birth: Option<chrono::NaiveDate>,
@@ -44,6 +47,9 @@ Note: This value may be different from the ID type that the user selects within 
     ///An ISO 3166-2 subdivision code. Related terms would be "state", "province", "prefecture", "zone", "subdivision", etc.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub issuing_region: Option<String>,
+    ///The individual's name extracted from the document.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<IdentityVerificationDocumentNameResponse>,
 }
 impl std::fmt::Display for PhysicalDocumentExtractedData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

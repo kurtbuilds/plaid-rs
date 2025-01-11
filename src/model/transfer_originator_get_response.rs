@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::DetailedOriginator;
 ///Defines the response schema for `/transfer/originator/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferOriginatorGetResponse {
     ///Originator and their status.
     pub originator: DetailedOriginator,

@@ -5,7 +5,7 @@ pub struct InvestmentsTransactionsGetRequestOptions {
     ///An array of `account_ids` to retrieve for the Item.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account_ids: Option<Vec<String>>,
-    ///If the Item was not initialized with the investments product via the `products` array when calling `/link/token/create`, and `async_update` is set to true, the initial Investments extraction will happen asynchronously. Plaid will subsequently fire a `HISTORICAL_UPDATE` webhook when the extraction completes. When `false`, Plaid will wait to return a response until extraction completion and no `HISTORICAL_UPDATE` webhook will fire. Note that while the extraction is happening asynchronously, calls to `/investments/transactions/get` and `/investments/refresh` will return `PRODUCT_NOT_READY` errors until the extraction completes.
+    ///If the Item was not initialized with the investments product via the `products`, `required_if_supported_products`, or `optional_products` array when calling `/link/token/create`, and `async_update` is set to true, the initial Investments extraction will happen asynchronously. Plaid will subsequently fire a `HISTORICAL_UPDATE` webhook when the extraction completes. When `false`, Plaid will wait to return a response until extraction completion and no `HISTORICAL_UPDATE` webhook will fire. Note that while the extraction is happening asynchronously, calls to `/investments/transactions/get` and `/investments/refresh` will return `PRODUCT_NOT_READY` errors until the extraction completes.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub async_update: Option<bool>,
     ///The number of transactions to fetch.

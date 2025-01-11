@@ -18,13 +18,13 @@ pub struct DocumentRiskSignal {
     ///An object which contains additional metadata about the institution used to compute the verification attribute
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub institution_metadata: Option<DocumentRiskSignalInstitutionMetadata>,
-    ///The relevant page associated with the risk signal
+    ///The relevant page associated with the risk signal. If the risk signal is not associated with a specific page, the value will be 0.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub page_number: Option<i64>,
     ///A human-readable explanation providing more detail into the particular risk signal
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub signal_description: Option<String>,
-    ///The result from the risk signal check.
+    ///The type of risk found in the risk signal check.
     #[serde(rename = "type")]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,

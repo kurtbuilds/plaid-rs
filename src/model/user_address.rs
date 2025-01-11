@@ -4,7 +4,7 @@ use serde::{Serialize, Deserialize};
 For more context on this field, see [Input Validation by Country](https://plaid.com/docs/identity-verification/hybrid-input-validation/#input-validation-by-country).*/
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct UserAddress {
-    ///City from the end user's address
+    ///City from the end user's address. A string with at least one non-whitespace alphabetical character, with a max length of 100 characters."
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub city: Option<String>,
     ///Valid, capitalized, two-letter ISO code representing the country of this object. Must be in ISO 3166-1 alpha-2 form.
@@ -15,10 +15,10 @@ pub struct UserAddress {
     ///An ISO 3166-2 subdivision code. Related terms would be "state", "province", "prefecture", "zone", "subdivision", etc.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub region: Option<String>,
-    ///The primary street portion of an address. If an address is provided, this field will always be filled.
+    ///The primary street portion of an address. If an address is provided, this field will always be filled. A string with at least one non-whitespace alphabetical character, with a max length of 80 characters.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub street: Option<String>,
-    ///Extra street information, like an apartment or suite number.
+    ///Extra street information, like an apartment or suite number. If provided, a string with at least one non-whitespace character, with a max length of 50 characters.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub street2: Option<String>,
 }

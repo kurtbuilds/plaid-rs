@@ -12,6 +12,8 @@ pub struct BaseReportItem {
     pub institution_id: String,
     ///The full financial institution name associated with the Item.
     pub institution_name: String,
+    ///The `item_id` of the Item associated with this webhook, warning, or error
+    pub item_id: String,
 }
 impl std::fmt::Display for BaseReportItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

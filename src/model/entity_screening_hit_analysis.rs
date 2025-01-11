@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::MatchSummaryCode;
 ///Analysis information describing why a screening hit matched the provided entity information
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EntityScreeningHitAnalysis {
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
 
@@ -15,7 +16,7 @@ pub struct EntityScreeningHitAnalysis {
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub documents: Option<String>,
+    pub documents: Option<MatchSummaryCode>,
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
 
 
@@ -29,7 +30,7 @@ pub struct EntityScreeningHitAnalysis {
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub email_addresses: Option<String>,
+    pub email_addresses: Option<MatchSummaryCode>,
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
 
 
@@ -43,7 +44,7 @@ pub struct EntityScreeningHitAnalysis {
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub locations: Option<String>,
+    pub locations: Option<MatchSummaryCode>,
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
 
 
@@ -57,7 +58,7 @@ pub struct EntityScreeningHitAnalysis {
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub names: Option<String>,
+    pub names: Option<MatchSummaryCode>,
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
 
 
@@ -71,7 +72,7 @@ pub struct EntityScreeningHitAnalysis {
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub phone_numbers: Option<String>,
+    pub phone_numbers: Option<MatchSummaryCode>,
     ///The version of the entity screening's `search_terms` that were compared when the entity screening hit was added. entity screening hits are immutable once they have been reviewed. If changes are detected due to updates to the entity screening's `search_terms`, the associated entity program, or the list's source data prior to review, the entity screening hit will be updated to reflect those changes.
     pub search_terms_version: i64,
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
@@ -87,7 +88,7 @@ pub struct EntityScreeningHitAnalysis {
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub urls: Option<String>,
+    pub urls: Option<MatchSummaryCode>,
 }
 impl std::fmt::Display for EntityScreeningHitAnalysis {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

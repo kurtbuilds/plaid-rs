@@ -1,18 +1,21 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 use plaid::request::SignalEvaluateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let args = SignalEvaluateRequired {
-        access_token: "your access token",
-        account_id: "your account id",
-        amount: 1.0,
-        client_transaction_id: "your client transaction id",
-    };
+    let access_token = "your access token";
+    let account_id = "your account id";
+    let amount = 1.0;
+    let client_transaction_id = "your client transaction id";
     let response = client
-        .signal_evaluate(args)
+        .signal_evaluate(SignalEvaluateRequired {
+            access_token,
+            account_id,
+            amount,
+            client_transaction_id,
+        })
         .client_user_id("your client user id")
         .default_payment_method("your default payment method")
         .device(SignalDevice {
@@ -21,6 +24,7 @@ async fn main() {
         })
         .is_recurring(true)
         .risk_profile_key("your risk profile key")
+        .ruleset_key("your ruleset key")
         .user(SignalUser {
             address: Some(SignalAddressData {
                 city: Some("your city".to_owned()),

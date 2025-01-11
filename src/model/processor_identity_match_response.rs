@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::AccountIdentityMatchScore;
 ///ProcessorIdentityMatchResponse defines the response schema for `/processor/identity/match`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorIdentityMatchResponse {
     ///Identity match scores for an account
     pub account: AccountIdentityMatchScore,

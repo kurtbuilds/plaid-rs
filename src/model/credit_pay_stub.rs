@@ -5,7 +5,7 @@ use super::{
     PayStubPayPeriodDetails,
 };
 ///An object representing an end user's pay stub.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditPayStub {
     ///An object with the deduction information found on a pay stub.
     pub deductions: CreditPayStubDeductions,

@@ -9,7 +9,7 @@ pub struct LinkTokenGetResponse {
     ///The expiration timestamp for the `link_token`, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub expiration: Option<chrono::DateTime<chrono::Utc>>,
-    ///Information about Link sessions created using this `link_token`. This field will only be present if your client is enabled for Hosted Link (beta). Session data will be provided for up to six hours after the session has ended.
+    ///Information about Link sessions created using this `link_token`. Session data will be provided for up to six hours after the session has ended.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub link_sessions: Option<Vec<LinkTokenGetSessionsResponse>>,
     ///A `link_token`, which can be supplied to Link in order to initialize it and receive a `public_token`, which can be exchanged for an `access_token`.

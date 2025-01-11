@@ -1,11 +1,12 @@
 use serde::{Serialize, Deserialize};
+use super::Products;
 ///An optional object to filter `/institutions/get` results.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct InstitutionsGetRequestOptions {
     ///When `true`, returns metadata related to the Auth product indicating which auth methods are supported.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub include_auth_metadata: Option<bool>,
-    /**When `true`, return the institution's homepage URL, logo and primary brand color.
+    /**When `true`, return the institution's homepage URL, logo and primary brand color. Not all institutions' logos are available.
 
 Note that Plaid does not own any of the logos shared by the API, and that by accessing or using these logos, you agree that you are doing so at your own risk and will, if necessary, obtain all required permissions from the appropriate rights holders and adhere to any applicable usage guidelines. Plaid disclaims all express or implied warranties with respect to the logos.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -16,10 +17,10 @@ Note that Plaid does not own any of the logos shared by the API, and that by acc
     ///Limit results to institutions with or without OAuth login flows. Note that institutions will have `oauth` set to `true` if some Items associated with that institution are required to use OAuth flows; institutions in a state of migration to OAuth will have the `oauth` attribute set to `true`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub oauth: Option<bool>,
-    ///Filter the Institutions based on which products they support.
+    ///Filter the Institutions based on which products they support. Will only return institutions that support all listed products. When filtering based on `auth`, an institution must support Instant Auth to match the criterion.
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub products: Option<Vec<String>>,
-    ///Specify an array of routing numbers to filter institutions. The response will only return institutions that match all of the routing numbers in the array. Routing number records used for this matching are not comprehensive; failure to match a given routing number to an institution does not mean that the institution is unsupported by Plaid.
+    pub products: Option<Vec<Products>>,
+    ///Specify an array of routing numbers to filter institutions. The response will only return institutions that match all of the routing numbers in the array. Routing number records used for this matching are generally comprehensive; however, failure to match a given routing number to an institution does not necessarily mean that the institution is unsupported by Plaid.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub routing_numbers: Option<Vec<String>>,
 }

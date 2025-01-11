@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::{CreditCategory, Location, PaymentMeta};
+use super::{AssetReportTransactionType, CreditCategory, Location, PaymentMeta};
 ///A transaction on the asset report
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReportTransaction {
     ///The ID of the account in which this transaction occurred.
     pub account_id: String,
@@ -73,7 +73,7 @@ If the `transactions` object was returned by a Transactions endpoint such as `/t
 
 `unresolved:` transactions that do not fit into the other three types.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub transaction_type: Option<String>,
+    pub transaction_type: Option<AssetReportTransactionType>,
     /**The unofficial currency code associated with the transaction. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `unofficial_currency_code`s.*/

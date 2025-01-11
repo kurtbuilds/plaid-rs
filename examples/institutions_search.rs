@@ -1,10 +1,10 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let country_codes = &["your country codes"];
+    let country_codes = vec![CountryCode::Us];
     let query = "your query";
     let response = client
         .institutions_search(country_codes, query)
@@ -18,7 +18,7 @@ async fn main() {
                 payment_id: Some("your payment id".to_owned()),
             }),
         })
-        .products(&["your products"])
+        .products(vec![Products::Assets])
         .await
         .unwrap();
     println!("{:#?}", response);

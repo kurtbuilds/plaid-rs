@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::ProxyType;
 ///Result summary object specifying values for `device` attributes of risk check.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RiskCheckDevice {
     /**An enum indicating whether a network proxy is present and if so what type it is.
 
@@ -14,7 +15,7 @@ pub struct RiskCheckDevice {
 
 `public_proxy` indicates the user is on a public web proxy server, which is similar to a web proxy but can be shared by multiple users. This may allow multiple users to appear as if they have the same IP address for instance.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub ip_proxy_type: Option<String>,
+    pub ip_proxy_type: Option<ProxyType>,
     ///Count of spam lists the IP address is associated with if known.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ip_spam_list_count: Option<i64>,

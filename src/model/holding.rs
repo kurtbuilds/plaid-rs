@@ -31,6 +31,12 @@ This field is returned for select financial institutions and comes as provided b
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub unofficial_currency_code: Option<String>,
+    ///The total quantity of vested assets held, as reported by the financial institution. Vested assets are only associated with [equities](https://plaid.com/docs/api/products/investments/#investments-holdings-get-response-securities-type).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub vested_quantity: Option<f64>,
+    ///The value of the vested holdings as reported by the institution.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub vested_value: Option<f64>,
 }
 impl std::fmt::Display for Holding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

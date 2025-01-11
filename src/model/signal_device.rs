@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-///Details about the end user's device
+///Details about the end user's device. When calling `/signal/evaluate` or `/signal/processor/evaluate`, this field is optional, but strongly recommended to increase the accuracy of Signal results.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SignalDevice {
     ///The IP address of the device that initiated the transaction

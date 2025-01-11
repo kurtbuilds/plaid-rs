@@ -1,11 +1,12 @@
 use serde::{Serialize, Deserialize};
+use super::{CreditAchClass, OriginatorExpectedTransferFrequency};
 ///Specifies the originator's expected usage of credits. For all dollar amounts, use a decimal string with two digits of precision e.g. "10.00". This field is required if the originator is expected to process credit transfers.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferCreditUsageConfiguration {
     ///The originator’s expected average amount per credit.
     pub expected_average_amount: String,
     ///The originator's expected transfer frequency.
-    pub expected_frequency: String,
+    pub expected_frequency: OriginatorExpectedTransferFrequency,
     ///The originator’s expected highest amount for a single credit transfer.
     pub expected_highest_amount: String,
     ///The originator’s monthly expected ACH credit processing amount for the next 6-12 months.
@@ -18,7 +19,7 @@ pub struct TransferCreditUsageConfiguration {
 
 `"web"` - A credit Entry initiated by or on behalf of a holder of a Consumer Account that is intended for a Consumer Account of a Receiver*/
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub sec_codes: Vec<String>,
+    pub sec_codes: Vec<CreditAchClass>,
 }
 impl std::fmt::Display for TransferCreditUsageConfiguration {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

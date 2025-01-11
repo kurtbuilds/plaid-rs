@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::LinkDeliverySessionStatus;
 ///LinkDeliveryGetRequest defines the response schema for `/link_delivery/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkDeliveryGetResponse {
     ///An array of access tokens associated with the Hosted Link session.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -26,7 +27,7 @@ pub struct LinkDeliveryGetResponse {
 `COMPLETED`: The session has been completed by the user
 
 `EXPIRED`: The session has expired*/
-    pub status: String,
+    pub status: LinkDeliverySessionStatus,
 }
 impl std::fmt::Display for LinkDeliveryGetResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

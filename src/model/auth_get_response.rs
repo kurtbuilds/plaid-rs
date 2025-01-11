@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountBase, AuthGetNumbers, Item};
 ///AuthGetResponse defines the response schema for `/auth/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AuthGetResponse {
     ///The `accounts` for which numbers are being retrieved.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

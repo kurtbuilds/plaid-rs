@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -13,6 +13,7 @@ async fn main() {
             description: Some("your description".to_owned()),
         })
         .test_clock_id("your test clock id")
+        .webhook("your webhook")
         .await
         .unwrap();
     println!("{:#?}", response);

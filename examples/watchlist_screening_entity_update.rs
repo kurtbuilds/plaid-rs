@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -9,7 +9,11 @@ async fn main() {
         .watchlist_screening_entity_update(entity_watchlist_screening_id)
         .assignee("your assignee")
         .client_user_id("your client user id")
-        .reset_fields(&["your reset fields"])
+        .reset_fields(
+            WatchlistScreeningEntityUpdateRequestResettableFieldList(
+                vec![WatchlistScreeningEntityUpdateRequestResettableField::Assignee],
+            ),
+        )
         .search_terms(UpdateEntityScreeningRequestSearchTerms {
             country: Some("your country".to_owned()),
             document_number: Some("your document number".to_owned()),
@@ -19,7 +23,7 @@ async fn main() {
             phone_number: Some("your phone number".to_owned()),
             url: Some("your url".to_owned()),
         })
-        .status("your status")
+        .status(WatchlistScreeningStatus::Rejected)
         .await
         .unwrap();
     println!("{:#?}", response);

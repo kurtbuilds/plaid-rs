@@ -1,7 +1,9 @@
 use serde::{Serialize, Deserialize};
-use super::TransactionStreamAmount;
+use super::{
+    RecurringTransactionFrequency, TransactionStreamAmount, TransactionStreamStatus,
+};
 ///Insights object for recurring transactions streams.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecurringInsightsStream {
     ///Object with data pertaining to an amount on the transaction stream.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -25,7 +27,7 @@ pub struct RecurringInsightsStream {
 
 `UNKNOWN`: Assigned to a transaction stream that does not fit any of the pre-defined frequencies.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub frequency: Option<String>,
+    pub frequency: Option<RecurringTransactionFrequency>,
     ///Indicates whether the transaction stream is still live.
     pub is_active: bool,
     ///The merchant or primary counterparty associated with the transaction stream.
@@ -55,7 +57,7 @@ pub struct RecurringInsightsStream {
 
 `UNKNOWN`: A stream is assigned an `UNKNOWN` status when none of the other statuses are applicable.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<TransactionStreamStatus>,
     ///A unique id for the stream.
     pub stream_id: String,
     ///The number of transactions in this stream.

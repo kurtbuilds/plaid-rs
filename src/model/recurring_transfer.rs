@@ -1,11 +1,17 @@
 use serde::{Serialize, Deserialize};
-use super::{TransferRecurringSchedule, TransferUserInResponse};
+use super::{
+    AchClass, TransferRecurringNetwork, TransferRecurringSchedule,
+    TransferRecurringStatus, TransferType, TransferUserInResponse,
+};
 ///Represents a recurring transfer within the Transfers API.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecurringTransfer {
     ///The Plaid `account_id` corresponding to the end-user account that will be debited or credited.
     pub account_id: String,
-    /**Specifies the use case of the transfer. Required for transfers on an ACH network.
+    /**Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see [ACH SEC codes](https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes).
+
+Codes supported for credits: `ccd`, `ppd`
+Codes supported for debits: `ccd`, `tel`, `web`
 
 `"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
 
@@ -15,7 +21,7 @@ pub struct RecurringTransfer {
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub ach_class: Option<String>,
+    pub ach_class: Option<AchClass>,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00"). When calling `/transfer/authorization/create`, specify the maximum amount to authorize. When calling `/transfer/create`, specify the exact amount of the transfer, up to a maximum of the amount authorized. If this field is left blank when calling `/transfer/create`, the maximum amount authorized in the `authorization_id` will be sent.
     pub amount: String,
     ///The datetime when this transfer was created. This will be of the form `2006-01-02T15:04:05Z`
@@ -26,14 +32,8 @@ pub struct RecurringTransfer {
     pub funding_account_id: String,
     ///The currency of the transfer amount, e.g. "USD"
     pub iso_currency_code: String,
-    /**The network or rails used for the transfer.
-
-For transfers submitted as `ach`, the next-day cutoff is 5:30 PM Eastern Time.
-
-For transfers submitted as `same-day-ach`, the same-day cutoff is 3:30 PM Eastern Time. If the transfer is submitted after this cutoff but before the next-day cutoff, it will be sent over next-day rails and will not incur same-day charges; this will apply to both legs of the transfer if applicable.
-
-For transfers submitted as `rtp`,  Plaid will automatically route between Real Time Payment rail by TCH or FedNow rails as necessary. If a transfer is submitted as `rtp` and the counterparty account is not eligible for RTP, the `/transfer/authorization/create` request will fail with an `INVALID_FIELD` error code. To pre-check to determine whether a counterparty account can support RTP, call `/transfer/capabilities/get` before calling `/transfer/authorization/create`.*/
-    pub network: String,
+    ///Networks eligible for recurring transfers.
+    pub network: TransferRecurringNetwork,
     /**A date in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
 
 The next transfer origination date after bank holiday adjustment.*/
@@ -50,7 +50,7 @@ The next transfer origination date after bank holiday adjustment.*/
 `active`: The recurring transfer is currently active.
 `cancelled`: The recurring transfer was cancelled by the client or Plaid.
 `expired`: The recurring transfer has completed all originations according to its recurring schedule.*/
-    pub status: String,
+    pub status: TransferRecurringStatus,
     ///Plaid’s unique identifier for a test clock.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub test_clock_id: Option<String>,
@@ -58,7 +58,7 @@ The next transfer origination date after bank holiday adjustment.*/
     pub transfer_ids: Vec<String>,
     ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: TransferType,
     ///The legal name and other information for the account holder.
     pub user: TransferUserInResponse,
 }

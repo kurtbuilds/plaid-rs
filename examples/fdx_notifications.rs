@@ -1,53 +1,57 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 use plaid::request::FdxNotificationsRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let args = FdxNotificationsRequired {
-        category: "your category",
-        notification_id: "your notification id",
-        notification_payload: FdxNotificationPayload {
-            custom_fields: Some(
-                vec![
-                    FdxFiAttribute { name : "your name".to_owned(), value : "your value"
-                    .to_owned() }
-                ],
-            ),
-            id: Some("your id".to_owned()),
-            id_type: Some("your id type".to_owned()),
-        },
-        sent_on: chrono::Utc::now(),
-        type_: "your type",
+    let category = FdxNotificationCategory::Security;
+    let notification_id = "your notification id";
+    let notification_payload = FdxNotificationPayload {
+        custom_fields: Some(
+            vec![
+                FdxFiAttribute { name : "your name".to_owned(), value : "your value"
+                .to_owned() }
+            ],
+        ),
+        id: Some("your id".to_owned()),
+        id_type: Some(FdxNotificationPayloadIdType::Account),
     };
+    let sent_on = chrono::Utc::now();
+    let type_ = FdxNotificationType::ConsentRevoked;
     let response = client
-        .fdx_notifications(args)
-        .priority("your priority")
+        .fdx_notifications(FdxNotificationsRequired {
+            category,
+            notification_id,
+            notification_payload,
+            sent_on,
+            type_,
+        })
+        .priority(FdxNotificationPriority::High)
         .publisher(FdxParty {
             home_uri: Some("your home uri".to_owned()),
             logo_uri: Some("your logo uri".to_owned()),
             name: "your name".to_owned(),
             registered_entity_id: Some("your registered entity id".to_owned()),
             registered_entity_name: Some("your registered entity name".to_owned()),
-            registry: Some("your registry".to_owned()),
-            type_: "your type".to_owned(),
+            registry: Some(FdxPartyRegistry::Fdx),
+            type_: FdxPartyType::DataAccessPlatform,
         })
-        .severity("your severity")
+        .severity(FdxNotificationSeverity::Emergency)
         .subscriber(FdxParty {
             home_uri: Some("your home uri".to_owned()),
             logo_uri: Some("your logo uri".to_owned()),
             name: "your name".to_owned(),
             registered_entity_id: Some("your registered entity id".to_owned()),
             registered_entity_name: Some("your registered entity name".to_owned()),
-            registry: Some("your registry".to_owned()),
-            type_: "your type".to_owned(),
+            registry: Some(FdxPartyRegistry::Fdx),
+            type_: FdxPartyType::DataAccessPlatform,
         })
         .url(FdxHateoasLink {
-            action: Some("your action".to_owned()),
+            action: Some(FdxHateoasLinkAction::Get),
             href: "your href".to_owned(),
             rel: Some("your rel".to_owned()),
-            types: Some(vec!["your types".to_owned()]),
+            types: Some(vec![FdxContentTypes::ApplicationPdf]),
         })
         .await
         .unwrap();

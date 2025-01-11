@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AssetDetail, AssetHolder, AssetOwners, AssetTransactions, ValidationSources};
 ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Asset {
     ///Details about an asset.
     #[serde(rename = "ASSET_DETAIL")]

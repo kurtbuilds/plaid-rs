@@ -2,7 +2,7 @@ use serde::{Serialize, Deserialize};
 use super::WatchlistScreeningAuditTrail;
 /**A review submitted by a team member for an individual watchlist screening. A review can be either a comment on the current screening state, actions taken
 against hits attached to the watchlist screening, or both.*/
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistScreeningIndividualReviewCreateResponse {
     ///Information about the last change made to the parent object specifying what caused the change as well as when it occurred.
     pub audit_trail: WatchlistScreeningAuditTrail,

@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::Owner;
+use super::{CreditBankIncomeAccountType, DepositoryAccountSubtype, Owner};
 ///The Item's bank accounts that have the selected data.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditBankIncomeAccount {
     ///Plaid's unique identifier for the account.
     pub account_id: String,
@@ -18,10 +18,10 @@ Note that the mask may be non-unique between an Item's accounts, and it may also
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub owners: Vec<Owner>,
     ///Valid account subtypes for depository accounts. For a list containing descriptions of each subtype, see [Account schemas](https://plaid.com/docs/api/accounts/#StandaloneAccountType-depository).
-    pub subtype: String,
+    pub subtype: DepositoryAccountSubtype,
     ///The account type. This will always be `depository`.
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: CreditBankIncomeAccountType,
 }
 impl std::fmt::Display for CreditBankIncomeAccount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

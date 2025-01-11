@@ -1,7 +1,9 @@
 use serde::{Serialize, Deserialize};
-use super::{BankTransferDirection, BankTransferFailure};
+use super::{
+    BankTransferDirection, BankTransferEventType, BankTransferFailure, BankTransferType,
+};
 ///Represents an event in the Bank Transfers API.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BankTransferEvent {
     ///The account ID associated with the bank transfer.
     pub account_id: String,
@@ -12,7 +14,7 @@ pub struct BankTransferEvent {
     ///The currency of the bank transfer amount.
     pub bank_transfer_iso_currency_code: String,
     ///The type of bank transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
-    pub bank_transfer_type: String,
+    pub bank_transfer_type: BankTransferType,
     ///Indicates the direction of the transfer: `outbound` for API-initiated transfers, or `inbound` for payments received by the FBO account.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub direction: Option<BankTransferDirection>,
@@ -29,7 +31,7 @@ pub struct BankTransferEvent {
 `posted`: The transfer has been successfully submitted to the payment network.
 
 `reversed`: A posted transfer was reversed.*/
-    pub event_type: String,
+    pub event_type: BankTransferEventType,
     ///The failure reason if the type of this transfer is `"failed"` or `"reversed"`. Null value otherwise.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub failure_reason: Option<BankTransferFailure>,

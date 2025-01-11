@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::LinkDeliveryDeliveryMethod;
 ///The communication method containing both the type and address to send the URL.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkDeliveryCommunicationMethod {
     ///The phone number / email address that Hosted Link sessions are delivered to. Phone numbers must be in E.164 format.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -11,7 +12,7 @@ pub struct LinkDeliveryCommunicationMethod {
 
 `EMAIL`: The URL will be delivered through email*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub method: Option<String>,
+    pub method: Option<LinkDeliveryDeliveryMethod>,
 }
 impl std::fmt::Display for LinkDeliveryCommunicationMethod {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

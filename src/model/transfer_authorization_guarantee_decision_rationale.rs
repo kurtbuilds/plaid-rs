@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::TransferAuthorizationGuaranteeDecisionRationaleCode;
 ///The rationale for Plaid's decision to not guarantee a transfer. Will be `null` unless `guarantee_decision` is `NOT_GUARANTEED`.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationGuaranteeDecisionRationale {
     /**A code representing the reason Plaid declined to guarantee this transfer:
 
@@ -13,7 +14,7 @@ pub struct TransferAuthorizationGuaranteeDecisionRationale {
 `RISK_ESTIMATE_UNAVAILABLE`: A risk estimate is unavailable for this Item.
 
 `REQUIRED_PARAM_MISSING`: Required fields are missing.*/
-    pub code: String,
+    pub code: TransferAuthorizationGuaranteeDecisionRationaleCode,
     ///A human-readable description of why the transfer cannot be guaranteed.
     pub description: String,
 }

@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
+use super::WebhookEnvironmentValues;
 ///Fired when identity verification has been retried, which can be triggered via the dashboard or the API.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationRetriedWebhook {
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///The ID of the associated Identity Verification attempt.
     pub identity_verification_id: String,
     ///`RETRIED`

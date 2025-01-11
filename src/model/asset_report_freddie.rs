@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{Loans, Parties, Services};
 ///An object representing an Asset Report with Freddie Mac schema.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReportFreddie {
     ///A collection of loans that are part of a single deal.
     #[serde(rename = "LOANS")]

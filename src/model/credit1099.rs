@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
 use super::{
     Credit1099Filer, Credit1099Payer, Credit1099Recipient, CreditDocumentMetadata,
+    Form1099Type,
 };
 ///An object representing an end user's 1099 tax form
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Credit1099 {
     ///Amount reported for April.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -44,7 +45,7 @@ pub struct Credit1099 {
     ///Form 1099 Type
     #[serde(rename = "form_1099_type")]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub form1099_type: Option<String>,
+    pub form1099_type: Option<Form1099Type>,
     ///Gross amount reported.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub gross_amount: Option<f64>,

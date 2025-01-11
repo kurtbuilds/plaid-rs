@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-///DepositSwitchGetResponse defines the response schema for `/deposit_switch/get`
+///(Deprecated) DepositSwitchGetResponse defines the response schema for `/deposit_switch/get`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DepositSwitchGetResponse {
     ///When `true`, user’s direct deposit goes to multiple banks. When false, user’s direct deposit only goes to the target account. Always `null` if the deposit switch has not been completed.

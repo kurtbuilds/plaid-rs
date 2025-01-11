@@ -1,13 +1,17 @@
 use serde::{Serialize, Deserialize};
 use super::{
-    BankTransferDirection, BankTransferFailure, BankTransferMetadata, BankTransferUser,
+    AchClass, BankTransferDirection, BankTransferFailure, BankTransferMetadata,
+    BankTransferNetwork, BankTransferStatus, BankTransferType, BankTransferUser,
 };
 ///Represents a bank transfer within the Bank Transfers API.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BankTransfer {
     ///The account ID that should be credited/debited for this bank transfer.
     pub account_id: String,
-    /**Specifies the use case of the transfer. Required for transfers on an ACH network.
+    /**Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see [ACH SEC codes](https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes).
+
+Codes supported for credits: `ccd`, `ppd`
+Codes supported for debits: `ccd`, `tel`, `web`
 
 `"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
 
@@ -16,7 +20,7 @@ pub struct BankTransfer {
 `"tel"` - Telephone-Initiated Entry
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
-    pub ach_class: String,
+    pub ach_class: AchClass,
     ///The amount of the bank transfer (decimal string with two digits of precision e.g. "10.00").
     pub amount: String,
     ///When `true`, you can still cancel this bank transfer.
@@ -47,14 +51,14 @@ Maximum value length of 500 characters*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub metadata: Option<BankTransferMetadata>,
     ///The network or rails used for the transfer. Valid options are `ach`, `same-day-ach`, or `wire`.
-    pub network: String,
+    pub network: BankTransferNetwork,
     ///Plaid’s unique identifier for the origination account that was used for this transfer.
     pub origination_account_id: String,
     ///The status of the transfer.
-    pub status: String,
+    pub status: BankTransferStatus,
     ///The type of bank transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: BankTransferType,
     ///The legal name and other information for the account holder.
     pub user: BankTransferUser,
 }

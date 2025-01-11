@@ -3,7 +3,7 @@ use super::{
     ReportingInformation, ServiceProductFulfillment, VerificationOfAssetResponse,
 };
 ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VerificationOfAsset {
     ///Information about an report identifier and a report name.
     #[serde(rename = "REPORTING_INFORMATION")]

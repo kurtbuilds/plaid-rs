@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountBase, InvestmentTransaction, Item, Security};
 ///InvestmentsTransactionsGetResponse defines the response schema for `/investments/transactions/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InvestmentsTransactionsGetResponse {
     ///The accounts for which transaction history is being fetched.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

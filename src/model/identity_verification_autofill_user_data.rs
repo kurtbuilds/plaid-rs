@@ -4,7 +4,7 @@ use super::{
     UserIdNumber,
 };
 ///User information that was autofilled. All this information should be confirmed by the user before using.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationAutofillUserData {
     /**Even if an address has been autofilled, some fields may be null depending on the region's addressing system. For example:
 

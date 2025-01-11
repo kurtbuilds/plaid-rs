@@ -1,13 +1,16 @@
 use serde::{Serialize, Deserialize};
 use super::{
-    AccountBase, Holding, InvestmentsAuthGetNumbers, InvestmentsAuthOwner, Item, Security,
+    AccountBase, Holding, InvestmentsAuthDataSources, InvestmentsAuthGetNumbers,
+    InvestmentsAuthOwner, Item, Security,
 };
 ///InvestmentsAuthGetResponse defines the response schema for `/investments/auth/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InvestmentsAuthGetResponse {
     ///The accounts for which data is being retrieved
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub accounts: Vec<AccountBase>,
+    ///Object with metadata pertaining to the source of data for the account numbers, owners, and holdings that are returned.
+    pub data_sources: InvestmentsAuthDataSources,
     ///The holdings belonging to investment accounts associated with the Item. Details of the securities in the holdings are provided in the `securities` field.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub holdings: Vec<Holding>,

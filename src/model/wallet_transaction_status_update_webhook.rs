@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
+use super::{WalletTransactionStatus, WebhookEnvironmentValues};
 ///Fired when the status of a wallet transaction has changed.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WalletTransactionStatusUpdateWebhook {
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     /**The status of the transaction.
 
 `AUTHORISING`: The transaction is being processed for validation and compliance.
@@ -17,7 +18,7 @@ pub struct WalletTransactionStatusUpdateWebhook {
 `FAILED`: The transaction failed to process successfully. This is a terminal status.
 
 `BLOCKED`: The transaction has been blocked for violating compliance rules. This is a terminal status.*/
-    pub new_status: String,
+    pub new_status: WalletTransactionStatus,
     /**The status of the transaction.
 
 `AUTHORISING`: The transaction is being processed for validation and compliance.
@@ -31,7 +32,7 @@ pub struct WalletTransactionStatusUpdateWebhook {
 `FAILED`: The transaction failed to process successfully. This is a terminal status.
 
 `BLOCKED`: The transaction has been blocked for violating compliance rules. This is a terminal status.*/
-    pub old_status: String,
+    pub old_status: WalletTransactionStatus,
     ///The `payment_id` associated with the transaction. This will be present in case of `REFUND` and `PIS_PAY_IN`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub payment_id: Option<String>,

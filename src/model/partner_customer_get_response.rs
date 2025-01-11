@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::PartnerEndCustomer;
 ///Response schema for `/partner/customer/get`.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PartnerCustomerGetResponse {
     ///The details for an end customer.
     #[serde(default, skip_serializing_if = "Option::is_none")]

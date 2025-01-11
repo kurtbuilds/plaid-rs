@@ -6,7 +6,7 @@ pub struct ProductStatusBreakdown {
     pub error_institution: f64,
     ///The percentage of logins that are failing due to an internal Plaid issue, expressed as a decimal.
     pub error_plaid: f64,
-    ///The `refresh_interval` may be `DELAYED` or `STOPPED` even when the success rate is high. This value is only returned for Transactions status breakdowns.
+    ///How frequently data for subscription products like Investments, Transactions, and Liabilities, is being refreshed, relative to the institution's normal scheduling. The `refresh_interval` may be `DELAYED` or `STOPPED` even when the success rate is high.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub refresh_interval: Option<String>,
     ///The percentage of login attempts that are successful, expressed as a decimal.

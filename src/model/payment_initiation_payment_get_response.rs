@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::PaymentInitiationPayment;
 ///PaymentInitiationPaymentGetResponse defines the response schema for `/payment_initation/payment/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentGetResponse {
     ///PaymentInitiationPayment defines a payment initiation payment
     #[serde(flatten)]

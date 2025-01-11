@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::{WalletBalance, WalletNumbers};
+use super::{WalletBalance, WalletNumbers, WalletStatus};
 ///An object representing the e-wallet
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Wallet {
     ///An object representing the e-wallet balance
     pub balance: WalletBalance,
@@ -17,7 +17,7 @@ pub struct Wallet {
 `ACTIVE`: The wallet is active and ready to send money to and receive money from.
 
 `CLOSED`: The wallet is closed. Any transactions made to or from this wallet will error.*/
-    pub status: String,
+    pub status: WalletStatus,
     ///A unique ID identifying the e-wallet
     pub wallet_id: String,
 }

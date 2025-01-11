@@ -1,4 +1,5 @@
 use serde::{Serialize, Deserialize};
+use super::PaymentScheduleInterval;
 ///Metadata specifically related to valid Payment Initiation standing order configurations for the institution.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct PaymentInitiationStandingOrderMetadata {
@@ -8,7 +9,7 @@ pub struct PaymentInitiationStandingOrderMetadata {
     pub supports_standing_order_negative_execution_days: bool,
     ///A list of the valid standing order intervals supported by the institution.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub valid_standing_order_intervals: Vec<String>,
+    pub valid_standing_order_intervals: Vec<PaymentScheduleInterval>,
 }
 impl std::fmt::Display for PaymentInitiationStandingOrderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

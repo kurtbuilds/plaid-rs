@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -10,8 +10,8 @@ async fn main() {
         .signal_decision_report(client_transaction_id, initiated)
         .amount_instantly_available(1.0)
         .days_funds_on_hold(1)
-        .decision_outcome("your decision outcome")
-        .payment_method("your payment method")
+        .decision_outcome(SignalDecisionOutcome::Approve)
+        .payment_method(SignalPaymentMethod::SameDayAch)
         .await
         .unwrap();
     println!("{:#?}", response);

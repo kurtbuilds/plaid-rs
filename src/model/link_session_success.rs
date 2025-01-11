@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
 use super::LinkSessionSuccessMetadata;
-///An object representing an [onSuccess](https://plaid.com/docs/link/web/#onsuccess) callback from Link.
+///An object representing an [onSuccess](https://plaid.com/docs/link/web/#onsuccess) callback from Link. This object has been deprecated in favor of the newer [`results.item_add_result`](https://plaid.com/docs/api/link/#link-token-get-response-link-sessions-results-item-add-results), which can support multiple public tokens in a single Link session.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkSessionSuccess {
     ///Displayed once a user has successfully linked their Item.

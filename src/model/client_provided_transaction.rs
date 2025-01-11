@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::ClientProvidedTransactionLocation;
+use super::{ClientProvidedTransactionLocation, EnrichTransactionDirection};
 ///A client-provided transaction for Plaid to enrich.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ClientProvidedTransaction {
     ///The account subtype associated with the transaction. For a full list of valid types and subtypes, see the [Account schema](https://plaid.com/docs/api/accounts#account-type-schema).
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -27,7 +27,7 @@ pub struct ClientProvidedTransaction {
 `OUTFLOW` - Includes outgoing transfers, purchases, and fees. (Typically represented as a negative value on checking accounts and debit cards and a positive value on credit cards.)
 
 `INFLOW` - Includes incoming transfers, refunds, and income. (Typically represented as a positive value on checking accounts and debit cards and a negative value on credit cards.)*/
-    pub direction: String,
+    pub direction: EnrichTransactionDirection,
     ///A unique ID for the transaction used to help you tie data back to your systems.
     pub id: String,
     ///The ISO-4217 currency code of the transaction e.g. USD.

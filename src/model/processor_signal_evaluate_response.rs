@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use super::{SignalEvaluateCoreAttributes, SignalScores, SignalWarning};
+use super::{Ruleset, SignalEvaluateCoreAttributes, SignalScores, SignalWarning};
 ///ProcessorSignalEvaluateResponse defines the response schema for `/processor/signal/evaluate`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ProcessorSignalEvaluateResponse {
@@ -16,8 +16,12 @@ For the full list and detailed documentation of core attributes available, or to
     pub core_attributes: Option<SignalEvaluateCoreAttributes>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
+    ///Details about the transaction result after evaluated by the requested Ruleset. If a `ruleset_key` is not provided, this field will be omitted. This feature is currently in closed beta; to request access, contact your account manager.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ruleset: Option<Ruleset>,
     ///Risk scoring details broken down by risk category.
-    pub scores: SignalScores,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub scores: Option<SignalScores>,
     ///If bank information was not available to be used in the Signal model, this array contains warnings describing why bank data is missing. If you want to receive an API error instead of Signal scores in the case of missing bank data, file a support ticket or contact your Plaid account manager.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub warnings: Option<Vec<SignalWarning>>,

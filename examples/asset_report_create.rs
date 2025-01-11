@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -9,10 +9,11 @@ async fn main() {
         .asset_report_create(days_requested)
         .access_tokens(&["your access tokens"])
         .options(AssetReportCreateRequestOptions {
-            add_ons: Some(vec!["your add ons".to_owned()]),
+            add_ons: Some(vec![AssetReportAddOns::Investments]),
             client_report_id: Some("your client report id".to_owned()),
             include_fast_report: Some(true),
             products: Some(vec!["your products".to_owned()]),
+            require_all_items: Some(true),
             user: Some(AssetReportUser {
                 client_user_id: Some("your client user id".to_owned()),
                 email: Some("your email".to_owned()),

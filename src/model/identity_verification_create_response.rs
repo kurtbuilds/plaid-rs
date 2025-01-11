@@ -1,12 +1,15 @@
 use serde::{Serialize, Deserialize};
 use super::{
-    DocumentaryVerification, IdentityVerificationStepSummary,
+    DocumentaryVerification, IdentityVerificationStatus, IdentityVerificationStepSummary,
     IdentityVerificationTemplateReference, IdentityVerificationUserData, KycCheckDetails,
-    RiskCheckDetails, SelfieCheck,
+    RiskCheckDetails, SelfieCheck, VerifySmsDetails,
 };
 ///A identity verification attempt represents a customer's attempt to verify their identity, reflecting the required steps for completing the session, the results for each step, and information collected in the process.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationCreateResponse {
+    ///ID of the associated Beacon User.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub beacon_user_id: Option<String>,
     ///A unique ID that identifies the end user in your system. This ID can also be used to associate user-specific data from other Plaid products. Financial Account Matching requires this field and the `/link/token/create` `client_user_id` to be consistent. Personally identifiable information, such as an email address or phone number, should not be used in the `client_user_id`.
     pub client_user_id: String,
     ///An ISO8601 formatted timestamp.
@@ -19,7 +22,7 @@ pub struct IdentityVerificationCreateResponse {
     pub documentary_verification: Option<DocumentaryVerification>,
     ///ID of the associated Identity Verification attempt.
     pub id: String,
-    ///Additional information for the `kyc_check` step. This field will be `null` unless `steps.kyc_check` has reached a terminal state of either `success` or `failed`.
+    ///Additional information for the `kyc_check` (Data Source Verification) step. This field will be `null` unless `steps.kyc_check` has reached a terminal state of either `success` or `failed`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub kyc_check: Option<KycCheckDetails>,
     ///The ID for the Identity Verification preceding this session. This field will only be filled if the current Identity Verification is a retry of a previous attempt.
@@ -53,7 +56,7 @@ pub struct IdentityVerificationCreateResponse {
 `canceled` - The Identity Verification attempt was canceled, either via the dashboard by a user, or via API. The user may have completed part of the session, but has neither failed or passed.
 
 `pending_review` - The Identity Verification attempt template was configured to perform a screening that had one or more hits needing review.*/
-    pub status: String,
+    pub status: IdentityVerificationStatus,
     /**Each step will be one of the following values:
 
 
@@ -83,6 +86,9 @@ pub struct IdentityVerificationCreateResponse {
     pub template: IdentityVerificationTemplateReference,
     ///The identity data that was either collected from the user or provided via API in order to perform an Identity Verification.
     pub user: IdentityVerificationUserData,
+    ///Additional information for the `verify_sms` step.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub verify_sms: Option<VerifySmsDetails>,
     ///ID of the associated screening.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub watchlist_screening_id: Option<String>,

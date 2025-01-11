@@ -3,8 +3,8 @@ use super::{
     KycCheckAddressSummary, KycCheckDateOfBirthSummary, KycCheckIdNumberSummary,
     KycCheckNameSummary, KycCheckPhoneSummary,
 };
-///Additional information for the `kyc_check` step. This field will be `null` unless `steps.kyc_check` has reached a terminal state of either `success` or `failed`.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+///Additional information for the `kyc_check` (Data Source Verification) step. This field will be `null` unless `steps.kyc_check` has reached a terminal state of either `success` or `failed`.
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct KycCheckDetails {
     ///Result summary object specifying how the `address` field matched.
     pub address: KycCheckAddressSummary,

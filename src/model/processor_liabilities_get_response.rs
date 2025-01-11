@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountBase, LiabilitiesObject};
 ///ProcessorLiabilitiesGetResponse defines the response schema for `/processor/liabilities/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorLiabilitiesGetResponse {
     ///A single account at a financial institution.
     pub account: AccountBase,

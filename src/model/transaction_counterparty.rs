@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::CounterpartyType;
 ///The counterparty, such as the merchant or financial institution, is extracted by Plaid from the raw description.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransactionCounterparty {
     /**A description of how confident we are that the provided counterparty is involved in the transaction.
 
@@ -28,7 +29,7 @@ pub struct TransactionCounterparty {
 `payment_terminal`: a point-of-sale payment terminal (e.g Square, Toast)
 `income_source`: the payer in an income transaction (e.g., an employer, client, or government agency)*/
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: CounterpartyType,
     ///The website associated with the counterparty.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub website: Option<String>,

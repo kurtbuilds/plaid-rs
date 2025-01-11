@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
+use super::WebhookEnvironmentValues;
 ///Fired when institution status meets the conditions configured in the developer dashboard.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InstitutionStatusAlertWebhook {
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///The ID of the associated institution.
     pub institution_id: String,
     ///The global success rate of the institution, calculated based on item add health.

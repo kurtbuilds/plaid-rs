@@ -1,10 +1,10 @@
 use serde::{Serialize, Deserialize};
-use super::{Item, ItemStatus};
+use super::{ItemStatus, ItemWithConsentFields};
 ///ItemGetResponse defines the response schema for `/item/get` and `/item/webhook/update`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ItemGetResponse {
-    ///Metadata about the Item.
-    pub item: Item,
+    ///Metadata about the Item
+    pub item: ItemWithConsentFields,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
     ///Information about the last successful and failed transactions update for the Item.

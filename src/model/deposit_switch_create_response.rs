@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-///DepositSwitchCreateResponse defines the response schema for `/deposit_switch/create`
+///(Deprecated) DepositSwitchCreateResponse defines the response schema for `/deposit_switch/create`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DepositSwitchCreateResponse {
     ///ID of the deposit switch. This ID is persisted throughout the lifetime of the deposit switch.

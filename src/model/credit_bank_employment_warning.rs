@@ -1,7 +1,9 @@
 use serde::{Serialize, Deserialize};
-use super::CreditBankIncomeCause;
+use super::{
+    CreditBankEmploymentWarningType, CreditBankIncomeCause, CreditBankIncomeWarningCode,
+};
 ///The warning associated with the data that was unavailable for the Bank Employment Report.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditBankEmploymentWarning {
     ///An error object and associated `item_id` used to identify a specific Item and error when a batch operation operating on multiple Items has encountered an error in one of the Items.
     pub cause: CreditBankIncomeCause,
@@ -11,9 +13,9 @@ pub struct CreditBankEmploymentWarning {
 `ITEM_UNAPPROVED`: User exited flow before giving permission to share data for the Item
 `REPORT_DELETED`: Report deleted due to customer or consumer request
 `DATA_UNAVAILABLE`: No relevant data was found for the Item*/
-    pub warning_code: String,
+    pub warning_code: CreditBankIncomeWarningCode,
     ///The warning type which will always be `BANK_EMPLOYMENT_WARNING`.
-    pub warning_type: String,
+    pub warning_type: CreditBankEmploymentWarningType,
 }
 impl std::fmt::Display for CreditBankEmploymentWarning {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

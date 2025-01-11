@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::TransferBalance;
 ///Defines the response schema for `/transfer/balance/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferBalanceGetResponse {
     ///Information about the balance held with Plaid.
     pub balance: TransferBalance,

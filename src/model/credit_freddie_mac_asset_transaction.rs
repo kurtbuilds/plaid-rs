@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AssetTransactionDescription, AssetTransactionDetail};
 ///An object representing...
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditFreddieMacAssetTransaction {
     ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "ASSET_TRANSACTION_DESCRIPTION")]

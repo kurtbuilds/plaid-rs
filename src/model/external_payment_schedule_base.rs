@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::PaymentScheduleInterval;
 ///The schedule that the payment will be executed on. If a schedule is provided, the payment is automatically set up as a standing order. If no schedule is specified, the payment will be executed only once.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ExternalPaymentScheduleBase {
     ///The start date sent to the bank after adjusting for holidays or weekends.  Will be provided in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). If the start date did not require adjustment, this field will be `null`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -11,7 +12,7 @@ If the only `interval_execution_day` between the start date and the end date (in
     pub end_date: Option<chrono::NaiveDate>,
     ///The frequency interval of the payment.
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub interval: Option<String>,
+    pub interval: Option<PaymentScheduleInterval>,
     /**The day of the interval on which to schedule the payment.
 
 If the payment interval is weekly, `interval_execution_day` should be an integer from 1 (Monday) to 7 (Sunday).

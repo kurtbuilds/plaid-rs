@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::RoleDetail;
 ///ADocumentation not found in the MISMO model viewer and not provided by Freddie Mac.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Role {
     ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "ROLE_DETAIL")]

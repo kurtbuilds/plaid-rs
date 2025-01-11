@@ -1,13 +1,14 @@
 use serde::{Serialize, Deserialize};
-///Fired when the status of a deposit switch request has changed.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+use super::WebhookEnvironmentValues;
+///(Deprecated) Fired when the status of a deposit switch request has changed.
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DepositSwitchStateUpdateWebhook {
     ///The ID of the deposit switch.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deposit_switch_id: Option<String>,
     ///The Plaid environment the webhook was sent from
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub environment: Option<String>,
+    pub environment: Option<WebhookEnvironmentValues>,
     /**The state, or status, of the deposit switch.
 
 `initialized`: The deposit switch has been initialized with the user entering the information required to submit the deposit switch request.

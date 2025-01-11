@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::AssetReportFreddie;
 ///AssetReportFreddieGetResponse defines the response schema for `/asset_report/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReportFreddieGetResponse {
     ///An object representing an Asset Report with Freddie Mac schema.
     #[serde(rename = "DEAL")]

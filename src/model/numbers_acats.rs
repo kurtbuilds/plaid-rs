@@ -6,7 +6,7 @@ pub struct NumbersAcats {
     pub account: String,
     ///The Plaid account ID associated with the account numbers
     pub account_id: String,
-    ///Identifiers for the clearinghouses that are assocciated with the account in order of relevance. This array will be empty if we can't provide any account level data. Institution level data can be retrieved from the institutions/get endpoints.
+    ///Identifiers for the clearinghouses that are associated with the account in order of relevance. This array will be empty if we can't provide any account level data. Institution level data can be retrieved from the institutions/get endpoints.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub dtc_numbers: Vec<String>,
 }

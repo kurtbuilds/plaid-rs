@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
-///Fired when the status of an income verification instance has changed. It will typically take several minutes for this webhook to fire after the end user has uploaded their documents in the Document Income flow.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+use super::WebhookEnvironmentValues;
+///Fired when the status of an income verification instance has changed. This webhook is fired for both the Document and Payroll Income flows, but not the Bank Income flow. It will typically take several minutes for this webhook to fire after the end user has uploaded their documents in the Document Income flow.
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IncomeVerificationStatusWebhook {
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///The Item ID associated with the verification.
     pub item_id: String,
     ///The Plaid `user_id` of the User associated with this webhook, warning, or error.

@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
 use super::{RiskCheckStolenIdentity, RiskCheckSyntheticIdentity};
-///Result summary object capturing abuse signals related to `identity abuse`, e.g. stolen and synthetic identity fraud.
+///Result summary object capturing abuse signals related to `identity abuse`, e.g. stolen and synthetic identity fraud. These attributes are only available for US identities and some signals may not be available depending on what information was collected.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct RiskCheckIdentityAbuseSignals {
     /**Field containing the data used in determining the outcome of the stolen identity risk check.

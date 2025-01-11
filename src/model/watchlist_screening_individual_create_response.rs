@@ -1,9 +1,11 @@
 use serde::{Serialize, Deserialize};
-use super::{WatchlistScreeningAuditTrail, WatchlistScreeningSearchTerms};
+use super::{
+    WatchlistScreeningAuditTrail, WatchlistScreeningSearchTerms, WatchlistScreeningStatus,
+};
 ///The screening object allows you to represent a customer in your system, update their profile, and search for them on various watchlists. Note: Rejected customers will not receive new hits, regardless of program configuration.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistScreeningIndividualCreateResponse {
-    ///ID of the associated user.
+    ///ID of the associated user. To retrieve the email address or other details of the person corresponding to this id, use `/dashboard_user/get`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub assignee: Option<String>,
     ///Information about the last change made to the parent object specifying what caused the change as well as when it occurred.
@@ -18,7 +20,7 @@ pub struct WatchlistScreeningIndividualCreateResponse {
     ///Search terms for creating an individual watchlist screening
     pub search_terms: WatchlistScreeningSearchTerms,
     ///A status enum indicating whether a screening is still pending review, has been rejected, or has been cleared.
-    pub status: String,
+    pub status: WatchlistScreeningStatus,
 }
 impl std::fmt::Display for WatchlistScreeningIndividualCreateResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

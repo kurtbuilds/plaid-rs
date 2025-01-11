@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -15,18 +15,18 @@ async fn main() {
         },
         credit_usage_configuration: Some(TransferCreditUsageConfiguration {
             expected_average_amount: "your expected average amount".to_owned(),
-            expected_frequency: "your expected frequency".to_owned(),
+            expected_frequency: OriginatorExpectedTransferFrequency::OncePerMonth,
             expected_highest_amount: "your expected highest amount".to_owned(),
             expected_monthly_amount: "your expected monthly amount".to_owned(),
-            sec_codes: vec!["your sec codes".to_owned()],
+            sec_codes: vec![CreditAchClass::Ccd],
         }),
         dba: "your dba".to_owned(),
         debit_usage_configuration: Some(TransferDebitUsageConfiguration {
             expected_average_amount: "your expected average amount".to_owned(),
-            expected_frequency: "your expected frequency".to_owned(),
+            expected_frequency: OriginatorExpectedTransferFrequency::OncePerMonth,
             expected_highest_amount: "your expected highest amount".to_owned(),
             expected_monthly_amount: "your expected monthly amount".to_owned(),
-            sec_codes: vec!["your sec codes".to_owned()],
+            sec_codes: vec![AchClass::Ccd],
         }),
         funding_account: TransferFundingAccount {
             access_token: "your access token".to_owned(),

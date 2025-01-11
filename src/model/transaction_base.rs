@@ -5,10 +5,10 @@ use super::{Location, PaymentMeta};
 pub struct TransactionBase {
     ///The ID of the account in which this transaction occurred.
     pub account_id: String,
-    ///The name of the account owner. This field is not typically populated and only relevant when dealing with sub-accounts.
+    ///This field is not typically populated and only relevant when dealing with sub-accounts. A sub-account most commonly exists in cases where a single account is linked to multiple cards, each with its own card number and card holder name; each card will be considered a sub-account. If the account does have sub-accounts, this field will typically be some combination of the sub-account owner's name and/or the sub-account mask. The format of this field is not standardized and will vary based on institution.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account_owner: Option<String>,
-    ///The settled value of the transaction, denominated in the transactions's currency, as stated in `iso_currency_code` or `unofficial_currency_code`. Positive values when money moves out of the account; negative values when money moves in. For example, debit card purchases are positive; credit card payments, direct deposits, and refunds are negative.
+    ///The settled value of the transaction, denominated in the transactions's currency, as stated in `iso_currency_code` or `unofficial_currency_code`. For all products except Income: Positive values when money moves out of the account; negative values when money moves in. For example, debit card purchases are positive; credit card payments, direct deposits, and refunds are negative. For Income endpoints, values are positive when representing income.
     pub amount: f64,
     /**A hierarchical array of the categories to which this transaction belongs. For a full list of categories, see [`/categories/get`](https://plaid.com/docs/api/products/transactions/#categoriesget).
 
@@ -43,10 +43,12 @@ If the `transactions` object was returned by an Assets endpoint such as `/asset_
     pub merchant_name: Option<String>,
     /**The merchant name or transaction description.
 
+Note: This is a legacy field that is not actively maintained. Use `merchant_name` instead for the merchant name.
+
 If the `transactions` object was returned by a Transactions endpoint such as `/transactions/sync` or `/transactions/get`, this field will always appear. If the `transactions` object was returned by an Assets endpoint such as `/asset_report/get/` or `/asset_report/pdf/get`, this field will only appear in an Asset Report with Insights.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    ///The string returned by the financial institution to describe the transaction. For transactions returned by `/transactions/sync` or `/transactions/get`, this field is in beta and will be omitted unless the client is both enrolled in the closed beta program and has set `options.include_original_description` to `true`.
+    ///The string returned by the financial institution to describe the transaction. For transactions returned by `/transactions/sync` or `/transactions/get`, this field will only be included if the client has set `options.include_original_description` to `true`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub original_description: Option<String>,
     /**Transaction information specific to inter-bank transfers. If the transaction was not an inter-bank transfer, all fields will be `null`.
@@ -54,9 +56,9 @@ If the `transactions` object was returned by a Transactions endpoint such as `/t
 If the `transactions` object was returned by a Transactions endpoint such as `/transactions/sync` or `/transactions/get`, the `payment_meta` key will always appear, but no data elements are guaranteed. If the `transactions` object was returned by an Assets endpoint such as `/asset_report/get/` or `/asset_report/pdf/get`, this field will only appear in an Asset Report with Insights.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub payment_meta: Option<PaymentMeta>,
-    ///When `true`, identifies the transaction as pending or unsettled. Pending transaction details (name, type, amount, category ID) may change before they are settled.
+    ///When `true`, identifies the transaction as pending or unsettled. Pending transaction details (name, type, amount, category ID) may change before they are settled. Not all institutions provide pending transactions.
     pub pending: bool,
-    ///The ID of a posted transaction's associated pending transaction, where applicable.
+    ///The ID of a posted transaction's associated pending transaction, where applicable. Not all institutions provide pending transactions.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pending_transaction_id: Option<String>,
     ///The unique ID of the transaction. Like all Plaid identifiers, the `transaction_id` is case sensitive.

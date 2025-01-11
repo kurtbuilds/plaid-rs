@@ -1,10 +1,10 @@
 use serde::{Serialize, Deserialize};
 use super::{
-    RiskCheckBehavior, RiskCheckDevice, RiskCheckEmail, RiskCheckIdentityAbuseSignals,
-    RiskCheckPhone,
+    IdentityVerificationStepStatus, RiskCheckBehavior, RiskCheckDevice, RiskCheckEmail,
+    RiskCheckIdentityAbuseSignals, RiskCheckPhone,
 };
 ///Additional information for the `risk_check` step.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RiskCheckDetails {
     ///Result summary object specifying values for `behavior` attributes of risk check, when available.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -15,14 +15,14 @@ pub struct RiskCheckDetails {
     ///Result summary object specifying values for `email` attributes of risk check.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub email: Option<RiskCheckEmail>,
-    ///Result summary object capturing abuse signals related to `identity abuse`, e.g. stolen and synthetic identity fraud.
+    ///Result summary object capturing abuse signals related to `identity abuse`, e.g. stolen and synthetic identity fraud. These attributes are only available for US identities and some signals may not be available depending on what information was collected.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub identity_abuse_signals: Option<RiskCheckIdentityAbuseSignals>,
     ///Result summary object specifying values for `phone` attributes of risk check.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub phone: Option<RiskCheckPhone>,
     ///The status of a step in the Identity Verification process.
-    pub status: String,
+    pub status: IdentityVerificationStepStatus,
 }
 impl std::fmt::Display for RiskCheckDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

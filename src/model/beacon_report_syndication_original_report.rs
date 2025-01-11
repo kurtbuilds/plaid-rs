@@ -1,13 +1,17 @@
 use serde::{Serialize, Deserialize};
+use super::BeaconReportType;
 /**A subset of information from a Beacon Report that has been syndicated to a matching Beacon User in your program.
 
 The `id` field in the response is the ID of the original report that was syndicated. If the original report was created by your organization, the field will be filled with the ID of the report. Otherwise, the field will be `null` indicating that the original report was created by another Beacon customer.*/
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BeaconReportSyndicationOriginalReport {
     ///An ISO8601 formatted timestamp.
     pub created_at: chrono::DateTime<chrono::Utc>,
     ///A date in the format YYYY-MM-DD (RFC 3339 Section 5.6).
-    pub fraud_date: chrono::NaiveDate,
+    pub event_date: chrono::NaiveDate,
+    ///A date in the format YYYY-MM-DD (RFC 3339 Section 5.6).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub fraud_date: Option<chrono::NaiveDate>,
     ///ID of the associated Beacon Report.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -21,9 +25,11 @@ pub struct BeaconReportSyndicationOriginalReport {
 
 `account_takeover`: If this individual's account was compromised.
 
+`data_breach`: If this individual's data was compromised in a breach.
+
 `unknown`: If you aren't sure who committed the fraud.*/
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: BeaconReportType,
 }
 impl std::fmt::Display for BeaconReportSyndicationOriginalReport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

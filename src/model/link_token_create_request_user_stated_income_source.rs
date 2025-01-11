@@ -1,10 +1,14 @@
 use serde::{Serialize, Deserialize};
+use super::{
+    UserStatedIncomeSourceCategory, UserStatedIncomeSourceFrequency,
+    UserStatedIncomeSourcePayType,
+};
 ///Specifies user stated income sources for the Income product
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkTokenCreateRequestUserStatedIncomeSource {
     ///The income category for a specified income source
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub category: Option<String>,
+    pub category: Option<UserStatedIncomeSourceCategory>,
     ///The employer corresponding to an income source specified by the user
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub employer: Option<String>,
@@ -13,13 +17,13 @@ pub struct LinkTokenCreateRequestUserStatedIncomeSource {
     pub pay_annual: Option<f64>,
     ///The pay frequency of a specified income source
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub pay_frequency: Option<String>,
+    pub pay_frequency: Option<UserStatedIncomeSourceFrequency>,
     ///The income amount paid per cycle for a specified income source
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pay_per_cycle: Option<f64>,
     ///The pay type - `GROSS`, `NET`, or `UNKNOWN` for a specified income source
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub pay_type: Option<String>,
+    pub pay_type: Option<UserStatedIncomeSourcePayType>,
 }
 impl std::fmt::Display for LinkTokenCreateRequestUserStatedIncomeSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

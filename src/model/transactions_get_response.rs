@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountBase, Item, Transaction};
 ///TransactionsGetResponse defines the response schema for `/transactions/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransactionsGetResponse {
     ///An array containing the `accounts` associated with the Item for which transactions are being returned. Each transaction can be mapped to its corresponding account via the `account_id` field.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

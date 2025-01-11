@@ -1,10 +1,10 @@
 use serde::{Serialize, Deserialize};
 use super::{
     ExternalPaymentRefundDetails, ExternalPaymentScheduleBase, PaymentAmount,
-    PaymentAmountRefunded, PaymentScheme, RecipientBacs,
+    PaymentAmountRefunded, PaymentInitiationPaymentStatus, PaymentScheme, RecipientBacs,
 };
 ///PaymentInitiationPayment defines a payment initiation payment
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationPayment {
     ///The value of the reference sent to the bank after adjustment to pass bank validation rules.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -94,7 +94,7 @@ These statuses will be removed in a future release.
 `PAYMENT_STATUS_PROCESSING`: The payment is currently being processed. The payment will automatically exit this state when processing is complete.
 
 `PAYMENT_STATUS_COMPLETED`: Indicates that the standing order has been successfully established. This state is only used for standing orders.*/
-    pub status: String,
+    pub status: PaymentInitiationPaymentStatus,
     ///The transaction ID that this payment is associated with, if any. This is present only when a payment was initiated using virtual accounts.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub transaction_id: Option<String>,

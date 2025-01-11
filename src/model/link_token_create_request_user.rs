@@ -9,7 +9,7 @@ pub struct LinkTokenCreateRequestUser {
     ///To be provided in the format "yyyy-mm-dd". Can be used to prefill Link fields when used with Identity Verification.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub date_of_birth: Option<chrono::NaiveDate>,
-    ///The user's email address. This field is optional, but required to enable the [pre-authenticated returning user flow](https://plaid.com/docs/link/returning-user/#pre-authenticated-rux). Can also be used to prefill Link fields when used with Identity Verification.
+    ///The user's email address. Can be used to prefill Link fields when used with [Identity Verification](https://www.plaid.com/docs/identity-verification).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub email_address: Option<String>,
     /**The date and time the email address was verified in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (`YYYY-MM-DDThh:mm:ssZ`). This was previously an optional field used in the [returning user experience](https://plaid.com/docs/link/returning-user). This field is no longer required to enable the returning user experience.
@@ -26,7 +26,7 @@ pub struct LinkTokenCreateRequestUser {
     pub legal_name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<serde_json::Value>,
-    ///The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. This field is optional, but required to enable the [returning user experience](https://plaid.com/docs/link/returning-user). Can also be used to prefill Link fields when used with Identity Verification.
+    ///The user's phone number in [E.164](https://en.wikipedia.org/wiki/E.164) format. If supplied, will be used when applicable to prefill phone number fields in Link for the [returning user flow](https://www.plaid.com/docs/link/returning-user) and the [Identity Verification flow](https://www.plaid.com/docs/identity-verification).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
     /**The date and time the phone number was verified in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (`YYYY-MM-DDThh:mm:ssZ`). This was previously an optional field used in the [returning user experience](https://plaid.com/docs/link/returning-user). This field is no longer required to enable the returning user experience.

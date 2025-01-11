@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::BankTransfer;
 ///Defines the response schema for `/processor/bank_transfer/create`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorBankTransferCreateResponse {
     ///Represents a bank transfer within the Bank Transfers API.
     pub bank_transfer: BankTransfer,

@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{DocumentRiskSignal, DocumentRiskSummary, RiskSignalDocumentReference};
 ///Object containing all risk signals and relevant metadata for a single document
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SingleDocumentRiskSignal {
     ///Object containing metadata for the document
     pub document_reference: RiskSignalDocumentReference,

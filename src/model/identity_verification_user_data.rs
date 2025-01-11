@@ -3,7 +3,7 @@ use super::{
     IdentityVerificationResponseUserName, IdentityVerificationUserAddress, UserIdNumber,
 };
 ///The identity data that was either collected from the user or provided via API in order to perform an Identity Verification.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationUserData {
     /**Even if an address has been collected, some fields may be null depending on the region's addressing system. For example:
 
@@ -15,7 +15,7 @@ Addresses from Hong Kong will not include postal code*/
     ///A date in the format YYYY-MM-DD (RFC 3339 Section 5.6).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub date_of_birth: Option<chrono::NaiveDate>,
-    ///A valid email address.
+    ///A valid email address. Must not have leading or trailing spaces and address must be RFC compliant. For more information, see [RFC 3696](https://datatracker.ietf.org/doc/html/rfc3696).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub email_address: Option<String>,
     ///ID number submitted by the user, currently used only for the Identity Verification product. If the user has not submitted this data yet, this field will be `null`. Otherwise, both fields are guaranteed to be filled.
@@ -27,7 +27,7 @@ Addresses from Hong Kong will not include postal code*/
     ///The full name provided by the user. If the user has not submitted their name, this field will be null. Otherwise, both fields are guaranteed to be filled.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<IdentityVerificationResponseUserName>,
-    ///A phone number in E.164 format.
+    ///A valid phone number in E.164 format.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
 }

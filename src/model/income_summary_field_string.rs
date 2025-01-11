@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::VerificationStatus;
 ///Data about the income summary
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IncomeSummaryFieldString {
     ///The value of the field.
     pub value: String,
@@ -15,7 +16,7 @@ pub struct IncomeSummaryFieldString {
 "`UNABLE_TO_VERIFY`": The verification was performed and the information could not be verified.
 
 `"UNKNOWN"`: The verification status is unknown.*/
-    pub verification_status: String,
+    pub verification_status: VerificationStatus,
 }
 impl std::fmt::Display for IncomeSummaryFieldString {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
 use super::RecipientBacs;
-///Additional payment consent options
+///(Deprecated) Additional payment consent options
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct ExternalPaymentInitiationConsentOptions {
     ///An optional object used to restrict the accounts used for payments. If provided, the end user will be able to send payments only from the specified bank account.

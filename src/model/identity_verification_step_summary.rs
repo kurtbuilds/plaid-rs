@@ -1,4 +1,5 @@
 use serde::{Serialize, Deserialize};
+use super::IdentityVerificationStepStatus;
 /**Each step will be one of the following values:
 
 
@@ -23,22 +24,22 @@ use serde::{Serialize, Deserialize};
 `manually_approved` - The step was manually overridden to pass by a team member in the dashboard.
 
 `manually_rejected` - The step was manually overridden to fail by a team member in the dashboard.*/
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityVerificationStepSummary {
     ///The status of a step in the Identity Verification process.
-    pub accept_tos: String,
+    pub accept_tos: IdentityVerificationStepStatus,
     ///The status of a step in the Identity Verification process.
-    pub documentary_verification: String,
+    pub documentary_verification: IdentityVerificationStepStatus,
     ///The status of a step in the Identity Verification process.
-    pub kyc_check: String,
+    pub kyc_check: IdentityVerificationStepStatus,
     ///The status of a step in the Identity Verification process.
-    pub risk_check: String,
+    pub risk_check: IdentityVerificationStepStatus,
     ///The status of a step in the Identity Verification process.
-    pub selfie_check: String,
+    pub selfie_check: IdentityVerificationStepStatus,
     ///The status of a step in the Identity Verification process.
-    pub verify_sms: String,
+    pub verify_sms: IdentityVerificationStepStatus,
     ///The status of a step in the Identity Verification process.
-    pub watchlist_screening: String,
+    pub watchlist_screening: IdentityVerificationStepStatus,
 }
 impl std::fmt::Display for IdentityVerificationStepSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

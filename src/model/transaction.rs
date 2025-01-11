@@ -17,14 +17,14 @@ This field is returned for select financial institutions and comes as provided b
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorized_datetime: Option<chrono::DateTime<chrono::Utc>>,
     ///The counterparties present in the transaction. Counterparties, such as the merchant or the financial institution, are extracted by Plaid from the raw description.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub counterparties: Option<Vec<TransactionCounterparty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub counterparties: Vec<TransactionCounterparty>,
     /**Date and time when a transaction was posted in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ( `YYYY-MM-DDTHH:mm:ssZ` ). For the date that the transaction was initiated, rather than posted, see the `authorized_datetime` field.
 
 This field is returned for select financial institutions and comes as provided by the institution. It may contain default time values (such as 00:00:00). This field is only populated in API version 2019-05-29 and later.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub datetime: Option<chrono::DateTime<chrono::Utc>>,
-    ///A unique, stable, Plaid-generated ID that maps to the merchant.
+    ///A unique, stable, Plaid-generated ID that maps to the merchant. In the case of a merchant with multiple retail locations, this field will map to the broader merchant, not a specific location or store.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub merchant_entity_id: Option<String>,
     /**The channel used to make a payment.

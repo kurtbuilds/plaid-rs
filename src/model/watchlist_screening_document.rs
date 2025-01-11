@@ -1,8 +1,9 @@
 use serde::{Serialize, Deserialize};
+use super::WatchlistScreeningDocumentType;
 ///An official document, usually issued by a governing body or institution, with an associated identifier.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistScreeningDocument {
-    ///The numeric or alphanumeric identifier associated with this document.
+    ///The numeric or alphanumeric identifier associated with this document. Must be between 4 and 32 characters long, and cannot have leading or trailing spaces.
     pub number: String,
     /**The kind of official document represented by this object.
 
@@ -32,7 +33,7 @@ pub struct WatchlistScreeningDocument {
 
 `voter_id` - Identification issued for the purpose of voting*/
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: WatchlistScreeningDocumentType,
 }
 impl std::fmt::Display for WatchlistScreeningDocument {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

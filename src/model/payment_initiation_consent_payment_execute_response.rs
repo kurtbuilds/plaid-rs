@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::PaymentInitiationPaymentStatus;
 ///PaymentInitiationConsentPaymentExecuteResponse defines the response schema for `/payment_initiation/consent/payment/execute`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationConsentPaymentExecuteResponse {
     ///A unique ID identifying the payment
     pub payment_id: String,
@@ -38,7 +39,7 @@ These statuses will be removed in a future release.
 `PAYMENT_STATUS_PROCESSING`: The payment is currently being processed. The payment will automatically exit this state when processing is complete.
 
 `PAYMENT_STATUS_COMPLETED`: Indicates that the standing order has been successfully established. This state is only used for standing orders.*/
-    pub status: String,
+    pub status: PaymentInitiationPaymentStatus,
 }
 impl std::fmt::Display for PaymentInitiationConsentPaymentExecuteResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

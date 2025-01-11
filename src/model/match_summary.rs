@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::MatchSummaryCode;
 ///Summary object reflecting the match result of the associated data
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MatchSummary {
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
 
@@ -14,7 +15,7 @@ pub struct MatchSummary {
 `no_data` indicates that Plaid was unable to find external data to compare against the provided input data.
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
-    pub summary: String,
+    pub summary: MatchSummaryCode,
 }
 impl std::fmt::Display for MatchSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

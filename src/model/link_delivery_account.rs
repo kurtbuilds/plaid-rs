@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::LinkDeliveryVerificationStatus;
 ///Information related to account attached to the connected Item
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkDeliveryAccount {
     ///If micro-deposit verification is being used, indicates whether the account being verified is a `business` or `personal` account.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -21,9 +22,9 @@ pub struct LinkDeliveryAccount {
     #[serde(rename = "type")]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
-    ///Indicates an Item's micro-deposit-based verification status.
+    ///Indicates an Item's micro-deposit-based verification or database verification status.
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub verification_status: Option<String>,
+    pub verification_status: Option<LinkDeliveryVerificationStatus>,
 }
 impl std::fmt::Display for LinkDeliveryAccount {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

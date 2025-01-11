@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
+use super::WebhookEnvironmentValues;
 ///Fired when an individual screening status has changed, which can occur manually via the dashboard or during ongoing monitoring.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ScreeningStatusUpdatedWebhook {
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///The ID of the associated screening.
     pub screening_id: String,
     ///`STATUS_UPDATED`

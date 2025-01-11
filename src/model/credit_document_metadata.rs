@@ -14,7 +14,7 @@ pub struct CreditDocumentMetadata {
 
 `US_MILITARY_LES`: A Leave and Earnings Statement (LES) issued by the US military.
 
-`US_MILITARY_CLES`: A Civilian Leave and Earnings Statment (CLES) issued by the US military.
+`US_MILITARY_CLES`: A Civilian Leave and Earnings Statement (CLES) issued by the US military.
 
 `GIG`: Used to indicate that the income is related to gig work. Does not necessarily correspond to a specific document type.
 
@@ -25,11 +25,16 @@ pub struct CreditDocumentMetadata {
 `UNKNOWN`: Document type could not be determined.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub document_type: Option<String>,
-    /**Signed URL to retrieve the underlying file. For Payroll Income, the file type will always be PDF, and the file may not be available, in which case the field will be `null`. If you would like Plaid to generate a PDF if the original is not available, contact your Account Manager. For Document Income, this field will not be `null`, and the file type will be the original file type uploaded by the user. For more details on available file types, see the [Document Income](https://www.plaid.com/docs/income/payroll-income) documentation.
+    /**Signed URL to retrieve the underlying file. For Payroll Income, the file type will always be PDF, and the file may not be available, in which case the field will be `null`. If you would like Plaid to generate a PDF if the original is not available, contact your Account Manager. [Example generated pay stub](https://www.plaid.com/documents/plaid-generated-mock-paystub.pdf).
+
+For Document Income, this field will not be `null`, and the file type will be the original file type uploaded by the user. For more details on available file types, see the [Document Income](https://www.plaid.com/docs/income/payroll-income) documentation.
 
 This download URL can only be used once and expires after two minutes. To generate a new download URL, call `/credit/payroll_income/get` again.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub download_url: Option<String>,
+    ///The reason why a failure occurred during document processing (if available).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub error_message: Option<String>,
     ///The name of the document.
     pub name: String,
     ///The number of pages of the uploaded document (if available).

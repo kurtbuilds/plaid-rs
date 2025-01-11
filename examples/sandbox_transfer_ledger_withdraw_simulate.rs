@@ -1,10 +1,10 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let event_type = "your event type";
+    let event_type = TransferLedgerSweepSimulateEventType::SweepPosted;
     let sweep_id = "your sweep id";
     let response = client
         .sandbox_transfer_ledger_withdraw_simulate(event_type, sweep_id)

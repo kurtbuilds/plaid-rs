@@ -1,7 +1,11 @@
 use serde::{Serialize, Deserialize};
+use super::{TransferMetricsGetAuthorizationUsage, TransferMetricsGetReturnRates};
 ///Defines the response schema for `/transfer/metrics/get`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct TransferMetricsGetResponse {
+    ///Details regarding authorization usage.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub authorization_usage: Option<TransferMetricsGetAuthorizationUsage>,
     ///Sum of dollar amount of credit transfers in last 24 hours (decimal string with two digits of precision e.g. "10.00").
     pub daily_credit_transfer_volume: String,
     ///Sum of dollar amount of debit transfers in last 24 hours (decimal string with two digits of precision e.g. "10.00").
@@ -16,6 +20,9 @@ pub struct TransferMetricsGetResponse {
     pub monthly_transfer_volume: String,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
+    ///Details regarding return rates.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub return_rates: Option<TransferMetricsGetReturnRates>,
 }
 impl std::fmt::Display for TransferMetricsGetResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::WalletTransactionStatus;
 ///WalletTransactionExecuteResponse defines the response schema for `/wallet/transaction/execute`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WalletTransactionExecuteResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
@@ -17,7 +18,7 @@ pub struct WalletTransactionExecuteResponse {
 `FAILED`: The transaction failed to process successfully. This is a terminal status.
 
 `BLOCKED`: The transaction has been blocked for violating compliance rules. This is a terminal status.*/
-    pub status: String,
+    pub status: WalletTransactionStatus,
     ///A unique ID identifying the transaction
     pub transaction_id: String,
 }

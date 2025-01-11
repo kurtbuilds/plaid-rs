@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{Statuses, VerificationOfAsset};
 ///A collection of details related to a fulfillment service or product in terms of request, process and result.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Service {
     ///A collection of STATUS containers.
     #[serde(rename = "STATUSES")]

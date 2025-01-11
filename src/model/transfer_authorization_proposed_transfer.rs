@@ -1,12 +1,18 @@
 use serde::{Serialize, Deserialize};
-use super::{TransferCreditFundsSource, TransferUserInResponse};
+use super::{
+    AchClass, TransferCreditFundsSource, TransferType, TransferUserInResponse,
+    TransferWireDetails,
+};
 ///Details regarding the proposed transfer.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationProposedTransfer {
     ///The Plaid `account_id` for the account that will be debited or credited.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
-    /**Specifies the use case of the transfer. Required for transfers on an ACH network.
+    /**Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see [ACH SEC codes](https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes).
+
+Codes supported for credits: `ccd`, `ppd`
+Codes supported for debits: `ccd`, `tel`, `web`
 
 `"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
 
@@ -16,7 +22,7 @@ pub struct TransferAuthorizationProposedTransfer {
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub ach_class: Option<String>,
+    pub ach_class: Option<AchClass>,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00"). When calling `/transfer/authorization/create`, specify the maximum amount to authorize. When calling `/transfer/create`, specify the exact amount of the transfer, up to a maximum of the amount authorized. If this field is left blank when calling `/transfer/create`, the maximum amount authorized in the `authorization_id` will be sent.
     pub amount: String,
     pub credit_funds_source: TransferCreditFundsSource,
@@ -25,6 +31,9 @@ pub struct TransferAuthorizationProposedTransfer {
     pub funding_account_id: Option<String>,
     ///The currency of the transfer amount. The default value is "USD".
     pub iso_currency_code: String,
+    ///Plaid’s unique identifier for a Plaid Ledger Balance.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ledger_id: Option<String>,
     ///The network or rails used for the transfer.
     pub network: String,
     ///Plaid's unique identifier for the origination account that was used for this transfer.
@@ -34,9 +43,12 @@ pub struct TransferAuthorizationProposedTransfer {
     pub originator_client_id: Option<String>,
     ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: TransferType,
     ///The legal name and other information for the account holder.
     pub user: TransferUserInResponse,
+    ///Information specific to wire transfers.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub wire_details: Option<TransferWireDetails>,
 }
 impl std::fmt::Display for TransferAuthorizationProposedTransfer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

@@ -1,9 +1,10 @@
 use serde::{Serialize, Deserialize};
+use super::WebhookEnvironmentValues;
 ///Fired when the attempt to refresh Payroll Income data for a user via `/credit/payroll_income/refresh` failed because the user must re-connect their payroll account.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IncomeVerificationRefreshReconnectNeededWebhook {
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///The `user_id` corresponding to the user the webhook has fired for.
     pub user_id: String,
     ///`INCOME_VERIFICATION_REFRESH_RECONNECT_NEEDED`

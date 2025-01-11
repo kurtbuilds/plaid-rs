@@ -4,7 +4,7 @@ use super::{
     TransferFundingAccount, TransferOriginatorAddress,
 };
 ///The diligence information for the originator.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferOriginatorDiligence {
     ///The originator's address.
     pub address: TransferOriginatorAddress,

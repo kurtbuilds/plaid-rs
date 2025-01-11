@@ -1,17 +1,18 @@
 use serde::{Serialize, Deserialize};
+use super::{PartnerEndCustomerOAuthStatusUpdatedValues, WebhookEnvironmentValues};
 ///The webhook of type `PARTNER` and code `END_CUSTOMER_OAUTH_STATUS_UPDATED` will be fired when a partner's end customer has an update on their OAuth registration status with an institution.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PartnerEndCustomerOAuthStatusUpdatedWebhook {
     ///The client ID of the end customer
     pub end_customer_client_id: String,
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///The institution ID
     pub institution_id: String,
     ///The institution name
     pub institution_name: String,
     ///The OAuth status of the update
-    pub status: String,
+    pub status: PartnerEndCustomerOAuthStatusUpdatedValues,
     ///`END_CUSTOMER_OAUTH_STATUS_UPDATED`
     pub webhook_code: String,
     ///`PARTNER`

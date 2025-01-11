@@ -4,7 +4,7 @@ use serde::{Serialize, Deserialize};
 pub struct LinkTokenCreateRequestIncomeVerificationBankIncome {
     ///The number of days of data to request for the Bank Income product
     pub days_requested: i64,
-    ///Whether to enable multiple Items to be added in the Link session
+    ///Whether to enable multiple Items to be added in the Link session. This setting is deprecated and has been replaced by the more general `enable_multi_item_link` setting, which supports all products.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub enable_multiple_items: Option<bool>,
 }

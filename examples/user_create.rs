@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -8,6 +8,7 @@ async fn main() {
     let response = client
         .user_create(client_user_id)
         .consumer_report_user_identity(ConsumerReportUserIdentity {
+            date_of_birth: Some(chrono::Utc::now().date_naive()),
             emails: vec!["your emails".to_owned()],
             first_name: "your first name".to_owned(),
             last_name: "your last name".to_owned(),
@@ -19,7 +20,9 @@ async fn main() {
                 region: Some("your region".to_owned()),
                 street: "your street".to_owned(),
             },
+            ssn_last4: Some("your ssn last 4".to_owned()),
         })
+        .end_customer("your end customer")
         .await
         .unwrap();
     println!("{:#?}", response);

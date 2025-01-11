@@ -1,17 +1,21 @@
 use serde::{Serialize, Deserialize};
 use super::{
-    TransferAuthorizationGuaranteeDecision,
+    AchClass, TransferAuthorizationGuaranteeDecision,
     TransferAuthorizationGuaranteeDecisionRationale, TransferCreditFundsSource,
     TransferExpectedSweepSettlementScheduleItem, TransferFailure, TransferMetadata,
-    TransferRefund, TransferSweepStatus, TransferUserInResponse,
+    TransferNetwork, TransferRefund, TransferStatus, TransferSweepStatus, TransferType,
+    TransferUserInResponse, TransferWireDetails,
 };
 ///Represents a transfer within the Transfers API.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Transfer {
     ///The Plaid `account_id` corresponding to the end-user account that will be debited or credited.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
-    /**Specifies the use case of the transfer. Required for transfers on an ACH network.
+    /**Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see [ACH SEC codes](https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes).
+
+Codes supported for credits: `ccd`, `ppd`
+Codes supported for debits: `ccd`, `tel`, `web`
 
 `"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
 
@@ -21,7 +25,7 @@ pub struct Transfer {
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub ach_class: Option<String>,
+    pub ach_class: Option<AchClass>,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00"). When calling `/transfer/authorization/create`, specify the maximum amount to authorize. When calling `/transfer/create`, specify the exact amount of the transfer, up to a maximum of the amount authorized. If this field is left blank when calling `/transfer/create`, the maximum amount authorized in the `authorization_id` will be sent.
     pub amount: String,
     ///Plaid’s unique identifier for a transfer authorization.
@@ -33,7 +37,7 @@ pub struct Transfer {
     pub credit_funds_source: TransferCreditFundsSource,
     ///The description of the transfer.
     pub description: String,
-    ///The expected date when the full amount of the transfer settles at the consumers’ account, if the transfer is credit; or at the customer's business checking account, if the transfer is debit. Only set for ACH transfers and is null for non-ACH transfers. Only set for ACH transfers. This will be of the form YYYY-MM-DD.
+    ///The date when settlement will occur between Plaid and the receiving bank (RDFI). For ACH debits, this is the date funds will be pulled from the bank account being debited. For ACH credits, this is the date funds will be delivered to the bank account being credited. Only set for ACH transfers; `null` for non-ACH transfers. This will be of the form YYYY-MM-DD.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub expected_settlement_date: Option<chrono::NaiveDate>,
     ///The expected sweep settlement schedule of this transfer, assuming this transfer is not `returned`. Only applies to ACH debit transfers.
@@ -62,6 +66,9 @@ pub struct Transfer {
     pub id: String,
     ///The currency of the transfer amount, e.g. "USD"
     pub iso_currency_code: String,
+    ///Plaid’s unique identifier for a Plaid Ledger Balance.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ledger_id: Option<String>,
     /**The Metadata object is a mapping of client-provided string fields to any string value. The following limitations apply:
 The JSON values must be Strings (no nested JSON objects allowed)
 Only ASCII characters may be used
@@ -72,15 +79,19 @@ Maximum value length of 500 characters*/
     pub metadata: Option<TransferMetadata>,
     /**The network or rails used for the transfer.
 
-For transfers submitted as `ach`, the next-day cutoff is 5:30 PM Eastern Time.
+For transfers submitted as `ach`, the next-day cutoff is 8:30 PM Eastern Time.
 
 For transfers submitted as `same-day-ach`, the same-day cutoff is 3:30 PM Eastern Time. If the transfer is submitted after this cutoff but before the next-day cutoff, it will be sent over next-day rails and will not incur same-day charges; this will apply to both legs of the transfer if applicable.
 
-For transfers submitted as `rtp`,  Plaid will automatically route between Real Time Payment rail by TCH or FedNow rails as necessary. If a transfer is submitted as `rtp` and the counterparty account is not eligible for RTP, the `/transfer/authorization/create` request will fail with an `INVALID_FIELD` error code. To pre-check to determine whether a counterparty account can support RTP, call `/transfer/capabilities/get` before calling `/transfer/authorization/create`.*/
-    pub network: String,
+For transfers submitted as `rtp`,  Plaid will automatically route between Real Time Payment rail by TCH or FedNow rails as necessary. If a transfer is submitted as `rtp` and the counterparty account is not eligible for RTP, the `/transfer/authorization/create` request will fail with an `INVALID_FIELD` error code. To pre-check to determine whether a counterparty account can support RTP, call `/transfer/capabilities/get` before calling `/transfer/authorization/create`.
+
+Wire transfers are currently in early availability. To request access to `wire` as a payment network, contact your Account Manager. For transfers submitted as `wire`, the `type` must be `credit`; wire debits are not supported.*/
+    pub network: TransferNetwork,
     /**The trace identifier for the transfer based on its network. This will only be set after the transfer has posted.
 
-For `ach` or `same-day-ach` transfers, this is the ACH trace number. Currently, the field will remain null for transfers on other rails.*/
+For `ach` or `same-day-ach` transfers, this is the ACH trace number.
+For `rtp` transfers, this is the Transaction Identification number.
+For `wire` transfers, this is the IMAD (Input Message Accountability Data) number.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub network_trace_id: Option<String>,
     ///Plaid’s unique identifier for the origination account that was used for this transfer.
@@ -102,10 +113,11 @@ For `ach` or `same-day-ach` transfers, this is the ACH trace number. Currently, 
 `pending`: A new transfer was created; it is in the pending state.
 `posted`: The transfer has been successfully submitted to the payment network.
 `settled`: Credits are available to be withdrawn or debits have been deducted from the Plaid linked account.
+`funds_available`: Funds from the transfer have been released from hold and applied to the ledger's available balance. (Only applicable to ACH debits.)
 `cancelled`: The transfer was cancelled by the client.
 `failed`: The transfer failed, no funds were moved.
 `returned`: A posted transfer was returned.*/
-    pub status: String,
+    pub status: TransferStatus,
     /**The status of the sweep for the transfer.
 
 `unswept`: The transfer hasn't been swept yet.
@@ -117,12 +129,15 @@ For `ach` or `same-day-ach` transfers, this is the ACH trace number. Currently, 
     pub sweep_status: Option<TransferSweepStatus>,
     ///The type of transfer. This will be either `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account.
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: TransferType,
     ///The date 61 business days from settlement date indicating the following ACH returns can no longer happen: R05, R07, R10, R11, R51, R33, R37, R38, R51, R52, R53. This will be of the form YYYY-MM-DD.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub unauthorized_return_window: Option<chrono::NaiveDate>,
     ///The legal name and other information for the account holder.
     pub user: TransferUserInResponse,
+    ///Information specific to wire transfers.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub wire_details: Option<TransferWireDetails>,
 }
 impl std::fmt::Display for Transfer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

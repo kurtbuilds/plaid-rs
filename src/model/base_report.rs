@@ -3,6 +3,9 @@ use super::BaseReportItem;
 ///An object representing a Base Report
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct BaseReport {
+    ///Client-generated identifier, which can be used by lenders to track loan applications.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub client_report_id: Option<String>,
     ///The date and time when the Base Report was created, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (e.g. "2018-04-12T03:32:11Z").
     pub date_generated: chrono::DateTime<chrono::Utc>,
     ///The number of days of transaction history requested.

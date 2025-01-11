@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::TransferFailure;
+use super::{OmittableTransferType, TransferEventType, TransferFailure};
 ///Represents an event in the Transfers API.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferEvent {
     ///The account ID associated with the transfer. This field is omitted for Plaid Ledger Sweep events.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -19,6 +19,8 @@ pub struct TransferEvent {
 `posted`: The transfer has been successfully submitted to the payment network.
 
 `settled`: Credits are available to be withdrawn or debits have been deducted from the Plaid linked account.
+
+`funds_available`: Funds from the transfer have been released from hold and applied to the ledger's available balance. (Only applicable to ACH debits.)
 
 `returned`: A posted transfer was returned.
 
@@ -53,13 +55,16 @@ pub struct TransferEvent {
 `refund.swept`: The refund was swept from the sweep account.
 
 `refund.return_swept`: Due to the refund being returned, funds were pushed back to the sweep account.*/
-    pub event_type: String,
+    pub event_type: TransferEventType,
     ///The failure reason if the event type for a transfer is `"failed"` or `"returned"`. Null value otherwise.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub failure_reason: Option<TransferFailure>,
     ///The id of the associated funding account, available in the Plaid Dashboard. If present, this indicates which of your business checking accounts will be credited or debited.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub funding_account_id: Option<String>,
+    ///Plaid’s unique identifier for a Plaid Ledger Balance.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ledger_id: Option<String>,
     ///The ID of the origination account that this balance belongs to.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub origination_account_id: Option<String>,
@@ -84,7 +89,7 @@ pub struct TransferEvent {
     pub transfer_id: String,
     ///The type of transfer. Valid values are `debit` or `credit`.  A `debit` indicates a transfer of money into the origination account; a `credit` indicates a transfer of money out of the origination account. This field is omitted for Plaid Ledger Sweep events.
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub transfer_type: Option<String>,
+    pub transfer_type: Option<OmittableTransferType>,
 }
 impl std::fmt::Display for TransferEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

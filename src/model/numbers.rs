@@ -5,7 +5,7 @@ pub struct Numbers {
     ///Will be used for the account number.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account: Option<String>,
-    ///Must be a valid ACH routing number.
+    ///Must be a valid ACH routing number. To test `/transfer/capabilities/get`, set this to 322271627 to force a `true` result.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ach_routing: Option<String>,
     ///Must be a valid wire transfer routing number.

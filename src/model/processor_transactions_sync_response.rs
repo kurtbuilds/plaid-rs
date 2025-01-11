@@ -1,8 +1,10 @@
 use serde::{Serialize, Deserialize};
-use super::{RemovedTransaction, Transaction};
+use super::{AccountBase, RemovedTransaction, Transaction, TransactionsUpdateStatus};
 ///ProcessorTransactionsSyncResponse defines the response schema for `/processor/transactions/sync`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorTransactionsSyncResponse {
+    ///A single account at a financial institution.
+    pub account: AccountBase,
     ///Transactions that have been added to the Item since `cursor` ordered by ascending last modified time.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub added: Vec<Transaction>,
@@ -18,6 +20,13 @@ pub struct ProcessorTransactionsSyncResponse {
     pub removed: Vec<RemovedTransaction>,
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,
+    /**A description of the update status for transaction pulls of an Item.
+
+`TRANSACTIONS_UPDATE_STATUS_UNKNOWN`: Unable to fetch transactions update status for Item.
+`NOT_READY`: The Item is pending transaction pull.
+`INITIAL_UPDATE_COMPLETE`: Initial pull for the Item is complete, historical pull is pending.
+`HISTORICAL_UPDATE_COMPLETE`: Both initial and historical pull for Item are complete.*/
+    pub transactions_update_status: TransactionsUpdateStatus,
 }
 impl std::fmt::Display for ProcessorTransactionsSyncResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::AssetType;
 ///Details about an asset.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetDetail {
     ///A unique alphanumeric string identifying an asset.
     #[serde(rename = "AssetAccountIdentifier")]
@@ -27,7 +28,7 @@ pub struct AssetDetail {
     pub asset_ownership_type: Option<String>,
     ///A value from a MISMO prescribed list that specifies financial assets in a mortgage loan transaction. Assets may be either liquid or fixed and are associated with a corresponding asset amount.
     #[serde(rename = "AssetType")]
-    pub asset_type: String,
+    pub asset_type: AssetType,
     ///Additional Asset Decription some examples are Investment Tax-Deferred , Loan, 401K, 403B, Checking, Money Market, Credit Card,ROTH,529,Biller,ROLLOVER,CD,Savings,Investment Taxable, IRA, Mortgage, Line Of Credit.
     #[serde(rename = "AssetTypeAdditionalDescription")]
     #[serde(default, skip_serializing_if = "Option::is_none")]

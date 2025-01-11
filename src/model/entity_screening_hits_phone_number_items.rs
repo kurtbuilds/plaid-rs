@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{EntityScreeningHitPhoneNumbers, MatchSummary};
 ///Analyzed phone numbers for the associated hit
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EntityScreeningHitsPhoneNumberItems {
     ///Summary object reflecting the match result of the associated data
     #[serde(default, skip_serializing_if = "Option::is_none")]

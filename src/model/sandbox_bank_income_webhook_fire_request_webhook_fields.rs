@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::BankIncomeRefreshCompleteResult;
 ///Optional fields which will be populated in the simulated webhook
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SandboxBankIncomeWebhookFireRequestWebhookFields {
     /**The result of the bank income refresh report generation
 
@@ -8,7 +9,7 @@ pub struct SandboxBankIncomeWebhookFireRequestWebhookFields {
 
 `FAILURE`: The refreshed report failed to be generated*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub bank_income_refresh_complete_result: Option<String>,
+    pub bank_income_refresh_complete_result: Option<BankIncomeRefreshCompleteResult>,
     ///The user id to be returned in INCOME webhooks
     pub user_id: String,
 }

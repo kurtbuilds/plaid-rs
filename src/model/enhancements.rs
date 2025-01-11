@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::{Counterparty, Location, PersonalFinanceCategory};
+use super::{Counterparty, Location, PaymentChannel, PersonalFinanceCategory};
 ///A grouping of the Plaid produced transaction enhancement fields.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Enhancements {
     ///A hierarchical array of the categories to which this transaction belongs. For a full list of categories, see [`/categories/get`](https://plaid.com/docs/api/products/transactions/#categoriesget).
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -29,7 +29,7 @@ pub struct Enhancements {
 `in store:` transactions that were made at a physical location.
 
 `other:` transactions that relate to banks, e.g. fees or deposits.*/
-    pub payment_channel: String,
+    pub payment_channel: PaymentChannel,
     /**Information describing the intent of the transaction. Most relevant for personal finance use cases, but not limited to such use cases.
 
 See the [`taxonomy CSV file`](https://plaid.com/documents/transactions-personal-finance-category-taxonomy.csv) for a full list of personal finance categories. If you are migrating to personal finance categories from the legacy categories, also refer to the [`migration guide`](https://plaid.com/docs/transactions/pfc-migration/).*/

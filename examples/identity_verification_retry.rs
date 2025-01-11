@@ -1,14 +1,15 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
     let client_user_id = "your client user id";
-    let strategy = "your strategy";
+    let strategy = Strategy::Reset;
     let template_id = "your template id";
     let response = client
         .identity_verification_retry(client_user_id, strategy, template_id)
+        .is_shareable(true)
         .steps(IdentityVerificationRetryRequestStepsObject {
             documentary_verification: true,
             kyc_check: true,
@@ -27,7 +28,7 @@ async fn main() {
             date_of_birth: Some(chrono::Utc::now().date_naive()),
             email_address: Some("your email address".to_owned()),
             id_number: Some(UserIdNumber {
-                type_: "your type".to_owned(),
+                type_: IdNumberType::ArDni,
                 value: "your value".to_owned(),
             }),
             name: Some(IdentityVerificationRequestUserName {

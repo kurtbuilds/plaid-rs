@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountBase, Item, LiabilitiesObject};
 ///LiabilitiesGetResponse defines the response schema for `/liabilities/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LiabilitiesGetResponse {
     ///An array of accounts associated with the Item
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

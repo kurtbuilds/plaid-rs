@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::TransferScheduleIntervalUnit;
 ///The schedule that the recurring transfer will be executed on.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferRecurringSchedule {
     /**A date in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). The recurring transfer will end on the last `interval_execution_day` on or before the `end_date`.
 If the `interval_execution_day` between the start date and the end date (inclusive) is also the same day that `/transfer/recurring/create` was called, the bank *may* make a payment on that day, but it is not guaranteed to do so.*/
@@ -18,10 +19,11 @@ If the `interval_unit` is `month`, `interval_execution_day` should be an integer
 The transfer will be originated on the next available banking day if the designated day is a non banking day.*/
     pub interval_execution_day: i64,
     ///The unit of the recurring interval.
-    pub interval_unit: String,
+    pub interval_unit: TransferScheduleIntervalUnit,
     /**A date in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD). The recurring transfer will begin on the first `interval_execution_day` on or after the `start_date`.
 
-If the first `interval_execution_day` on or after the start date is also the same day that `/transfer/recurring/create` was called, the bank *may* make the first payment on that day, but it is not guaranteed to do so.*/
+For `rtp` recurring transfers, `start_date` must be in the future.
+Otherwise, if the first `interval_execution_day` on or after the start date is also the same day that `/transfer/recurring/create` was called, the bank *may* make the first payment on that day, but it is not guaranteed to do so.*/
     pub start_date: chrono::NaiveDate,
 }
 impl std::fmt::Display for TransferRecurringSchedule {

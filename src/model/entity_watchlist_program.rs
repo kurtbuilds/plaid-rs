@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::WatchlistScreeningAuditTrail;
+use super::{EntityWatchlistCode, ProgramNameSensitivity, WatchlistScreeningAuditTrail};
 ///A program that configures the active lists, search parameters, and other behavior for initial and ongoing screening of entities.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EntityWatchlistProgram {
     ///Information about the last change made to the parent object specifying what caused the change as well as when it occurred.
     pub audit_trail: WatchlistScreeningAuditTrail,
@@ -15,7 +15,7 @@ pub struct EntityWatchlistProgram {
     pub is_rescanning_enabled: bool,
     ///Watchlists enabled for the associated program
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub lists_enabled: Vec<String>,
+    pub lists_enabled: Vec<EntityWatchlistCode>,
     ///A name for the entity program to define its purpose. For example, "High Risk Organizations" or "Applicants".
     pub name: String,
     /**The valid name matching sensitivity configurations for a screening program. Note that while certain matching techniques may be more prevalent on less strict settings, all matching algorithms are enabled for every sensitivity.
@@ -27,7 +27,7 @@ pub struct EntityWatchlistProgram {
 `strict` - Aggressive false positive reduction. This sensitivity will require names to be more similar than `coarse` and `balanced` settings, relying less on phonetics, while still accounting for character transpositions, missing tokens, and other common permutations.
 
 `exact` - Matches must be nearly exact. This sensitivity will only show hits with exact or nearly exact name matches with only basic correction such as extraneous symbols and capitalization. This setting is generally not recommended unless you have a very specific use case.*/
-    pub name_sensitivity: String,
+    pub name_sensitivity: ProgramNameSensitivity,
 }
 impl std::fmt::Display for EntityWatchlistProgram {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

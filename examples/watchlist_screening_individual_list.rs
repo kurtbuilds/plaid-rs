@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -10,7 +10,7 @@ async fn main() {
         .assignee("your assignee")
         .client_user_id("your client user id")
         .cursor("your cursor")
-        .status("your status")
+        .status(WatchlistScreeningStatus::Rejected)
         .await
         .unwrap();
     println!("{:#?}", response);

@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::PaymentInitiationPaymentCreateStatus;
 ///PaymentInitiationPaymentCreateResponse defines the response schema for `/payment_initiation/payment/create`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentCreateResponse {
     ///A unique ID identifying the payment
     pub payment_id: String,
@@ -9,7 +10,7 @@ pub struct PaymentInitiationPaymentCreateResponse {
     /**For a payment returned by this endpoint, there is only one possible value:
 
 `PAYMENT_STATUS_INPUT_NEEDED`: The initial phase of the payment*/
-    pub status: String,
+    pub status: PaymentInitiationPaymentCreateStatus,
 }
 impl std::fmt::Display for PaymentInitiationPaymentCreateResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

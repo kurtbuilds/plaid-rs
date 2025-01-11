@@ -2,7 +2,7 @@ use serde::{Serialize, Deserialize};
 ///Score found by matching name provided by the API with the name on the account at the financial institution. If the account contains multiple owners, the maximum match score is filled.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct NameMatchScore {
-    ///Is `true` if the name on either of the names that was matched for the score contained strings indicative of a business name, such as "CORP", "LLC", "INC", or "LTD". A `true` result generally indicates the entity is a business. However, a `false` result does not mean the entity is not a business, as some businesses do not use these strings in the names used for their financial institution accounts.
+    ///Is `true` if the name on either of the names that was matched for the score contained strings indicative of a business name, such as "CORP", "LLC", "INC", or "LTD". A `true` result generally indicates that an account's name is a business name. However, a `false` result does not mean the account name is not a business name, as some businesses do not use these strings in the names used for their financial institution accounts.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub is_business_name_detected: Option<bool>,
     ///first or last name completely matched, likely a family member

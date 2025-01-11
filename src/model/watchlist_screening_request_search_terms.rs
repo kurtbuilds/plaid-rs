@@ -8,10 +8,10 @@ pub struct WatchlistScreeningRequestSearchTerms {
     ///A date in the format YYYY-MM-DD (RFC 3339 Section 5.6).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub date_of_birth: Option<chrono::NaiveDate>,
-    ///The numeric or alphanumeric identifier associated with this document.
+    ///The numeric or alphanumeric identifier associated with this document. Must be between 4 and 32 characters long, and cannot have leading or trailing spaces.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub document_number: Option<String>,
-    ///The legal name of the individual being screened.
+    ///The legal name of the individual being screened. Must have at least one alphabetical character, have a maximum length of 100 characters, and not include leading or trailing spaces.
     pub legal_name: String,
     ///ID of the associated program.
     pub watchlist_program_id: String,

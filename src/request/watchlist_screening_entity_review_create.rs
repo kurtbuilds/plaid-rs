@@ -1,9 +1,6 @@
-use serde_json::json;
-use crate::model::*;
 use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
-use crate::PlaidClient;
 /**You should use this struct via [`PlaidClient::watchlist_screening_entity_review_create`].
 
 On request success, this will return a [`WatchlistScreeningEntityReviewCreateResponse`].*/
@@ -14,8 +11,8 @@ pub struct WatchlistScreeningEntityReviewCreateRequest {
     pub dismissed_hits: Vec<String>,
     pub entity_watchlist_screening_id: String,
 }
-impl WatchlistScreeningEntityReviewCreateRequest {}
 impl FluentRequest<'_, WatchlistScreeningEntityReviewCreateRequest> {
+    ///Set the value of the comment field.
     pub fn comment(mut self, comment: &str) -> Self {
         self.params.comment = Some(comment.to_owned());
         self
@@ -24,7 +21,7 @@ impl FluentRequest<'_, WatchlistScreeningEntityReviewCreateRequest> {
 impl<'a> ::std::future::IntoFuture
 for FluentRequest<'a, WatchlistScreeningEntityReviewCreateRequest> {
     type Output = httpclient::InMemoryResult<
-        WatchlistScreeningEntityReviewCreateResponse,
+        crate::model::WatchlistScreeningEntityReviewCreateResponse,
     >;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
@@ -32,13 +29,19 @@ for FluentRequest<'a, WatchlistScreeningEntityReviewCreateRequest> {
             let url = "/watchlist_screening/entity/review/create";
             let mut r = self.client.client.post(url);
             if let Some(ref unwrapped) = self.params.comment {
-                r = r.json(json!({ "comment" : unwrapped }));
+                r = r.json(serde_json::json!({ "comment" : unwrapped }));
             }
-            r = r.json(json!({ "confirmed_hits" : self.params.confirmed_hits }));
-            r = r.json(json!({ "dismissed_hits" : self.params.dismissed_hits }));
             r = r
                 .json(
-                    json!(
+                    serde_json::json!({ "confirmed_hits" : self.params.confirmed_hits }),
+                );
+            r = r
+                .json(
+                    serde_json::json!({ "dismissed_hits" : self.params.dismissed_hits }),
+                );
+            r = r
+                .json(
+                    serde_json::json!(
                         { "entity_watchlist_screening_id" : self.params
                         .entity_watchlist_screening_id }
                     ),
@@ -47,5 +50,28 @@ for FluentRequest<'a, WatchlistScreeningEntityReviewCreateRequest> {
             let res = r.await?;
             res.json().map_err(Into::into)
         })
+    }
+}
+impl crate::PlaidClient {
+    /**Create a review for an entity watchlist screening
+
+Create a review for an entity watchlist screening. Reviews are compliance reports created by users in your organization regarding the relevance of potential hits found by Plaid.
+
+See endpoint docs at <https://plaid.com/docs/api/products/monitor/#watchlist_screeningentityreviewcreate>.*/
+    pub fn watchlist_screening_entity_review_create(
+        &self,
+        confirmed_hits: &[&str],
+        dismissed_hits: &[&str],
+        entity_watchlist_screening_id: &str,
+    ) -> FluentRequest<'_, WatchlistScreeningEntityReviewCreateRequest> {
+        FluentRequest {
+            client: self,
+            params: WatchlistScreeningEntityReviewCreateRequest {
+                comment: None,
+                confirmed_hits: confirmed_hits.iter().map(|&x| x.to_owned()).collect(),
+                dismissed_hits: dismissed_hits.iter().map(|&x| x.to_owned()).collect(),
+                entity_watchlist_screening_id: entity_watchlist_screening_id.to_owned(),
+            },
+        }
     }
 }

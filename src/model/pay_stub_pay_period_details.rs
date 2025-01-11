@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::PayStubDistributionBreakdown;
+use super::{CreditPayStubPayBasisType, PayStubDistributionBreakdown};
 ///Details about the pay period.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PayStubPayPeriodDetails {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub distribution_breakdown: Vec<PayStubDistributionBreakdown>,
@@ -19,7 +19,7 @@ pub struct PayStubPayPeriodDetails {
     pub pay_amount: Option<f64>,
     ///The explicit pay basis on the paystub (if present).
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub pay_basis: Option<String>,
+    pub pay_basis: Option<CreditPayStubPayBasisType>,
     ///The date on which the pay stub was issued, in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ("yyyy-mm-dd").
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pay_date: Option<chrono::NaiveDate>,

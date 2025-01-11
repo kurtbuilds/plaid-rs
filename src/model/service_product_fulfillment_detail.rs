@@ -1,10 +1,11 @@
 use serde::{Serialize, Deserialize};
+use super::ServiceProductFulfillmentIdentifier;
 ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ServiceProductFulfillmentDetail {
     ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
     #[serde(rename = "ServiceProductFulfillmentIdentifier")]
-    pub service_product_fulfillment_identifier: String,
+    pub service_product_fulfillment_identifier: ServiceProductFulfillmentIdentifier,
     ///A string that uniquely identifies a type of order Verification of Asset.
     #[serde(rename = "VendorOrderIdentifier")]
     #[serde(default, skip_serializing_if = "Option::is_none")]

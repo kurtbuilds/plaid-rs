@@ -1,10 +1,11 @@
 use serde::{Serialize, Deserialize};
+use super::IsoCurrencyCode;
 /**The amount and currency of the fraud or attempted fraud.
 `fraud_amount` should be omitted to indicate an unknown fraud amount.*/
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FraudAmount {
     ///An ISO-4217 currency code.
-    pub iso_currency_code: String,
+    pub iso_currency_code: IsoCurrencyCode,
     /**The amount value.
 This value can be 0 to indicate no money was lost.
 Must not contain more than two digits of precision (e.g., `1.23`).*/

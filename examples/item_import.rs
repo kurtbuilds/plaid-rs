@@ -1,10 +1,10 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let products = &["your products"];
+    let products = vec![Products::Assets];
     let user_auth = ItemImportRequestUserAuth {
         auth_token: "your auth token".to_owned(),
         user_id: "your user id".to_owned(),

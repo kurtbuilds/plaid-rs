@@ -16,6 +16,11 @@ If the security is a cryptocurrency, this field will be updated multiple times a
     ///9-character CUSIP, an identifier assigned to North American securities. A verified CUSIP Global Services license is required to receive this data. This field will be null by default for new customers, and null for existing customers starting March 12, 2024. If you would like access to this field, please start the verification process [here](https://docs.google.com/forms/d/e/1FAIpQLSd9asHEYEfmf8fxJTHZTAfAzW4dugsnSu-HS2J51f1mxwd6Sw/viewform).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cusip: Option<String>,
+    /**The industry classification of the security, such as Biotechnology, Airlines, etc.
+
+For a complete list of possible values, please refer to the ["Sectors and Industries" spreadsheet](https://docs.google.com/spreadsheets/d/1L7aXUdqLhxgM8qe7hK67qqKXiUdQqILpwZ0LpxvCVnc).*/
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub industry: Option<String>,
     ///If `institution_security_id` is present, this field indicates the Plaid `institution_id` of the institution to whom the identifier belongs.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub institution_id: Option<String>,
@@ -45,6 +50,11 @@ For the Sandbox environment, this data is currently only available if the item i
     ///In certain cases, Plaid will provide the ID of another security whose performance resembles this security, typically when the original security has low volume, or when a private security can be modeled with a publicly traded security.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub proxy_security_id: Option<String>,
+    /**The sector classification of the security, such as Finance, Health Technology, etc.
+
+For a complete list of possible values, please refer to the ["Sectors and Industries" spreadsheet](https://docs.google.com/spreadsheets/d/1L7aXUdqLhxgM8qe7hK67qqKXiUdQqILpwZ0LpxvCVnc).*/
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sector: Option<String>,
     ///A unique, Plaid-specific identifier for the security, used to associate securities with holdings. Like all Plaid identifiers, the `security_id` is case sensitive. The `security_id` may change if inherent details of the security change due to a corporate action, for example, in the event of a ticker symbol change or CUSIP change.
     pub security_id: String,
     ///7-character SEDOL, an identifier assigned to securities in the UK.
@@ -53,7 +63,11 @@ For the Sandbox environment, this data is currently only available if the item i
     ///The security’s trading symbol for publicly traded securities, and otherwise a short identifier if available.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ticker_symbol: Option<String>,
-    /**The security type of the holding. Valid security types are:
+    /**The security type of the holding.
+
+In rare instances, a null value is returned when institutional data is insufficient to determine the security type.
+
+Valid security types are:
 
 `cash`: Cash, currency, and money market funds
 

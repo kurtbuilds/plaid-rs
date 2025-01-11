@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{IndividualScreeningHitNames, MatchSummary};
 ///Analyzed name information for the associated hit
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ScreeningHitNamesItems {
     ///Summary object reflecting the match result of the associated data
     #[serde(default, skip_serializing_if = "Option::is_none")]

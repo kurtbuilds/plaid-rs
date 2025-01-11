@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::PartnerEndCustomerOAuthInstitutionEnvironments;
 ///The OAuth registration information for an institution.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PartnerEndCustomerOAuthInstitution {
     ///The date on which non-OAuth Item adds will no longer be supported for this institution, or an empty string if no such date has been set by the institution.
     #[serde(default, skip_serializing_if = "Option::is_none")]

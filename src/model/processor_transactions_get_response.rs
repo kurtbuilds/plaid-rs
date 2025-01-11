@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountBase, Transaction};
 ///ProcessorTransactionsGetResponse defines the response schema for `/processor/transactions/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorTransactionsGetResponse {
     ///A single account at a financial institution.
     pub account: AccountBase,

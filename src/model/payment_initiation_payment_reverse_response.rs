@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::WalletTransactionStatus;
 ///PaymentInitiationPaymentReverseResponse defines the response schema for `/payment_initation/payment/reverse`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationPaymentReverseResponse {
     ///A unique ID identifying the refund
     pub refund_id: String,
@@ -19,7 +20,7 @@ pub struct PaymentInitiationPaymentReverseResponse {
 `FAILED`: The transaction failed to process successfully. This is a terminal status.
 
 `BLOCKED`: The transaction has been blocked for violating compliance rules. This is a terminal status.*/
-    pub status: String,
+    pub status: WalletTransactionStatus,
 }
 impl std::fmt::Display for PaymentInitiationPaymentReverseResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

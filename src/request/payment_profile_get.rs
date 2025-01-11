@@ -1,9 +1,6 @@
-use serde_json::json;
-use crate::model::*;
 use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
-use crate::PlaidClient;
 /**You should use this struct via [`PlaidClient::payment_profile_get`].
 
 On request success, this will return a [`PaymentProfileGetResponse`].*/
@@ -11,10 +8,9 @@ On request success, this will return a [`PaymentProfileGetResponse`].*/
 pub struct PaymentProfileGetRequest {
     pub payment_profile_token: String,
 }
-impl PaymentProfileGetRequest {}
 impl FluentRequest<'_, PaymentProfileGetRequest> {}
 impl<'a> ::std::future::IntoFuture for FluentRequest<'a, PaymentProfileGetRequest> {
-    type Output = httpclient::InMemoryResult<PaymentProfileGetResponse>;
+    type Output = httpclient::InMemoryResult<crate::model::PaymentProfileGetResponse>;
     type IntoFuture = ::futures::future::BoxFuture<'a, Self::Output>;
     fn into_future(self) -> Self::IntoFuture {
         Box::pin(async move {
@@ -22,7 +18,7 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, PaymentProfileGetReques
             let mut r = self.client.client.post(url);
             r = r
                 .json(
-                    json!(
+                    serde_json::json!(
                         { "payment_profile_token" : self.params.payment_profile_token }
                     ),
                 );
@@ -30,5 +26,23 @@ impl<'a> ::std::future::IntoFuture for FluentRequest<'a, PaymentProfileGetReques
             let res = r.await?;
             res.json().map_err(Into::into)
         })
+    }
+}
+impl crate::PlaidClient {
+    /**Get payment profile
+
+Use `/payment_profile/get` endpoint to get the status of a given Payment Profile.
+
+See endpoint docs at <https://plaid.com/docs/api/products/transfer/#payment_profileget>.*/
+    pub fn payment_profile_get(
+        &self,
+        payment_profile_token: &str,
+    ) -> FluentRequest<'_, PaymentProfileGetRequest> {
+        FluentRequest {
+            client: self,
+            params: PaymentProfileGetRequest {
+                payment_profile_token: payment_profile_token.to_owned(),
+            },
+        }
     }
 }

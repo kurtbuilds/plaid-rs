@@ -1,11 +1,12 @@
 use serde::{Serialize, Deserialize};
+use super::WebhookEnvironmentValues;
 ///Fires when an account is automatically verified using micro-deposits
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FallbackAuthMicrodepositAutoVerifiedWebhook {
     ///The external account ID associated with the micro-deposit
     pub account_id: String,
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
+    pub environment: WebhookEnvironmentValues,
     ///The error code associated with the webhook.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,

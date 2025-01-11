@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{BeaconMatchSummaryAnalysis, BeaconUserRevision};
 ///A Beacon Duplicate represents a pair of matching Beacon Users and an analysis of the fields they matched on.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BeaconDuplicateGetResponse {
     ///Analysis of which fields matched between one Beacon User and another.
     pub analysis: BeaconMatchSummaryAnalysis,

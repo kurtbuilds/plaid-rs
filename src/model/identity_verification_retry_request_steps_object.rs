@@ -14,7 +14,7 @@ The `selfie_check` step is currently not supported on the sandbox server. Sandbo
 pub struct IdentityVerificationRetryRequestStepsObject {
     ///A boolean field specifying whether the new session should require or skip the `documentary_verification` step.
     pub documentary_verification: bool,
-    ///A boolean field specifying whether the new session should require or skip the `kyc_check` step.
+    ///A boolean field specifying whether the new session should require or skip the `kyc_check` (Data Source Verification) step.
     pub kyc_check: bool,
     ///A boolean field specifying whether the new session should require or skip the `selfie_check` step.
     pub selfie_check: bool,

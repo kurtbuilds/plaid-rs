@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::{InvestmentTransactionSubtype, InvestmentTransactionType};
 ///A transaction within an investment account.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct InvestmentTransaction {
     ///The `account_id` of the account against which this transaction posted.
     pub account_id: String,
@@ -29,7 +30,7 @@ pub struct InvestmentTransaction {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub security_id: Option<String>,
     ///For descriptions of possible transaction types and subtypes, see the [Investment transaction types schema](https://plaid.com/docs/api/accounts/#investment-transaction-types-schema).
-    pub subtype: String,
+    pub subtype: InvestmentTransactionSubtype,
     /**Value is one of the following:
 `buy`: Buying an investment
 `sell`: Selling an investment
@@ -40,7 +41,7 @@ pub struct InvestmentTransaction {
 
 For descriptions of possible transaction types and subtypes, see the [Investment transaction types schema](https://plaid.com/docs/api/accounts/#investment-transaction-types-schema).*/
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: InvestmentTransactionType,
     /**The unofficial currency code associated with the holding. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/

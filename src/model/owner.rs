@@ -6,9 +6,6 @@ pub struct Owner {
     ///Data about the various addresses associated with the account by the financial institution. May be an empty array if no relevant information is returned from the financial institution.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub addresses: Vec<Address>,
-    ///document_id is the id of the document that this identity belongs to
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub document_id: Option<String>,
     ///A list of email addresses associated with the account by the financial institution. May be an empty array if no relevant information is returned from the financial institution.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub emails: Vec<Email>,

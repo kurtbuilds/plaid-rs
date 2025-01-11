@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-///An institution object. If the Item was created via Same-Day micro-deposit verification, will be `null`.
+///An institution object. If the Item was created via Same-Day or Instant micro-deposit verification, will be `null`.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct LinkSessionSuccessMetadataInstitution {
     ///The Plaid institution identifier

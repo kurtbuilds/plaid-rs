@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::{FdxPartyRegistry, FdxPartyType};
 ///FDX Participant - an entity or person that is a part of a FDX API transaction
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FdxParty {
     ///URI for party, where an end user could learn more about the company or application involved in the data sharing chain
     #[serde(rename = "homeUri")]
@@ -22,10 +23,10 @@ pub struct FdxParty {
     pub registered_entity_name: Option<String>,
     ///The registry containing the party’s registration with name and id
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub registry: Option<String>,
+    pub registry: Option<FdxPartyRegistry>,
     ///Identifies the type of a party
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: FdxPartyType,
 }
 impl std::fmt::Display for FdxParty {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use super::SweepStatus;
+use super::{SweepStatus, SweepTrigger};
 /**Describes a sweep of funds to / from the sweep account.
 
 A sweep is associated with many sweep events (events of type `swept` or `return_swept`) which can be retrieved by invoking the `/transfer/event/list` endpoint with the corresponding `sweep_id`.
@@ -7,7 +7,7 @@ A sweep is associated with many sweep events (events of type `swept` or `return_
 `swept` events occur when the transfer amount is credited or debited from your sweep account, depending on the `type` of the transfer. `return_swept` events occur when a transfer is returned and Plaid undoes the credit or debit.
 
 The total sum of the `swept` and `return_swept` events is equal to the `amount` of the sweep Plaid creates and matches the amount of the entry on your sweep account ledger.*/
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferSweep {
     /**Signed decimal amount of the sweep as it appears on your sweep account ledger (e.g. "-10.00")
 
@@ -24,9 +24,14 @@ If amount is not present, the sweep was net-settled to zero and outstanding debi
     pub id: String,
     ///The currency of the sweep, e.g. "USD".
     pub iso_currency_code: String,
+    ///Plaid’s unique identifier for a Plaid Ledger Balance.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ledger_id: Option<String>,
     /**The trace identifier for the transfer based on its network. This will only be set after the transfer has posted.
 
-For `ach` or `same-day-ach` transfers, this is the ACH trace number. Currently, the field will remain null for transfers on other rails.*/
+For `ach` or `same-day-ach` transfers, this is the ACH trace number.
+For `rtp` transfers, this is the Transaction Identification number.
+For `wire` transfers, this is the IMAD (Input Message Accountability Data) number.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub network_trace_id: Option<String>,
     ///The date when the sweep settled, in the YYYY-MM-DD format.
@@ -48,7 +53,7 @@ For `ach` or `same-day-ach` transfers, this is the ACH trace number. Currently, 
 `"balance_threshold"` - The sweep is created by balance threshold setting
 `"automatic_aggregate"` - The sweep is created by the Plaid automatic aggregation process. These funds did not pass through the Plaid Ledger balance.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub trigger: Option<String>,
+    pub trigger: Option<SweepTrigger>,
 }
 impl std::fmt::Display for TransferSweep {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

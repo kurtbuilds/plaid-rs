@@ -1,17 +1,20 @@
 use serde::{Serialize, Deserialize};
-use super::{LinkDeliveryAccount, LinkDeliveryInstitution};
+use super::{
+    LinkDeliveryAccount, LinkDeliveryInstitution, LinkDeliveryWebhookCallbackType,
+    LinkEventName,
+};
 ///Information related to the callback from the Hosted Link session.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LinkCallbackMetadata {
     ///A list of accounts attached to the connected Item. If Account Select is enabled via the developer dashboard, accounts will only include selected accounts.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub accounts: Option<Vec<LinkDeliveryAccount>>,
     ///The type of Link callback event
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub callback_type: Option<String>,
+    pub callback_type: Option<LinkDeliveryWebhookCallbackType>,
     ///A string representing the event that has just occurred in the Link flow.
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub event_name: Option<String>,
+    pub event_name: Option<LinkEventName>,
     ///Information related to the financial institution.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub institution: Option<LinkDeliveryInstitution>,

@@ -1,11 +1,12 @@
 use serde::{Serialize, Deserialize};
+use super::{AchClass, OriginatorExpectedTransferFrequency};
 ///Specifies the originator's expected usage of debits. For all dollar amounts, use a decimal string with two digits of precision e.g. "10.00". This field is required if the originator is expected to process debit transfers.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferDebitUsageConfiguration {
     ///The originator’s expected average amount per debit.
     pub expected_average_amount: String,
     ///The originator's expected transfer frequency.
-    pub expected_frequency: String,
+    pub expected_frequency: OriginatorExpectedTransferFrequency,
     ///The originator’s expected highest amount for a single debit transfer.
     pub expected_highest_amount: String,
     ///The originator’s monthly expected ACH debit processing amount for the next 6-12 months.
@@ -20,7 +21,7 @@ pub struct TransferDebitUsageConfiguration {
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub sec_codes: Vec<String>,
+    pub sec_codes: Vec<AchClass>,
 }
 impl std::fmt::Display for TransferDebitUsageConfiguration {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

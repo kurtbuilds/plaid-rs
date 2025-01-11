@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::PlaidError;
+use super::{PaymentInitiationPaymentStatus, PlaidError, WebhookEnvironmentValues};
 ///Fired when the status of a payment has changed.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentStatusUpdateWebhook {
     ///The value of the reference sent to the bank after adjustment to pass bank validation rules.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10,8 +10,8 @@ pub struct PaymentStatusUpdateWebhook {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub adjusted_start_date: Option<chrono::NaiveDate>,
     ///The Plaid environment the webhook was sent from
-    pub environment: String,
-    ///We use standard HTTP response codes for success and failure notifications, and our errors are further classified by `error_type`. In general, 200 HTTP codes correspond to success, 40X codes are for developer- or user-related failures, and 50X codes are for Plaid-related issues. An Item with a non-`null` error object will only be part of an API response when calling `/item/get` to view Item status. Otherwise, error fields will be `null` if no error has occurred; if an error has occurred, an error code will be returned instead.
+    pub environment: WebhookEnvironmentValues,
+    ///Errors are identified by `error_code` and categorized by `error_type`. Use these in preference to HTTP status codes to identify and handle specific errors. HTTP status codes are set and provide the broadest categorization of errors: 4xx codes are for developer- or user-related errors, and 5xx codes are for Plaid-related errors, and the status will be 2xx in non-error cases. An Item with a non-`null` error object will only be part of an API response when calling `/item/get` to view Item status. Otherwise, error fields will be `null` if no error has occurred; if an error has occurred, an error code will be returned instead.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub error: Option<PlaidError>,
     /**The status of the payment.
@@ -46,7 +46,7 @@ These statuses will be removed in a future release.
 `PAYMENT_STATUS_PROCESSING`: The payment is currently being processed. The payment will automatically exit this state when processing is complete.
 
 `PAYMENT_STATUS_COMPLETED`: Indicates that the standing order has been successfully established. This state is only used for standing orders.*/
-    pub new_payment_status: String,
+    pub new_payment_status: PaymentInitiationPaymentStatus,
     /**The status of the payment.
 
 `PAYMENT_STATUS_INPUT_NEEDED`: This is the initial state of all payments. It indicates that the payment is waiting on user input to continue processing. A payment may re-enter this state later on if further input is needed.
@@ -79,7 +79,7 @@ These statuses will be removed in a future release.
 `PAYMENT_STATUS_PROCESSING`: The payment is currently being processed. The payment will automatically exit this state when processing is complete.
 
 `PAYMENT_STATUS_COMPLETED`: Indicates that the standing order has been successfully established. This state is only used for standing orders.*/
-    pub old_payment_status: String,
+    pub old_payment_status: PaymentInitiationPaymentStatus,
     ///The original value of the reference when creating the payment.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub original_reference: Option<String>,

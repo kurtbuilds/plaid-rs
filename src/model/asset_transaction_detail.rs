@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::{AssetTransactionCategoryType, AssetTransactionType};
 ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetTransactionDetail {
     ///Asset Transaction Amount.
     #[serde(rename = "AssetTransactionAmount")]
@@ -8,7 +9,7 @@ pub struct AssetTransactionDetail {
     ///Asset Transaction Category Type Enumerated derived by Vendor.
     #[serde(rename = "AssetTransactionCategoryType")]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub asset_transaction_category_type: Option<String>,
+    pub asset_transaction_category_type: Option<AssetTransactionCategoryType>,
     ///Asset Transaction Date.
     #[serde(rename = "AssetTransactionDate")]
     pub asset_transaction_date: chrono::NaiveDate,
@@ -21,7 +22,7 @@ pub struct AssetTransactionDetail {
     pub asset_transaction_post_date: chrono::NaiveDate,
     ///Asset Transaction Type.
     #[serde(rename = "AssetTransactionType")]
-    pub asset_transaction_type: String,
+    pub asset_transaction_type: AssetTransactionType,
     ///FI Provided - examples are atm, cash, check, credit, debit, deposit, directDebit, directDeposit, dividend, fee, interest, other, payment, pointOfSale, repeatPayment, serviceCharge, transfer.
     #[serde(rename = "AssetTransactionTypeAdditionalDescription")]
     #[serde(default, skip_serializing_if = "Option::is_none")]

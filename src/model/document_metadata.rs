@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::DocType;
 ///An object representing metadata from the end user's uploaded document.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DocumentMetadata {
     ///An identifier of the document that is also present in the paystub response.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -27,7 +28,7 @@ pub struct DocumentMetadata {
 
 `UNKNOWN`: Document type could not be determined.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub doc_type: Option<String>,
+    pub doc_type: Option<DocType>,
     ///The name of the document.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,

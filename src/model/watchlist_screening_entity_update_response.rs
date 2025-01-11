@@ -1,9 +1,12 @@
 use serde::{Serialize, Deserialize};
-use super::{EntityWatchlistScreeningSearchTerms, WatchlistScreeningAuditTrail};
+use super::{
+    EntityWatchlistScreeningSearchTerms, WatchlistScreeningAuditTrail,
+    WatchlistScreeningStatus,
+};
 ///The entity screening object allows you to represent an entity in your system, update its profile, and search for it on various watchlists. Note: Rejected entity screenings will not receive new hits, regardless of entity program configuration.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistScreeningEntityUpdateResponse {
-    ///ID of the associated user.
+    ///ID of the associated user. To retrieve the email address or other details of the person corresponding to this id, use `/dashboard_user/get`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub assignee: Option<String>,
     ///Information about the last change made to the parent object specifying what caused the change as well as when it occurred.
@@ -18,7 +21,7 @@ pub struct WatchlistScreeningEntityUpdateResponse {
     ///Search terms associated with an entity used for searching against watchlists
     pub search_terms: EntityWatchlistScreeningSearchTerms,
     ///A status enum indicating whether a screening is still pending review, has been rejected, or has been cleared.
-    pub status: String,
+    pub status: WatchlistScreeningStatus,
 }
 impl std::fmt::Display for WatchlistScreeningEntityUpdateResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

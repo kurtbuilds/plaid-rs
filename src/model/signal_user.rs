@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
 use super::{SignalAddressData, SignalPersonName};
-///Details about the end user initiating the transaction (i.e., the account holder).
+///Details about the end user initiating the transaction (i.e., the account holder). When calling `/signal/evaluate` or `/signal/processor/evaluate`, this field is optional, but strongly recommended to increase the accuracy of Signal results.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct SignalUser {
     ///Data about the components comprising an address.

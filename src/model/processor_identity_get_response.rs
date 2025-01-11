@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::AccountIdentity;
 ///ProcessorIdentityGetResponse defines the response schema for `/processor/identity/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorIdentityGetResponse {
     ///Identity information about an account
     pub account: AccountIdentity,

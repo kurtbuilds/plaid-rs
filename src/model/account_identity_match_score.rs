@@ -4,7 +4,7 @@ use super::{
     PhoneNumberMatchScore,
 };
 ///Identity match scores for an account
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AccountIdentityMatchScore {
     ///A single account at a financial institution.
     #[serde(flatten)]

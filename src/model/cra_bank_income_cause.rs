@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::CreditBankIncomeErrorType;
 ///An error object and associated `item_id` used to identify a specific Item and error when a batch operation operating on multiple Items has encountered an error in one of the Items.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CraBankIncomeCause {
     /**A user-friendly representation of the error code. null if the error is not related to user action.
 This may change over time and is not safe for programmatic use.*/
@@ -10,7 +11,7 @@ This may change over time and is not safe for programmatic use.*/
     ///A developer-friendly representation of the error code. This may change over time and is not safe for programmatic use.
     pub error_message: String,
     ///A broad categorization of the error. Safe for programmatic use.
-    pub error_type: String,
+    pub error_type: CreditBankIncomeErrorType,
 }
 impl std::fmt::Display for CraBankIncomeCause {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{EntityScreeningHitEmails, MatchSummary};
 ///Analyzed emails for the associated hit
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EntityScreeningHitEmailsItems {
     ///Summary object reflecting the match result of the associated data
     #[serde(default, skip_serializing_if = "Option::is_none")]

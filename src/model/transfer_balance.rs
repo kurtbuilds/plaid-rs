@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::TransferBalanceType;
 ///Information about the balance held with Plaid.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferBalance {
     ///The amount of this balance available for use (decimal string with two digits of precision e.g. "10.00").
     pub available: String,
@@ -12,7 +13,7 @@ pub struct TransferBalance {
 `prefunded_rtp_credits` - Your prefunded RTP credit balance with Plaid
 `prefunded_ach_credits` - Your prefunded ACH credit balance with Plaid*/
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: TransferBalanceType,
 }
 impl std::fmt::Display for TransferBalance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

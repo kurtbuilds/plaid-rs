@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::TransferIntentGet;
 ///Defines the response schema for `/transfer/intent/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferIntentGetResponse {
     ///A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid identifiers, is case sensitive.
     pub request_id: String,

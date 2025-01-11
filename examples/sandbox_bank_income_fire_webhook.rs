@@ -1,13 +1,13 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let webhook_code = "your webhook code";
+    let webhook_code = SandboxBankIncomeWebhookFireRequestWebhookCode::BankIncomeRefreshUpdate;
     let webhook_fields = SandboxBankIncomeWebhookFireRequestWebhookFields {
         bank_income_refresh_complete_result: Some(
-            "your bank income refresh complete result".to_owned(),
+            BankIncomeRefreshCompleteResult::Success,
         ),
         user_id: "your user id".to_owned(),
     };

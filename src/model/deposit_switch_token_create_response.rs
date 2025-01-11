@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-///DepositSwitchTokenCreateResponse defines the response schema for `/deposit_switch/token/create`
+///(Deprecated) DepositSwitchTokenCreateResponse defines the response schema for `/deposit_switch/token/create`
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DepositSwitchTokenCreateResponse {
     ///Deposit switch token, used to initialize Link for the Deposit Switch product

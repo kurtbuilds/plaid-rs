@@ -12,7 +12,7 @@ pub struct IdentityMatchUser {
     ///The user's full legal name.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub legal_name: Option<String>,
-    ///The user's phone number, in E.164 format: +{countrycode}{number}. For example: "+14151234567". Phone numbers provided in other formats will be parsed on a best-effort basis.
+    ///The user's phone number, in E.164 format: +{countrycode}{number}. For example: "+14157452130". Phone numbers provided in other formats will be parsed on a best-effort basis. Phone number input is validated against valid number ranges; number strings that do not match a real-world phone numbering scheme may cause the request to fail, even in the Sandbox test environment.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub phone_number: Option<String>,
 }

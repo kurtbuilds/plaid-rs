@@ -21,11 +21,11 @@ pub struct LinkSessionSuccessMetadataAccount {
     #[serde(rename = "type")]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
-    /**Indicates an Item's micro-deposit-based verification status. Possible values are:
+    /**Indicates an Item's micro-deposit-based verification or database verification status. Possible values are:
 
 `pending_automatic_verification`: The Item is pending automatic verification
 
-`pending_manual_verification`: The Item is pending manual micro-deposit verification. Items remain in this state until the user successfully verifies the two amounts.
+`pending_manual_verification`: The Item is pending manual micro-deposit verification. Items remain in this state until the user successfully verifies the code.
 
 `automatically_verified`: The Item has successfully been automatically verified
 
@@ -35,9 +35,11 @@ pub struct LinkSessionSuccessMetadataAccount {
 
 `verification_failed`: The Item failed manual micro-deposit verification because the user exhausted all 3 verification attempts. Users may retry by submitting their information again through Link.
 
-`database_matched`: The Item has successfully been verified using Plaid's data sources. Note: Database Match is currently a beta feature, please contact your account manager for more information.
+`database_matched`: The Item has successfully been verified using Plaid's data sources.
 
-`null`: micro-deposit-based verification is not being used for the Item.*/
+`database_insights_pending`: The Database Insights result is pending and will be available upon Auth request. Note: Database Insights is currently a beta feature, please contact your account manager for more information.
+
+`null`: Neither micro-deposit-based verification nor database verification are being used for the Item.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub verification_status: Option<String>,
 }

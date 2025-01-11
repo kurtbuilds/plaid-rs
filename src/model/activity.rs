@@ -1,10 +1,13 @@
 use serde::{Serialize, Deserialize};
-use super::Scopes;
+use super::{ActionState, ActivityType, ItemCreateAuthentication, Scopes};
 ///Describes a consent activity.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Activity {
     ///Types of consent activities
-    pub activity: String,
+    pub activity: ActivityType,
+    ///Enum representing the entity authenticating the user.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub authentication: Option<ItemCreateAuthentication>,
     ///A unique identifier for the activity
     pub id: String,
     ///The date this activity was initiated [ISO 8601](https://wikipedia.org/wiki/ISO_8601) (YYYY-MM-DD) format in UTC.
@@ -15,7 +18,7 @@ pub struct Activity {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub scopes: Option<Scopes>,
     ///Enum representing the state of the action/activity.
-    pub state: String,
+    pub state: ActionState,
     ///This field will map to the application ID that is returned from /item/application/list, or provided to the institution in an oauth redirect.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target_application_id: Option<String>,

@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::Item;
 ///ItemWebhookUpdateResponse defines the response schema for `/item/webhook/update`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ItemWebhookUpdateResponse {
     ///Metadata about the Item.
     pub item: Item,

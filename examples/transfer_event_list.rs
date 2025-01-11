@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -9,7 +9,7 @@ async fn main() {
         .account_id("your account id")
         .count(1)
         .end_date(chrono::Utc::now())
-        .event_types(&["your event types"])
+        .event_types(vec![TransferEventType::Pending])
         .funding_account_id("your funding account id")
         .offset(1)
         .origination_account_id("your origination account id")

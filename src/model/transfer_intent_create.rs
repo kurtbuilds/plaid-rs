@@ -1,12 +1,18 @@
 use serde::{Serialize, Deserialize};
-use super::{TransferMetadata, TransferUserInResponse};
+use super::{
+    AchClass, TransferIntentCreateMode, TransferIntentCreateNetwork,
+    TransferIntentStatus, TransferMetadata, TransferUserInResponse,
+};
 ///Represents a transfer intent within Transfer UI.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferIntentCreate {
     ///The Plaid `account_id` corresponding to the end-user account that will be debited or credited. Returned only if `account_id` was set on intent creation.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
-    /**Specifies the use case of the transfer. Required for transfers on an ACH network.
+    /**Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see [ACH SEC codes](https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes).
+
+Codes supported for credits: `ccd`, `ppd`
+Codes supported for debits: `ccd`, `tel`, `web`
 
 `"ccd"` - Corporate Credit or Debit - fund transfer between two corporate bank accounts
 
@@ -16,7 +22,7 @@ pub struct TransferIntentCreate {
 
 `"web"` - Internet-Initiated Entry - debits from a consumer’s account where their authorization is obtained over the Internet*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub ach_class: Option<String>,
+    pub ach_class: Option<AchClass>,
     ///The amount of the transfer (decimal string with two digits of precision e.g. "10.00"). When calling `/transfer/authorization/create`, specify the maximum amount to authorize. When calling `/transfer/create`, specify the exact amount of the transfer, up to a maximum of the amount authorized. If this field is left blank when calling `/transfer/create`, the maximum amount authorized in the `authorization_id` will be sent.
     pub amount: String,
     ///The datetime the transfer was created. This will be of the form `2006-01-02T15:04:05Z`.
@@ -42,14 +48,16 @@ Maximum value length of 500 characters*/
 `PAYMENT`: Transfers funds from an end user's account to your business account.
 
 `DISBURSEMENT`: Transfers funds from your business account to an end user's account.*/
-    pub mode: String,
+    pub mode: TransferIntentCreateMode,
     /**The network or rails used for the transfer. Defaults to `same-day-ach`.
 
-For transfers submitted as `ach`, the next-day cutoff is 5:30 PM Eastern Time.
+For transfers submitted using `ach`, the next-day cutoff is 8:30 PM Eastern Time.
 
-For transfers submitted as `same-day-ach`, the same-day cutoff is 3:30 PM Eastern Time. If the transfer is submitted after this cutoff but before the next-day cutoff, it will be sent over next-day rails and will not incur same-day charges; this will apply to both legs of the transfer if applicable.*/
+For transfers submitted using `same-day-ach`, the same-day cutoff is 3:30 PM Eastern Time. If the transfer is submitted after this cutoff but before the next-day cutoff, it will be sent over next-day rails and will not incur same-day charges.
+
+For transfers submitted using `rtp`, in the case that the account being credited does not support RTP, the transfer will be sent over ACH as long as an `ach_class` is provided in the request. If RTP isn't supported by the account and no `ach_class` is provided, the transfer will fail to be submitted.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub network: Option<String>,
+    pub network: Option<TransferIntentCreateNetwork>,
     ///Plaid’s unique identifier for the origination account for the intent. If not provided, the default account will be used.
     pub origination_account_id: String,
     ///When `true`, the transfer requires a `GUARANTEED` decision by Plaid to proceed (Guarantee customers only).
@@ -60,7 +68,7 @@ For transfers submitted as `same-day-ach`, the same-day cutoff is 3:30 PM Easter
 `PENDING`: The transfer intent is pending.
 `SUCCEEDED`: The transfer intent was successfully created.
 `FAILED`: The transfer intent was unable to be created.*/
-    pub status: String,
+    pub status: TransferIntentStatus,
     ///The legal name and other information for the account holder.
     pub user: TransferUserInResponse,
 }

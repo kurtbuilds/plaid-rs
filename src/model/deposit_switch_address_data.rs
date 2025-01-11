@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-///The user's address.
+///(Deprecated) The user's address.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DepositSwitchAddressData {
     ///The full city name

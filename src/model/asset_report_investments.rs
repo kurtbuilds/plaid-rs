@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::{InvestmentTransactionSubtype, InvestmentTransactionType};
 ///A transaction within an investment account.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AssetReportInvestments {
     ///The `account_id` of the account against which this transaction posted.
     pub account_id: String,
@@ -26,7 +27,7 @@ pub struct AssetReportInvestments {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub security_id: Option<String>,
     ///For descriptions of possible transaction types and subtypes, see the [Investment transaction types schema](https://plaid.com/docs/api/accounts/#investment-transaction-types-schema).
-    pub subtype: String,
+    pub subtype: InvestmentTransactionSubtype,
     /**Value is one of the following:
 `buy`: Buying an investment
 `sell`: Selling an investment
@@ -37,12 +38,16 @@ pub struct AssetReportInvestments {
 
 For descriptions of possible transaction types and subtypes, see the [Investment transaction types schema](https://plaid.com/docs/api/accounts/#investment-transaction-types-schema).*/
     #[serde(rename = "type")]
-    pub type_: String,
+    pub type_: InvestmentTransactionType,
     /**The unofficial currency code associated with the holding. Always `null` if `iso_currency_code` is non-`null`. Unofficial currency codes are used for currencies that do not have official ISO currency codes, such as cryptocurrencies and the currencies of certain countries.
 
 See the [currency code schema](https://plaid.com/docs/api/accounts#currency-code-schema) for a full listing of supported `iso_currency_code`s.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub unofficial_currency_code: Option<String>,
+    ///The total quantity of vested assets held, as reported by the financial institution. Vested assets are only associated with [equities](https://plaid.com/docs/api/products/investments/#investments-holdings-get-response-securities-type).
+    pub vested_quantity: f64,
+    ///The value of the vested holdings as reported by the institution.
+    pub vested_value: f64,
 }
 impl std::fmt::Display for AssetReportInvestments {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

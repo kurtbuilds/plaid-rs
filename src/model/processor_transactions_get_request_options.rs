@@ -8,7 +8,7 @@ pub struct ProcessorTransactionsGetRequestOptions {
     ///Counterparties and extra merchant fields are now returned by default.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub include_logo_and_counterparty_beta: Option<bool>,
-    ///Include the raw unparsed transaction description from the financial institution. This field is disabled by default. If you need this information in addition to the parsed data provided, contact your Plaid Account Manager, or submit a [Support request](https://dashboard.plaid.com/support/new/product-and-development/product-troubleshooting/product-functionality).
+    ///Include the raw unparsed transaction description from the financial institution.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub include_original_description: Option<bool>,
     ///Personal finance categories are now returned by default.

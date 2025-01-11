@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::PaymentInitiationConsentStatus;
 ///PaymentInitiationConsentCreateResponse defines the response schema for `/payment_initiation/consent/create`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaymentInitiationConsentCreateResponse {
     ///A unique ID identifying the payment consent.
     pub consent_id: String,
@@ -17,7 +18,7 @@ pub struct PaymentInitiationConsentCreateResponse {
 `REVOKED`: Consent has been revoked and can no longer be used.
 
 `EXPIRED`: Consent is no longer valid.*/
-    pub status: String,
+    pub status: PaymentInitiationConsentStatus,
 }
 impl std::fmt::Display for PaymentInitiationConsentCreateResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

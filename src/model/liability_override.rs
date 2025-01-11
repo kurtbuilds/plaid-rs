@@ -33,7 +33,7 @@ pub struct LiabilityOverride {
     pub payment_reference_number: String,
     ///The original loan principal. Can only be set if `type` is `student`.
     pub principal: f64,
-    ///Information about the student's eligibility in the Public Service Loan Forgiveness program. This is only returned if the institution is FedLoan (`ins_116527`).
+    ///Information about the student's eligibility in the Public Service Loan Forgiveness program. This is only returned if the institution is FedLoan (`ins_116527`). Since FedLoan no longer services student loans, this field is no longer returned.
     pub pslf_status: PslfStatus,
     ///The purchase APR percentage value. For simplicity, this is the only interest rate used to calculate interest charges. Can only be set if `type` is `credit`.
     pub purchase_apr: f64,
@@ -41,7 +41,7 @@ pub struct LiabilityOverride {
     pub repayment_model: StudentLoanRepaymentModel,
     ///Override the `repayment_plan.description` field. Can only be set if `type` is `student`.
     pub repayment_plan_description: String,
-    ///Override the `repayment_plan.type` field. Can only be set if `type` is `student`. Possible values are: `"extended graduated"`, `"extended standard"`, `"graduated"`, `"income-contingent repayment"`, `"income-based repayment"`, `"interest only"`, `"other"`, `"pay as you earn"`, `"revised pay as you earn"`, `"standard"`, or `"saving on a valuable education"`.
+    ///Override the `repayment_plan.type` field. Can only be set if `type` is `student`. Possible values are: `"extended graduated"`, `"extended standard"`, `"graduated"`, `"income-contingent repayment"`, `"income-based repayment"`, `"income-sensitive repayment"`, `"interest only"`, `"other"`, `"pay as you earn"`, `"revised pay as you earn"`, `"standard"`, or `"saving on a valuable education"`.
     pub repayment_plan_type: String,
     ///Override the `sequence_number` field. Can only be set if `type` is `student`.
     pub sequence_number: String,

@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -15,7 +15,7 @@ async fn main() {
         .start_date(chrono::Utc::now())
         .status(SweepStatus(serde_json::json!({})))
         .transfer_id("your transfer id")
-        .trigger("your trigger")
+        .trigger(SweepTrigger::Manual)
         .await
         .unwrap();
     println!("{:#?}", response);

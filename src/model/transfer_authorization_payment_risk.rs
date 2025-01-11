@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::SignalWarning;
+use super::{SignalWarning, TransferAuthorizationRiskLevel};
 ///This object includes the scores and risk level. This response is offered as an add-on to /transfer/authorization/create. To request access to these fields please contact your Plaid account manager.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationPaymentRisk {
     /**A score from 1-99 that indicates the transaction return risk: a higher risk score suggests a higher return likelihood.
 
@@ -17,7 +17,7 @@ These returns typically have a return time frame of up to 60 calendar days. Duri
     pub customer_initiated_return_score: Option<i64>,
     ///Comprises five risk categories (high risk, medium-high risk, medium risk, medium-low risk, low risk) based on the probability of return
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub risk_level: Option<String>,
+    pub risk_level: Option<TransferAuthorizationRiskLevel>,
     ///If bank information was not available to be used in the Signal model, this array contains warnings describing why bank data is missing. If you want to receive an API error instead of Signal scores in the case of missing bank data, file a support ticket or contact your Plaid account manager.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub warnings: Vec<SignalWarning>,

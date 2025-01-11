@@ -1,10 +1,11 @@
 use serde::{Serialize, Deserialize};
+use super::PartyRoleType;
 ///Documentation not found in the MISMO model viewer and not provided by Freddie Mac.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RoleDetail {
     ///A value from a MISMO defined list that identifies the role that the party plays in the transaction. Parties may be either a person or legal entity. A party may play multiple roles in a transaction.A value from a MISMO defined list that identifies the role that the party plays in the transaction. Parties may be either a person or legal entity. A party may play multiple roles in a transaction.
     #[serde(rename = "PartyRoleType")]
-    pub party_role_type: String,
+    pub party_role_type: PartyRoleType,
 }
 impl std::fmt::Display for RoleDetail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

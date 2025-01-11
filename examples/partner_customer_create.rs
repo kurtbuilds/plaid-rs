@@ -1,27 +1,33 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 use plaid::request::PartnerCustomerCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
-    let args = PartnerCustomerCreateRequired {
-        address: PartnerEndCustomerAddress {
-            city: Some("your city".to_owned()),
-            country_code: Some("your country code".to_owned()),
-            postal_code: Some("your postal code".to_owned()),
-            region: Some("your region".to_owned()),
-            street: Some("your street".to_owned()),
-        },
-        application_name: "your application name",
-        company_name: "your company name",
-        is_bank_addendum_completed: true,
-        is_diligence_attested: true,
-        legal_entity_name: "your legal entity name",
-        website: "your website",
+    let address = PartnerEndCustomerAddress {
+        city: Some("your city".to_owned()),
+        country_code: Some("your country code".to_owned()),
+        postal_code: Some("your postal code".to_owned()),
+        region: Some("your region".to_owned()),
+        street: Some("your street".to_owned()),
     };
+    let application_name = "your application name";
+    let company_name = "your company name";
+    let is_bank_addendum_completed = true;
+    let is_diligence_attested = true;
+    let legal_entity_name = "your legal entity name";
+    let website = "your website";
     let response = client
-        .partner_customer_create(args)
+        .partner_customer_create(PartnerCustomerCreateRequired {
+            address,
+            application_name,
+            company_name,
+            is_bank_addendum_completed,
+            is_diligence_attested,
+            legal_entity_name,
+            website,
+        })
         .assets_under_management(PartnerEndCustomerAssetsUnderManagement {
             amount: 1.0,
             iso_currency_code: "your iso currency code".to_owned(),
@@ -40,7 +46,7 @@ async fn main() {
             phone_number: Some("your phone number".to_owned()),
         })
         .logo("your logo")
-        .products(&["your products"])
+        .products(vec![Products::Assets])
         .redirect_uris(&["your redirect uris"])
         .registration_number("your registration number")
         .secret("your secret")

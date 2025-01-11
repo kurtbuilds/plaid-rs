@@ -3,8 +3,7 @@ use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct CreditAmountWithCurrency {
     ///Value of amount with up to 2 decimal places.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub amount: Option<f64>,
+    pub amount: f64,
     ///The ISO 4217 currency code of the amount or balance.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub iso_currency_code: Option<String>,

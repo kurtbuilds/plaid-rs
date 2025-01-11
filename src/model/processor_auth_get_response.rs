@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountBase, ProcessorNumber};
 ///ProcessorAuthGetResponse defines the response schema for `/processor/auth/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProcessorAuthGetResponse {
     ///A single account at a financial institution.
     pub account: AccountBase,

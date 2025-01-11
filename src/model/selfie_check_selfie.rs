@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
-use super::{SelfieAnalysis, SelfieCapture};
+use super::{SelfieAnalysis, SelfieCapture, SelfieStatus};
 ///Captures and analysis from a user's selfie.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SelfieCheckSelfie {
     ///High level descriptions of how the associated selfie was processed. If a selfie fails verification, the details in the `analysis` object should help clarify why the selfie was rejected.
     pub analysis: SelfieAnalysis,
@@ -10,7 +10,7 @@ pub struct SelfieCheckSelfie {
     ///The image or video capture of a selfie. Only one of image or video URL will be populated per selfie.
     pub capture: SelfieCapture,
     ///An outcome status for this specific selfie. Distinct from the overall `selfie_check.status` that summarizes the verification outcome from one or more selfies.
-    pub status: String,
+    pub status: SelfieStatus,
 }
 impl std::fmt::Display for SelfieCheckSelfie {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

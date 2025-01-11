@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{EntityScreeningHitUrls, MatchSummary};
 ///Analyzed URLs for the associated hit
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EntityScreeningHitUrlsItems {
     ///Summary object reflecting the match result of the associated data
     #[serde(default, skip_serializing_if = "Option::is_none")]

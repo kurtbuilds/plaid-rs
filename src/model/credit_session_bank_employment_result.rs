@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::CreditSessionBankEmploymentStatus;
 ///The details of a bank employment verification in Link.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreditSessionBankEmploymentResult {
     ///The Plaid Institution ID associated with the Item.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -20,7 +21,7 @@ pub struct CreditSessionBankEmploymentResult {
 
 `INTERNAL_ERROR`: The user encountered an internal error.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<CreditSessionBankEmploymentStatus>,
 }
 impl std::fmt::Display for CreditSessionBankEmploymentResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

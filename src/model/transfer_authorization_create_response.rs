@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::TransferAuthorization;
 ///Defines the response schema for `/transfer/authorization/create`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransferAuthorizationCreateResponse {
     ///Contains the authorization decision for a proposed transfer.
     pub authorization: TransferAuthorization,

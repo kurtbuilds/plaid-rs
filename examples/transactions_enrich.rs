@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
-use plaid::PlaidClient;
 use plaid::model::*;
+use plaid::PlaidClient;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -11,8 +11,8 @@ async fn main() {
         client_account_id : Some("your client account id".to_owned()), client_user_id :
         Some("your client user id".to_owned()), date_posted : Some(chrono::Utc::now()
         .date_naive()), description : "your description".to_owned(), direction :
-        "your direction".to_owned(), id : "your id".to_owned(), iso_currency_code :
-        "your iso currency code".to_owned(), location :
+        EnrichTransactionDirection::Inflow, id : "your id".to_owned(), iso_currency_code
+        : "your iso currency code".to_owned(), location :
         Some(ClientProvidedTransactionLocation { address : Some("your address"
         .to_owned()), city : Some("your city".to_owned()), country : Some("your country"
         .to_owned()), postal_code : Some("your postal code".to_owned()), region :

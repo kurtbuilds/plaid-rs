@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountIdentityMatchScore, Item};
 ///IdentityMatchResponse defines the response schema for `/identity/match`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityMatchResponse {
     ///The accounts for which Identity match has been requested
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

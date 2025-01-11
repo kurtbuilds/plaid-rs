@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::TransactionsRuleDetails;
 ///A representation of a transactions category rule.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransactionsCategoryRule {
     ///Date and time when a rule was created in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format ( `YYYY-MM-DDTHH:mm:ssZ` ).
     #[serde(default, skip_serializing_if = "Option::is_none")]

@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use super::{AccountIdentity, Item};
 ///IdentityGetResponse defines the response schema for `/identity/get`
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IdentityGetResponse {
     ///The accounts for which Identity data has been requested
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

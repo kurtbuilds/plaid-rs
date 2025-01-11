@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
+use super::MatchSummaryCode;
 ///Result summary object specifying how the `phone` field matched.
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct KycCheckPhoneSummary {
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
 
@@ -14,7 +15,7 @@ pub struct KycCheckPhoneSummary {
 `no_data` indicates that Plaid was unable to find external data to compare against the provided input data.
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
-    pub area_code: String,
+    pub area_code: MatchSummaryCode,
     /**An enum indicating the match type between data provided by user and data checked against an external data source.
 
 
@@ -27,7 +28,7 @@ pub struct KycCheckPhoneSummary {
 `no_data` indicates that Plaid was unable to find external data to compare against the provided input data.
 
 `no_input` indicates that Plaid was unable to perform a check because no information was provided for this field by the end user.*/
-    pub summary: String,
+    pub summary: MatchSummaryCode,
 }
 impl std::fmt::Display for KycCheckPhoneSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> Result<(), std::fmt::Error> {

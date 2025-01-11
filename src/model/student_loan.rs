@@ -3,7 +3,7 @@ use super::{PslfStatus, ServicerAddressData, StudentLoanStatus, StudentRepayment
 ///Contains details about a student loan account
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct StudentLoan {
-    ///The ID of the account that this liability belongs to.
+    ///The ID of the account that this liability belongs to. Each account can only contain one liability.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     ///The account number of the loan. For some institutions, this may be a masked version of the number (e.g., the last 4 digits instead of the entire number).
@@ -29,6 +29,9 @@ pub struct StudentLoan {
     ///The date of the last payment. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub last_payment_date: Option<chrono::NaiveDate>,
+    ///The total amount owed as of the last statement issued
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub last_statement_balance: Option<f64>,
     ///The date of the last statement. Dates are returned in an [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub last_statement_issue_date: Option<chrono::NaiveDate>,
@@ -38,7 +41,7 @@ pub struct StudentLoan {
     ///An object representing the status of the student loan
     pub loan_status: StudentLoanStatus,
     /**The minimum payment due for the next billing cycle. There are some exceptions:
-Some institutions require a minimum payment across all loans associated with an account number. Our API presents that same minimum payment amount on each loan. The institutions that do this are: Great Lakes ( `ins_116861`), Firstmark (`ins_116295`), Commonbond Firstmark Services (`ins_116950`), Nelnet (`ins_116528`), EdFinancial Services (`ins_116304`), Granite State (`ins_116308`), and Oklahoma Student Loan Authority (`ins_116945`).
+Some institutions require a minimum payment across all loans associated with an account number. Our API presents that same minimum payment amount on each loan. The institutions that do this are: Great Lakes ( `ins_116861`), Firstmark (`ins_116295`), Commonbond Firstmark Services (`ins_116950`), Granite State (`ins_116308`), and Oklahoma Student Loan Authority (`ins_116945`).
 Firstmark (`ins_116295` ) and Navient (`ins_116248`) will display as $0 if there is an autopay program in effect.*/
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub minimum_payment_amount: Option<f64>,
@@ -57,7 +60,7 @@ Firstmark (`ins_116295` ) and Navient (`ins_116248`) will display as $0 if there
     ///The relevant account number that should be used to reference this loan for payments. In the majority of cases, `payment_reference_number` will match `account_number,` but in some institutions, such as Great Lakes (`ins_116861`), it will be different.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub payment_reference_number: Option<String>,
-    ///Information about the student's eligibility in the Public Service Loan Forgiveness program. This is only returned if the institution is FedLoan (`ins_116527`).
+    ///Information about the student's eligibility in the Public Service Loan Forgiveness program. This is only returned if the institution is FedLoan (`ins_116527`). Since FedLoan no longer services student loans, this field is no longer returned.
     pub pslf_status: PslfStatus,
     ///An object representing the repayment plan for the student loan
     pub repayment_plan: StudentRepaymentPlan,
