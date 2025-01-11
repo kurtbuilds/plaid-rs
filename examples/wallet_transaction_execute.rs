@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::WalletTransactionExecuteRequired;
+use plaid::request::wallet_transaction_execute::WalletTransactionExecuteRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

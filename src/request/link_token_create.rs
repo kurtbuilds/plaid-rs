@@ -6,7 +6,7 @@ use crate::model::{
     LinkTokenCreateRequestBaseReport, LinkTokenCreateCardSwitch, CountryCode,
     LinkTokenCreateRequestCraOptions, LinkTokenCreateRequestCreditPartnerInsights,
     LinkTokenCreateRequestDepositSwitch, LinkTokenCreateRequestEmployment,
-    LinkTokenEUConfig, LinkTokenCreateHostedLink, LinkTokenCreateIdentity,
+    LinkTokenEuConfig, LinkTokenCreateHostedLink, LinkTokenCreateIdentity,
     LinkTokenCreateRequestIdentityVerification, LinkTokenCreateRequestIncomeVerification,
     LinkTokenCreateInstitutionData, LinkTokenInvestments, LinkTokenInvestmentsAuth,
     LinkTokenCreateRequestPaymentConfiguration, LinkTokenCreateRequestPaymentInitiation,

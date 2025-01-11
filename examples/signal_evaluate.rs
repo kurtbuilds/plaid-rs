@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::SignalEvaluateRequired;
+use plaid::request::signal_evaluate::SignalEvaluateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

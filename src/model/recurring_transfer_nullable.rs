@@ -1,2 +1,4 @@
-use serde::{Serialize, Deserialize};
-pub type RecurringTransferNullable = serde_json::Value;
+pub type RecurringTransferNullable = std::collections::HashMap<
+    String,
+    serde_json::Value,
+>;

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::CraCheckReportCreateRequired;
+use plaid::request::cra_check_report_create::CraCheckReportCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

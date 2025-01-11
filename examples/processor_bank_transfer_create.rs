@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::ProcessorBankTransferCreateRequired;
+use plaid::request::processor_bank_transfer_create::ProcessorBankTransferCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -30,7 +30,7 @@ async fn main() {
         })
         .ach_class(AchClass::Ccd)
         .custom_tag("your custom tag")
-        .metadata("your bank transfer metadata")
+        .metadata(std::collections::HashMap::new())
         .origination_account_id("your origination account id")
         .await
         .unwrap();

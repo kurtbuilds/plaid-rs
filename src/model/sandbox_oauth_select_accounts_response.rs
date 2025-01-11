@@ -1,2 +1,4 @@
-use serde::{Serialize, Deserialize};
-pub type SandboxOauthSelectAccountsResponse = serde_json::Value;
+pub type SandboxOauthSelectAccountsResponse = std::collections::HashMap<
+    String,
+    serde_json::Value,
+>;

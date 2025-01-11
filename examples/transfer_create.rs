@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::TransferCreateRequired;
+use plaid::request::transfer_create::TransferCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -21,7 +21,7 @@ async fn main() {
         .facilitator_fee("your facilitator fee")
         .idempotency_key("your idempotency key")
         .iso_currency_code("your iso currency code")
-        .metadata("your transfer metadata")
+        .metadata(std::collections::HashMap::new())
         .network(TransferNetwork::Ach)
         .origination_account_id("your origination account id")
         .test_clock_id("your test clock id")

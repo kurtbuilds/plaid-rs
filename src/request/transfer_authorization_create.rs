@@ -2,7 +2,7 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::model::{
-    ACHClass, TransferCreditFundsSource, TransferAuthorizationDevice, TransferNetwork,
+    AchClass, TransferCreditFundsSource, TransferAuthorizationDevice, TransferNetwork,
     TransferType, TransferAuthorizationUserInRequest, TransferWireDetails,
 };
 /**You should use this struct via [`PlaidClient::transfer_authorization_create`].

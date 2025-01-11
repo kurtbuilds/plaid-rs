@@ -1,7 +1,7 @@
 use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
-use crate::model::CraPDFAddOns;
+use crate::model::CraPdfAddOns;
 /**You should use this struct via [`PlaidClient::cra_check_report_pdf_get`].
 
 On request success, this will return a [`()`].*/

@@ -1,7 +1,7 @@
 use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
-use crate::model::TransferPlatformTOSAcceptanceMetadata;
+use crate::model::TransferPlatformTosAcceptanceMetadata;
 /**You should use this struct via [`PlaidClient::transfer_platform_originator_create`].
 
 On request success, this will return a [`TransferPlatformOriginatorCreateResponse`].*/

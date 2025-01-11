@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::PartnerCustomerCreateRequired;
+use plaid::request::partner_customer_create::PartnerCustomerCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

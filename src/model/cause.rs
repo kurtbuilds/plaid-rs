@@ -1,2 +1,1 @@
-use serde::{Serialize, Deserialize};
-pub type Cause = serde_json::Value;
+pub type Cause = std::collections::HashMap<String, serde_json::Value>;

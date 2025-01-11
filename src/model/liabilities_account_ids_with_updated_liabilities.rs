@@ -1,2 +1,4 @@
-use serde::{Serialize, Deserialize};
-pub type LiabilitiesAccountIdsWithUpdatedLiabilities = Vec<String>;
+pub type LiabilitiesAccountIdsWithUpdatedLiabilities = std::collections::HashMap<
+    String,
+    Vec<String>,
+>;

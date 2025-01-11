@@ -1,2 +1,4 @@
-use serde::{Serialize, Deserialize};
-pub type WalletTransactionGetResponse = serde_json::Value;
+pub type WalletTransactionGetResponse = std::collections::HashMap<
+    String,
+    serde_json::Value,
+>;

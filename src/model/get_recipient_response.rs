@@ -1,2 +1,1 @@
-use serde::{Serialize, Deserialize};
-pub type GetRecipientResponse = serde_json::Value;
+pub type GetRecipientResponse = std::collections::HashMap<String, serde_json::Value>;

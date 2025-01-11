@@ -1,3 +1,5 @@
-use serde::{Serialize, Deserialize};
 use super::IdentityUpdateTypes;
-pub type AccountIdsWithUpdatedIdentity = Vec<IdentityUpdateTypes>;
+pub type AccountIdsWithUpdatedIdentity = std::collections::HashMap<
+    String,
+    Vec<IdentityUpdateTypes>,
+>;

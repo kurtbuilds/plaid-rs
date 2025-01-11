@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::TransferAuthorizationCreateRequired;
+use plaid::request::transfer_authorization_create::TransferAuthorizationCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

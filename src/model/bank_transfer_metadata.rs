@@ -1,2 +1,1 @@
-use serde::{Serialize, Deserialize};
-pub type BankTransferMetadata = String;
+pub type BankTransferMetadata = std::collections::HashMap<String, String>;

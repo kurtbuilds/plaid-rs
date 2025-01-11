@@ -1,2 +1,1 @@
-use serde::{Serialize, Deserialize};
-pub type SimulatedTransferSweep = serde_json::Value;
+pub type SimulatedTransferSweep = std::collections::HashMap<String, serde_json::Value>;

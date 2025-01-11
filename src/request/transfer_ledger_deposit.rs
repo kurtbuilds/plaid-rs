@@ -1,7 +1,7 @@
 use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
-use crate::model::TransferACHNetwork;
+use crate::model::TransferAchNetwork;
 /**You should use this struct via [`PlaidClient::transfer_ledger_deposit`].
 
 On request success, this will return a [`TransferLedgerDepositResponse`].*/

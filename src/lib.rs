@@ -1,17 +1,16 @@
-use std::sync::OnceLock;
-use std::borrow::Cow;
+// libninja: static
 use httpclient::Client;
-pub mod request;
+use std::borrow::Cow;
+use std::env::var;
+use std::sync::OnceLock;
 pub mod model;
-use base64::{Engine, engine::general_purpose::STANDARD_NO_PAD};
-mod serde;
+pub mod request;
 pub fn default_http_client() -> Client {
-    Client::new()
-        .base_url(
-            std::env::var("PLAID_ENV")
-                .expect("Missing environment variable PLAID_ENV")
-                .as_str(),
-        )
+    Client::new().base_url(
+        std::env::var("PLAID_ENV")
+            .expect("Missing environment variable PLAID_ENV")
+            .as_str(),
+    )
 }
 static SHARED_HTTPCLIENT: OnceLock<Client> = OnceLock::new();
 /// Use this method if you want to add custom middleware to the httpclient.
@@ -51,7 +50,7 @@ impl PlaidClient {
             authentication,
         }
     }
-    pub fn new_with(client: Client, authentication: PlaidAuth) {
+    pub fn new(client: Client, authentication: PlaidAuth) -> Self {
         Self {
             client: Cow::Owned(client),
             authentication,
@@ -64,21 +63,33 @@ impl PlaidClient {
         mut r: httpclient::RequestBuilder<'a>,
     ) -> httpclient::RequestBuilder<'a> {
         match &self.authentication {
-            PlaidAuth::ClientId { plaid_client_id } => {
-                r = r.header("PLAID-CLIENT-ID", plaid_client_id);
+            PlaidAuth::ClientId {
+                client_id,
+                secret,
+                version,
+            } => {
+                r = r.header("PLAID-CLIENT-ID", client_id);
+                r = r.header("PLAID-SECRET", secret);
+                r = r.header("Plaid-Version", version);
             }
         }
         r
     }
 }
 pub enum PlaidAuth {
-    ClientId { plaid_client_id: String },
+    ClientId {
+        client_id: String,
+        secret: String,
+        version: String,
+    },
 }
+
 impl PlaidAuth {
     pub fn from_env() -> Self {
         Self::ClientId {
-            plaid_client_id: std::env::var("PLAID_PLAID_CLIENT_ID")
-                .expect("Environment variable PLAID_PLAID_CLIENT_ID is not set."),
+            client_id: var("PLAID_CLIENT_ID").expect("env var PLAID_CLIENT_ID is not set"),
+            secret: var("PLAID_SECRET").expect("env var PLAID_SECRET is not set"),
+            version: var("PLAID_VERSION").expect("env var PLAID_VERSION is not set"),
         }
     }
 }

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::TransferRecurringCreateRequired;
+use plaid::request::transfer_recurring_create::TransferRecurringCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

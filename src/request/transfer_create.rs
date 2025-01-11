@@ -2,7 +2,7 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::model::{
-    ACHClass, TransferMetadata, TransferNetwork, TransferType,
+    AchClass, TransferMetadata, TransferNetwork, TransferType,
     TransferUserInRequestDeprecated,
 };
 /**You should use this struct via [`PlaidClient::transfer_create`].

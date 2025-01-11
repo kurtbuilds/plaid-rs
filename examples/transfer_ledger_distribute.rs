@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::TransferLedgerDistributeRequired;
+use plaid::request::transfer_ledger_distribute::TransferLedgerDistributeRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

@@ -2,7 +2,7 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::model::{
-    TransferPlatformPersonAddress, TransferPlatformPersonIDNumber,
+    TransferPlatformPersonAddress, TransferPlatformPersonIdNumber,
     TransferPlatformPersonName,
 };
 /**You should use this struct via [`PlaidClient::transfer_platform_person_create`].

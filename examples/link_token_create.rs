@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::LinkTokenCreateRequired;
+use plaid::request::link_token_create::LinkTokenCreateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();
@@ -43,7 +43,7 @@ async fn main() {
             }),
             investment: Some(InvestmentFilter {
                 account_subtypes: InvestmentAccountSubtypes(
-                    vec![InvestmentAccountSubtype::_529],
+                    vec![InvestmentAccountSubtype::InvestmentAccountSubtype529],
                 ),
             }),
             loan: Some(LoanFilter {

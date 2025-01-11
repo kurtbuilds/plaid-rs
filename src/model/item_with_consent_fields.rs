@@ -1,2 +1,1 @@
-use serde::{Serialize, Deserialize};
-pub type ItemWithConsentFields = serde_json::Value;
+pub type ItemWithConsentFields = std::collections::HashMap<String, serde_json::Value>;

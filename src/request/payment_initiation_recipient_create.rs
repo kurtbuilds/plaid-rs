@@ -1,7 +1,7 @@
 use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
-use crate::model::{PaymentInitiationAddress, RecipientBACSNullable};
+use crate::model::{PaymentInitiationAddress, RecipientBacsNullable};
 /**You should use this struct via [`PlaidClient::payment_initiation_recipient_create`].
 
 On request success, this will return a [`PaymentInitiationRecipientCreateResponse`].*/

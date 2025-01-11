@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::ItemApplicationScopesUpdateRequired;
+use plaid::request::item_application_scopes_update::ItemApplicationScopesUpdateRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

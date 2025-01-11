@@ -1,2 +1,1 @@
-use serde::{Serialize, Deserialize};
-pub type WalletGetResponse = serde_json::Value;
+pub type WalletGetResponse = std::collections::HashMap<String, serde_json::Value>;

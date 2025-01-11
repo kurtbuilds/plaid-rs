@@ -1,2 +1,4 @@
-use serde::{Serialize, Deserialize};
-pub type PartnerEndCustomerWithSecrets = serde_json::Value;
+pub type PartnerEndCustomerWithSecrets = std::collections::HashMap<
+    String,
+    serde_json::Value,
+>;

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use plaid::model::*;
 use plaid::PlaidClient;
-use plaid::request::FdxNotificationsRequired;
+use plaid::request::fdx_notifications::FdxNotificationsRequired;
 #[tokio::main]
 async fn main() {
     let client = PlaidClient::from_env();

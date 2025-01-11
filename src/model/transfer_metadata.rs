@@ -1,2 +1,1 @@
-use serde::{Serialize, Deserialize};
-pub type TransferMetadata = String;
+pub type TransferMetadata = std::collections::HashMap<String, String>;

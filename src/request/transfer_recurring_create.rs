@@ -2,7 +2,7 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::model::{
-    ACHClass, TransferDevice, TransferRecurringNetwork, TransferRecurringSchedule,
+    AchClass, TransferDevice, TransferRecurringNetwork, TransferRecurringSchedule,
     TransferType, TransferUserInRequest,
 };
 /**You should use this struct via [`PlaidClient::transfer_recurring_create`].

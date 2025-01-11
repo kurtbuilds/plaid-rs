@@ -2,8 +2,8 @@ use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
 use crate::model::{
-    FDXNotificationCategory, FDXNotificationPayload, FDXNotificationPriority, FDXParty,
-    FDXNotificationSeverity, FDXNotificationType, FDXHateoasLink,
+    FdxNotificationCategory, FdxNotificationPayload, FdxNotificationPriority, FdxParty,
+    FdxNotificationSeverity, FdxNotificationType, FdxHateoasLink,
 };
 /**You should use this struct via [`PlaidClient::fdx_notifications`].
 

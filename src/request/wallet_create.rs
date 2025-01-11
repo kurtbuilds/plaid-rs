@@ -1,7 +1,7 @@
 use crate::FluentRequest;
 use serde::{Serialize, Deserialize};
 use httpclient::InMemoryResponseExt;
-use crate::model::WalletISOCurrencyCode;
+use crate::model::WalletIsoCurrencyCode;
 /**You should use this struct via [`PlaidClient::wallet_create`].
 
 On request success, this will return a [`WalletCreateResponse`].*/
