@@ -28,6 +28,8 @@ pub enum Products {
     IdentityVerification,
     #[serde(rename = "transactions")]
     Transactions,
+    #[serde(rename = "transactions_refresh")]
+    TransactionsRefresh,
     #[serde(rename = "credit_details")]
     CreditDetails,
     #[serde(rename = "income")]
