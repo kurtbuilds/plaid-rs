@@ -5,13 +5,24 @@ use std::env::var;
 use std::sync::OnceLock;
 pub mod model;
 pub mod request;
+
 pub fn default_http_client() -> Client {
-    Client::new().base_url(
-        std::env::var("PLAID_ENV")
-            .expect("Missing environment variable PLAID_ENV")
-            .as_str(),
-    )
+    let environment = std::env::var("PLAID_ENV")
+        .expect("Missing environment variable PLAID_ENV")
+        .to_lowercase();
+    
+    // Validate that the environment is one of the allowed values
+    match environment.as_str() {
+        "sandbox" | "production" | "development" => {},
+        _ => panic!("PLAID_ENV must be one of: sandbox, production, development"),
+    }
+    
+    // Format the base URL
+    let base_url = format!("https://{}.plaid.com", environment);
+    
+    Client::new().base_url(base_url.as_str())
 }
+
 static SHARED_HTTPCLIENT: OnceLock<Client> = OnceLock::new();
 /// Use this method if you want to add custom middleware to the httpclient.
 /// It must be called before any requests are made, otherwise it will have no effect.
